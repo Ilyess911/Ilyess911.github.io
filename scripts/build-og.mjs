@@ -18,7 +18,12 @@ const root = fileURLToPath(new URL('..', import.meta.url));
 const CHROME =
   process.env.CHROME_PATH ?? '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 
-const HEADLINE = ['Comprendre le système.', 'En faire un produit.', 'En défendre la valeur.'];
+/* Doit rester identique à PROFILE.headline.fr dans src/data/profile.ts. */
+const HEADLINE = [
+  "L'information existe.",
+  "Elle n'est pas lisible.",
+  'Je construis ce qui manque.',
+];
 const NAME = 'Ilyess Assadi';
 const SUB = 'Ingénierie, produit et business · Paris';
 const FOOT = 'Air France Industries · ESILV · Nexya Agency';

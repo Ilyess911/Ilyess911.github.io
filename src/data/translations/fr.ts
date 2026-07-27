@@ -7,7 +7,7 @@ export const fr = {
   meta: {
     title: 'Ilyess Assadi — Ingénierie, produit et business',
     description:
-      "Étudiant ingénieur à l'ESILV et apprenti chez Air France Industries. Je construis des produits à l'intersection de l'IA, des opérations et du SaaS B2B, et j'en documente les limites.",
+      "Étudiant ingénieur à l'ESILV et apprenti chez Air France Industries. Je construis des instruments de décision pour des métiers qui décident sans instrument : auto-écoles, collectivités, équipes RH, maintenance aéronautique.",
     langLabel: 'Français',
     localeTag: 'fr-FR',
   },
@@ -46,7 +46,7 @@ export const fr = {
   positioning: {
     title: 'Engineering × Product × Business',
     intro:
-      "Trois compétences qui n'ont d'intérêt que réunies. Chacune est ancrée ici sur un projet réel, pas sur un adjectif.",
+      "Ce ne sont pas trois compétences côte à côte, mais trois étapes du même geste : trouver la donnée, en faire une décision, défendre ce qu'elle vaut. Chacune est ancrée sur un projet réel, et c'est la même chaîne à chaque fois.",
     proofLabel: 'Preuve',
   },
 
@@ -54,14 +54,14 @@ export const fr = {
     label: 'Studio',
     name: 'Nexya Agency',
     description:
-      "Studio produit indépendant, co-fondé en juillet 2025. C'est le cadre dans lequel trois de ces produits ont été conçus, construits et présentés.",
+      "Studio produit indépendant, co-fondé en juillet 2025. C'est le cadre dans lequel trois de ces produits ont été conçus, construits et présentés à de vrais interlocuteurs. Trois marchés sans rapport, un même angle mort : la décision quotidienne y est prise à l'aveugle.",
     futureLabel: 'Produits à venir',
   },
 
   selection: {
     title: 'Projets sélectionnés',
     intro:
-      'Peu de projets, racontés en entier : le problème, les décisions, le résultat réel et ce qui ne fonctionne pas encore.',
+      "Une auto-école, une collectivité, une équipe RH. Trois métiers qui n'ont rien en commun, sauf ceci : la décision se prend tous les jours, sur une information qui existe déjà mais que personne n'a rendue lisible. Chaque projet est le même geste, appliqué à un terrain différent, et raconté en entier : décisions et limites comprises.",
     columns: {
       project: 'Projet',
       year: 'Année',
@@ -113,13 +113,14 @@ export const fr = {
 
   approach: {
     title: 'Manière de travailler',
-    intro: 'Quatre règles que je m’applique. Chacune se vérifie dans les études de cas ci-dessus.',
+    intro:
+      'Quatre règles qui découlent du reste. Quand on construit l’instrument avec lequel un autre décide, elles ne sont pas des préférences. Chacune se vérifie dans les études de cas ci-dessus.',
   },
 
   experience: {
     title: 'De l’atelier au produit',
     intro:
-      'De la maintenance aéronautique au produit, en gardant la même méthode : comprendre le système avant de vouloir le changer.',
+      "C'est en atelier que j'ai vu le problème pour la première fois : une donnée technique disponible, et une décision prise sans elle. Tout ce que je construis depuis vient de là.",
     educationTitle: 'Formation',
     confidentialityNote:
       'Aucune information confidentielle, donnée interne ou document d’entreprise ne figure sur ce site.',
@@ -128,14 +129,14 @@ export const fr = {
   toolbox: {
     title: 'Ce avec quoi je travaille',
     intro:
-      'Les outils dont je me sers réellement, groupés par usage. Sans niveau affiché : un pourcentage de compétence ne veut rien dire.',
+      'Les outils dont je me sers réellement, groupés par usage : trouver la donnée, en faire un écran, en défendre la valeur. Sans niveau affiché, parce qu’un pourcentage de compétence ne veut rien dire.',
     languagesTitle: 'Langues',
   },
 
   contact: {
     title: 'Parlons-en',
     intro:
-      'Je cherche un stage où l’ingénierie et le commerce se rencontrent : avant-vente, sales engineering, produit ou développement commercial technique.',
+      'Je cherche le poste où ce travail se fait pour de vrai, chez quelqu’un dont c’est le métier : avant-vente, sales engineering, produit ou développement commercial technique.',
     emailLabel: 'Email',
     copyEmail: 'Copier l’adresse',
     emailCopied: 'Adresse copiée',

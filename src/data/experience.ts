@@ -20,8 +20,8 @@ export const EXPERIENCE: readonly ExperienceItem[] = [
     end: null,
     location: 'Tremblay-en-France',
     summary: {
-      fr: "Ingénierie des équipements avioniques dans un environnement de maintenance aéronautique. Le travail consiste à comprendre un système contraint par la réglementation, la documentation et la réalité de l'atelier, puis à en fiabiliser les processus.",
-      en: 'Avionics equipment engineering in an aviation maintenance environment. The work consists of understanding a system constrained by regulation, documentation and shop-floor reality, then making its processes more reliable.',
+      fr: "Ingénierie des équipements avioniques dans un environnement de maintenance aéronautique. Le travail consiste à comprendre un système contraint par la réglementation, la documentation et la réalité de l'atelier, puis à en fiabiliser les processus. C'est ici que j'ai rencontré pour la première fois le problème que je retrouve dans chacun de mes projets : la donnée technique est disponible, et la décision se prend quand même sans elle.",
+      en: 'Avionics equipment engineering in an aviation maintenance environment. The work consists of understanding a system constrained by regulation, documentation and shop-floor reality, then making its processes more reliable. This is where I first met the problem I now find in every one of my projects: the technical data is available, and the decision still gets made without it.',
     },
     highlights: [
       {
@@ -51,8 +51,8 @@ export const EXPERIENCE: readonly ExperienceItem[] = [
     end: null,
     location: 'Courbevoie',
     summary: {
-      fr: "Studio produit indépendant. C'est le cadre dans lequel Time2Drive, Resum'EYE et Médical'IA ont été conçus, construits et présentés à des interlocuteurs réels.",
-      en: "An independent product studio. It is the frame in which Time2Drive, Resum'EYE and Médical'IA were designed, built and taken to real counterparts.",
+      fr: "Studio produit indépendant. C'est le cadre dans lequel Time2Drive, Resum'EYE et Médical'IA ont été conçus, construits et présentés à des interlocuteurs réels. Trois secteurs différents, un même constat : une décision quotidienne s'y prend sans l'information qui existe déjà.",
+      en: "An independent product studio. It is the frame in which Time2Drive, Resum'EYE and Médical'IA were designed, built and taken to real counterparts. Three different sectors, one shared observation: a daily decision is made there without information that already exists.",
     },
     highlights: [
       {

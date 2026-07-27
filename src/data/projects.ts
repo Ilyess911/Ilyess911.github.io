@@ -29,8 +29,8 @@ export const PROJECTS: readonly Project[] = [
       en: 'B2B SaaS for booking and day-to-day steering in independent driving schools.',
     },
     positioning: {
-      fr: "Le planning d'une auto-école vit entre un téléphone, un tableur et un agenda personnel. Time2Drive en fait un système unique.",
-      en: 'A driving school schedule lives between a phone, a spreadsheet and a personal calendar. Time2Drive turns it into a single system.',
+      fr: "Un gérant d'auto-école ne sait pas combien d'heures il n'a pas vendues aujourd'hui. L'information est pourtant là, éclatée entre un téléphone, un tableur et un agenda personnel. Time2Drive la rassemble et la rend visible.",
+      en: 'A driving school owner does not know how many hours went unsold today. The information is there all the same, scattered across a phone, a spreadsheet and a personal calendar. Time2Drive brings it together and makes it visible.',
     },
     roleLabel: {
       fr: 'Cadrage produit, design, analytics, landing, go-to-market',
@@ -223,8 +223,8 @@ export const PROJECTS: readonly Project[] = [
       en: 'Decision support on healthcare access, built for public authorities.',
     },
     positioning: {
-      fr: "Un territoire ne se résume pas à un nombre de médecins. Médical'IA construit un indicateur composite, sourcé, et opposable en réunion.",
-      en: "A territory is not summed up by a doctor count. Médical'IA builds a composite indicator that is sourced, and that holds up in a meeting.",
+      fr: "Un élu sait qu'il manque des médecins sur son territoire. Il ne peut pas le démontrer avec un chiffre qui tienne devant un conseil. Médical'IA construit l'indicateur composite, sourcé et opposable, qui manque à cette conversation.",
+      en: "An elected official knows doctors are missing in their area. They cannot prove it with a number that holds up in front of a council. Médical'IA builds the composite indicator, sourced and defensible, that this conversation lacks.",
     },
     roleLabel: {
       fr: 'Produit, données, développement',
@@ -416,8 +416,8 @@ export const PROJECTS: readonly Project[] = [
       en: 'Application screening tool for HR teams.',
     },
     positioning: {
-      fr: "Le produit était un prototype. La relation commerciale, elle, était réelle. C'est le projet qui m'a appris la différence.",
-      en: 'The product was a prototype. The commercial relationship was real. This is the project that taught me the difference.',
+      fr: "Un recruteur écarte des centaines de candidatures sans qu'il reste de trace de ce qui a été évalué. Resum'EYE devait produire cette trace. Le produit est resté un prototype, la relation commerciale a été réelle, et c'est le projet qui m'a appris la différence.",
+      en: "A recruiter rejects hundreds of applications with no record of what was actually assessed. Resum'EYE was meant to produce that record. The product stayed a prototype, the commercial relationship was real, and this is the project that taught me the difference.",
     },
     roleLabel: {
       fr: 'Produit, design, développement, vente',
@@ -564,8 +564,8 @@ export const PROJECTS: readonly Project[] = [
       en: 'Identifying abnormal robot executions from force and torque measurements.',
     },
     positioning: {
-      fr: "Détection de collisions, d'obstructions et de défauts d'outil sur un jeu de 463 exécutions décrites par six capteurs.",
-      en: 'Detecting collisions, obstructions and tool faults across 463 executions described by six sensors.',
+      fr: "Détection de collisions, d'obstructions et de défauts d'outil sur un jeu de 463 exécutions décrites par six capteurs. Le même angle mort que les autres projets, à l'échelle du capteur : la mesure contient déjà l'anomalie, encore faut-il savoir la lire.",
+      en: 'Detecting collisions, obstructions and tool faults across 463 executions described by six sensors. The same blind spot as the other projects, at sensor scale: the measurement already contains the anomaly, the point is being able to read it.',
     },
     roleLabel: {
       fr: 'Analyse de données, en binôme avec Adel Bousri',
