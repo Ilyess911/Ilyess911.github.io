@@ -1,0 +1,162 @@
+---
+import { EDUCATION, EXPERIENCE } from '~/data/experience';
+import { getDictionary, type Locale } from '~/lib/i18n';
+
+interface Props {
+  locale: Locale;
+  headingId: string;
+}
+
+const { locale, headingId } = Astro.props;
+const dict = getDictionary(locale);
+---
+
+<h2 id={headingId} class="section-title">{dict.experience.title}</h2>
+<p class="section-intro">{dict.experience.intro}</p>
+
+<ol class="timeline">
+  {
+    EXPERIENCE.map((item) => (
+      <li class="entry" data-reveal>
+        <p class="entry__period meta num">{item.period[locale]}</p>
+
+        <div class="entry__body">
+          <h3 class="entry__org">
+            {item.org}
+            <span class="entry__location meta">{item.location}</span>
+          </h3>
+          <p class="entry__role">{item.role[locale]}</p>
+          {item.summary[locale] && <p class="entry__summary">{item.summary[locale]}</p>}
+          {item.highlights.length > 0 && (
+            <ul class="entry__highlights">
+              {item.highlights.map((h) => (
+                <li>{h[locale]}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </li>
+    ))
+  }
+</ol>
+
+<p class="confidentiality">{dict.experience.confidentialityNote}</p>
+
+<h3 class="education__title meta">{dict.experience.educationTitle}</h3>
+<ol class="timeline timeline--compact">
+  {
+    EDUCATION.map((item) => (
+      <li class="entry" data-reveal>
+        <p class="entry__period meta num">{item.period[locale]}</p>
+        <div class="entry__body">
+          <h4 class="entry__org">
+            {item.org}
+            <span class="entry__location meta">{item.location}</span>
+          </h4>
+          <p class="entry__role">{item.role[locale]}</p>
+          {item.summary[locale] && <p class="entry__summary">{item.summary[locale]}</p>}
+        </div>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .timeline {
+    margin-top: clamp(2.5rem, 6vw, 3.5rem);
+    border-top: 1px solid var(--rule);
+  }
+
+  .timeline--compact {
+    margin-top: var(--space-5);
+  }
+
+  .entry {
+    display: grid;
+    gap: var(--space-3);
+    padding-block: clamp(1.5rem, 3.5vw, 2.25rem);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .entry__period {
+    text-transform: none;
+    letter-spacing: 0.02em;
+    padding-top: 0.15em;
+    white-space: nowrap;
+  }
+
+  .entry__org {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-3);
+    font-size: var(--step-1);
+    font-weight: 600;
+    letter-spacing: -0.018em;
+  }
+
+  .entry__location {
+    text-transform: none;
+    letter-spacing: 0.02em;
+    font-weight: 400;
+  }
+
+  .entry__role {
+    margin-top: var(--space-1);
+    font-size: var(--step--1);
+    color: var(--accent);
+  }
+
+  .entry__summary {
+    max-width: 62ch;
+    margin-top: var(--space-3);
+    color: var(--ink-2);
+  }
+
+  .entry__highlights {
+    max-width: 62ch;
+    margin-top: var(--space-4);
+    border-top: 1px solid var(--rule);
+  }
+
+  .entry__highlights li {
+    position: relative;
+    padding-left: var(--space-5);
+    padding-block: var(--space-3);
+    border-bottom: 1px solid var(--rule);
+    font-size: var(--step--1);
+    color: var(--ink-2);
+  }
+
+  .entry__highlights li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 1.35em;
+    width: 0.75rem;
+    height: 1px;
+    background: var(--rule-strong);
+  }
+
+  .entry__highlights li:last-child {
+    border-bottom: 0;
+  }
+
+  .confidentiality {
+    margin-top: var(--space-5);
+    max-width: 60ch;
+    font-size: var(--step--1);
+    color: var(--ink-3);
+  }
+
+  .education__title {
+    margin-top: clamp(3rem, 7vw, 4.5rem);
+  }
+
+  @media (min-width: 46rem) {
+    .entry {
+      grid-template-columns: 11rem minmax(0, 1fr);
+      gap: var(--space-5);
+    }
+  }
+</style>

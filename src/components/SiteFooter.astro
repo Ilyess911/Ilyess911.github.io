@@ -1,0 +1,168 @@
+---
+import { CASE_STUDY_PROJECTS } from '~/data/projects';
+import { PROFILE } from '~/data/profile';
+import { CONTACT, GITHUB_USERNAME, SITE_REPO } from '~/config/site';
+import { caseStudyPath, getDictionary, homePath, type Locale } from '~/lib/i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dict = getDictionary(locale);
+
+const year = new Date().getFullYear();
+const buildDate = new Date().toISOString().slice(0, 10);
+---
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer__grid">
+      <div class="site-footer__identity">
+        <p class="site-footer__name">{PROFILE.name}</p>
+        <p class="site-footer__role">{PROFILE.role[locale]}</p>
+        <p class="site-footer__location meta">{CONTACT.location[locale]}</p>
+      </div>
+
+      <nav class="site-footer__col" aria-label={dict.selection.title}>
+        <h2 class="site-footer__heading meta">{dict.selection.title}</h2>
+        <ul>
+          {
+            CASE_STUDY_PROJECTS.map((p) => (
+              <li>
+                <a class="site-footer__link" href={caseStudyPath(locale, p.slug)}>
+                  {p.name}
+                </a>
+              </li>
+            ))
+          }
+          <li>
+            <a class="site-footer__link" href={homePath(locale)}>{dict.nav.home}</a>
+          </li>
+        </ul>
+      </nav>
+
+      <nav class="site-footer__col" aria-label={dict.contact.title}>
+        <h2 class="site-footer__heading meta">{dict.contact.title}</h2>
+        <ul>
+          <li>
+            <a class="site-footer__link" href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+          </li>
+          <li>
+            <a
+              class="site-footer__link"
+              href={CONTACT.linkedin}
+              rel="noopener noreferrer"
+              target="_blank">{dict.contact.linkedinLabel}</a
+            >
+          </li>
+          <li>
+            <a
+              class="site-footer__link"
+              href={CONTACT.github}
+              rel="noopener noreferrer"
+              target="_blank">{dict.contact.githubLabel}</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="site-footer__base">
+      <p class="site-footer__colophon">
+        {dict.footer.builtWith}{' '}
+        <a
+          class="link"
+          href={`https://github.com/${GITHUB_USERNAME}/${SITE_REPO}`}
+          rel="noopener noreferrer"
+          target="_blank">{dict.footer.sourceCode}</a
+        >.
+      </p>
+      <p class="site-footer__legal meta">
+        <span>© {year} {PROFILE.name}. {dict.footer.rights}</span>
+        <span class="num">{dict.footer.lastUpdated} {buildDate}</span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--rule);
+    padding-block: var(--space-8) var(--space-6);
+    background: var(--paper-sunk);
+  }
+
+  .site-footer__grid {
+    display: grid;
+    gap: var(--space-7);
+  }
+
+  @media (min-width: 40rem) {
+    .site-footer__grid {
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: var(--space-5);
+    }
+  }
+
+  .site-footer__name {
+    color: var(--ink);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+
+  .site-footer__role {
+    color: var(--ink-2);
+    font-size: var(--step--1);
+  }
+
+  .site-footer__location {
+    margin-top: var(--space-3);
+  }
+
+  .site-footer__heading {
+    margin-bottom: var(--space-4);
+  }
+
+  .site-footer__col li + li {
+    margin-top: var(--space-2);
+  }
+
+  .site-footer__link {
+    font-size: var(--step--1);
+    color: var(--ink-2);
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 0.22em;
+    transition:
+      color var(--dur) var(--ease),
+      text-decoration-color var(--dur) var(--ease);
+  }
+
+  .site-footer__link:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+  }
+
+  .site-footer__base {
+    margin-top: var(--space-8);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--rule);
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .site-footer__colophon {
+    max-width: 52ch;
+    font-size: var(--step--1);
+    color: var(--ink-3);
+  }
+
+  .site-footer__legal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-5);
+    text-transform: none;
+    letter-spacing: 0.01em;
+  }
+</style>

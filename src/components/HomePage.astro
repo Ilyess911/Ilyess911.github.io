@@ -1,0 +1,117 @@
+---
+import Base from '~/layouts/Base.astro';
+import Hero from '~/components/Hero.astro';
+import Section from '~/components/Section.astro';
+import Positioning from '~/components/Positioning.astro';
+import Studio from '~/components/Studio.astro';
+import ProjectIndex from '~/components/ProjectIndex.astro';
+import ProjectShowcase from '~/components/ProjectShowcase.astro';
+import Approach from '~/components/Approach.astro';
+import Experience from '~/components/Experience.astro';
+import Toolbox from '~/components/Toolbox.astro';
+import Contact from '~/components/Contact.astro';
+
+import { FEATURED_PROJECTS, PROJECTS } from '~/data/projects';
+import { ANCHORS, getDictionary, otherLocale, rawHomePath, type Locale } from '~/lib/i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dict = getDictionary(locale);
+
+const secondaryProjects = PROJECTS.filter((p) => !p.featured);
+---
+
+<Base
+  locale={locale}
+  title={dict.meta.title}
+  description={dict.meta.description}
+  path={rawHomePath(locale)}
+  altPath={rawHomePath(otherLocale(locale))}
+  isHome
+>
+  <Hero locale={locale} />
+
+  <Section
+    number={dict.sections.positioning.number}
+    label={dict.sections.positioning.label}
+    labelledBy="positioning-title"
+  >
+    <Positioning locale={locale} headingId="positioning-title" />
+  </Section>
+
+  <Section
+    id={ANCHORS.selection}
+    number={dict.sections.selection.number}
+    label={dict.sections.selection.label}
+    labelledBy="selection-title"
+    sunk
+  >
+    <h2 id="selection-title" class="section-title">{dict.selection.title}</h2>
+    <p class="section-intro">{dict.selection.intro}</p>
+
+    <div class="selection__studio">
+      <Studio locale={locale} />
+    </div>
+
+    <ProjectIndex locale={locale} projects={FEATURED_PROJECTS} />
+
+    <ProjectShowcase locale={locale} projects={FEATURED_PROJECTS} />
+
+    <h3 class="selection__other meta">{dict.selection.otherWork}</h3>
+    <ProjectIndex
+      locale={locale}
+      projects={secondaryProjects}
+      startIndex={FEATURED_PROJECTS.length + 1}
+    />
+  </Section>
+
+  <Section
+    id={ANCHORS.approach}
+    number={dict.sections.approach.number}
+    label={dict.sections.approach.label}
+    labelledBy="approach-title"
+  >
+    <Approach locale={locale} headingId="approach-title" />
+  </Section>
+
+  <Section
+    id={ANCHORS.experience}
+    number={dict.sections.experience.number}
+    label={dict.sections.experience.label}
+    labelledBy="experience-title"
+  >
+    <Experience locale={locale} headingId="experience-title" />
+  </Section>
+
+  <Section
+    number={dict.sections.toolbox.number}
+    label={dict.sections.toolbox.label}
+    labelledBy="toolbox-title"
+    sunk
+  >
+    <Toolbox locale={locale} headingId="toolbox-title" />
+  </Section>
+
+  <Section
+    id={ANCHORS.contact}
+    number={dict.sections.contact.number}
+    label={dict.sections.contact.label}
+    labelledBy="contact-title"
+  >
+    <Contact locale={locale} headingId="contact-title" />
+  </Section>
+</Base>
+
+<style>
+  .selection__studio {
+    margin-block: clamp(2.5rem, 6vw, 3.5rem);
+  }
+
+  .selection__other {
+    margin-top: clamp(3rem, 7vw, 4.5rem);
+    margin-bottom: var(--space-4);
+  }
+</style>

@@ -1,0 +1,190 @@
+---
+import { CONTACT } from '~/config/site';
+import { PROFILE } from '~/data/profile';
+import { getDictionary, type Locale } from '~/lib/i18n';
+
+interface Props {
+  locale: Locale;
+  headingId: string;
+}
+
+const { locale, headingId } = Astro.props;
+const dict = getDictionary(locale);
+---
+
+<h2 id={headingId} class="section-title contact__title">{dict.contact.title}</h2>
+<p class="section-intro">{dict.contact.intro}</p>
+
+<p class="contact__about prose">{PROFILE.about[locale]}</p>
+
+<dl class="contact__list">
+  <div class="contact__row">
+    <dt class="meta">{dict.contact.emailLabel}</dt>
+    <dd class="contact__email-row">
+      <a class="contact__value link" href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+      <button
+        class="copy"
+        type="button"
+        data-copy-email={CONTACT.email}
+        data-copied-label={dict.contact.emailCopied}
+        data-failed-label={dict.contact.copyFailed}
+      >
+        <span class="copy__label">{dict.contact.copyEmail}</span>
+      </button>
+    </dd>
+  </div>
+
+  <div class="contact__row">
+    <dt class="meta">{dict.contact.linkedinLabel}</dt>
+    <dd>
+      <a
+        class="contact__value link"
+        href={CONTACT.linkedin}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        linkedin.com/in/ilyess-assadi
+      </a>
+    </dd>
+  </div>
+
+  <div class="contact__row">
+    <dt class="meta">{dict.contact.githubLabel}</dt>
+    <dd>
+      <a
+        class="contact__value link"
+        href={CONTACT.github}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        github.com/Ilyess911
+      </a>
+      <p class="contact__note">{dict.contact.githubNote}</p>
+    </dd>
+  </div>
+
+  <div class="contact__row">
+    <dt class="meta">{dict.contact.locationLabel}</dt>
+    <dd><span class="contact__value">{CONTACT.location[locale]}</span></dd>
+  </div>
+
+  <div class="contact__row">
+    <dt class="meta">{dict.hero.availabilityLabel}</dt>
+    <dd><span class="contact__value">{PROFILE.availability[locale]}</span></dd>
+  </div>
+</dl>
+
+<p class="copy-status visually-hidden" role="status" aria-live="polite"></p>
+
+<style>
+  .contact__title {
+    font-size: var(--step-4);
+    max-width: 14ch;
+  }
+
+  .contact__about {
+    margin-top: var(--space-6);
+    color: var(--ink-2);
+  }
+
+  .contact__list {
+    margin-top: clamp(2.5rem, 6vw, 3.5rem);
+    border-top: 1px solid var(--rule);
+  }
+
+  .contact__row {
+    display: grid;
+    gap: var(--space-2);
+    padding-block: var(--space-5);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .contact__row dd {
+    margin: 0;
+  }
+
+  .contact__value {
+    font-size: var(--step-1);
+    color: var(--ink);
+    letter-spacing: -0.012em;
+  }
+
+  .contact__email-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .contact__note {
+    max-width: 48ch;
+    margin-top: var(--space-2);
+    font-size: var(--step--1);
+    color: var(--ink-3);
+  }
+
+  .copy {
+    padding: 0.3rem 0.6rem;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    letter-spacing: 0.04em;
+    color: var(--ink-3);
+    transition:
+      color var(--dur) var(--ease),
+      border-color var(--dur) var(--ease);
+  }
+
+  .copy:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .copy[data-state='copied'] {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  @media (min-width: 46rem) {
+    .contact__row {
+      grid-template-columns: 13rem minmax(0, 1fr);
+      gap: var(--space-5);
+      align-items: baseline;
+    }
+  }
+</style>
+
+<script>
+  /* Copie de l'adresse email. Le bouton n'est actif que si l'API est disponible :
+     à défaut, le lien mailto reste la voie normale. */
+  const status = document.querySelector<HTMLElement>('.copy-status');
+
+  document.querySelectorAll<HTMLButtonElement>('[data-copy-email]').forEach((button) => {
+    const label = button.querySelector<HTMLElement>('.copy__label');
+    const initial = label?.textContent ?? '';
+
+    button.addEventListener('click', async () => {
+      const email = button.dataset.copyEmail;
+      const copied = button.dataset.copiedLabel ?? 'Copied';
+      const failed = button.dataset.failedLabel ?? 'Copy failed';
+      if (!email || !label) return;
+
+      try {
+        await navigator.clipboard.writeText(email);
+        label.textContent = copied;
+        button.dataset.state = 'copied';
+        if (status) status.textContent = copied;
+      } catch {
+        label.textContent = failed;
+        if (status) status.textContent = failed;
+      }
+
+      window.setTimeout(() => {
+        label.textContent = initial;
+        delete button.dataset.state;
+        if (status) status.textContent = '';
+      }, 2400);
+    });
+  });
+</script>

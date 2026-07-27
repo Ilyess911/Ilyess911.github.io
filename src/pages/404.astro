@@ -1,0 +1,113 @@
+---
+import Base from '~/layouts/Base.astro';
+import { CASE_STUDY_PROJECTS } from '~/data/projects';
+import { caseStudyPath, getDictionary, homePath } from '~/lib/i18n';
+import { projectTitle } from '~/lib/project';
+
+/* GitHub Pages sert cette page pour toute adresse inconnue, dans les deux langues.
+   Elle affiche donc les deux, sans redirection ni détection côté client. */
+const fr = getDictionary('fr');
+const en = getDictionary('en');
+---
+
+<Base
+  locale="fr"
+  title={`404 — ${fr.meta.title}`}
+  description={fr.notFound.body}
+  path="/404"
+  altPath="/404"
+  noindex
+>
+  <section class="notfound">
+    <div class="wrap">
+      <p class="notfound__code meta num">{fr.notFound.code}</p>
+
+      <div class="notfound__block">
+        <h1 class="notfound__title">{fr.notFound.title}</h1>
+        <p class="notfound__body">{fr.notFound.body}</p>
+      </div>
+
+      <div class="notfound__block" lang="en">
+        <h2 class="notfound__title notfound__title--alt">{en.notFound.title}</h2>
+        <p class="notfound__body">{en.notFound.body}</p>
+      </div>
+
+      <nav class="notfound__nav" aria-label={fr.selection.title}>
+        <ul class="notfound__list">
+          <li>
+            <a class="link" href={homePath('fr')}>{fr.notFound.backHome}</a>
+            <span class="notfound__sep" aria-hidden="true">/</span>
+            <a class="link" href={homePath('en')} lang="en">{en.notFound.backHome}</a>
+          </li>
+          {
+            CASE_STUDY_PROJECTS.map((project) => (
+              <li>
+                <a class="link" href={caseStudyPath('fr', project.slug)}>
+                  {projectTitle(project, 'fr')}
+                </a>
+                <span class="notfound__sep" aria-hidden="true">
+                  /
+                </span>
+                <a class="link" href={caseStudyPath('en', project.slug)} lang="en">
+                  English
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .notfound {
+    padding-block: clamp(3rem, 12vh, 7rem);
+  }
+
+  .notfound__code {
+    color: var(--accent);
+    font-size: var(--step--1);
+  }
+
+  .notfound__block {
+    max-width: 46ch;
+    margin-top: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .notfound__title {
+    font-size: var(--step-3);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+  }
+
+  .notfound__title--alt {
+    font-size: var(--step-2);
+    color: var(--ink-3);
+  }
+
+  .notfound__body {
+    margin-top: var(--space-3);
+    color: var(--ink-2);
+  }
+
+  .notfound__nav {
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+  }
+
+  .notfound__list {
+    border-top: 1px solid var(--rule);
+    max-width: 46ch;
+  }
+
+  .notfound__list li {
+    padding-block: var(--space-4);
+    border-bottom: 1px solid var(--rule);
+    font-size: var(--step--1);
+  }
+
+  .notfound__sep {
+    margin-inline: var(--space-3);
+    color: var(--rule-strong);
+  }
+</style>

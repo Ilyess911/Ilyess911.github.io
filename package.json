@@ -1,0 +1,41 @@
+{
+  "name": "ilyess911.github.io",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portfolio d'Ilyess Assadi — ingénierie, produit, business.",
+  "engines": {
+    "node": ">=20.11.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "typecheck": "astro check",
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "verify": "npm run typecheck && npm run lint && npm run test && npm run build",
+    "github:sync": "node scripts/fetch-github-metadata.mjs",
+    "assets:og": "node scripts/build-og.mjs",
+    "shots": "node scripts/screenshot.mjs http://localhost:4321 screenshots"
+  },
+  "dependencies": {
+    "astro": "^5.1.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/sitemap": "^3.2.1",
+    "@fontsource-variable/instrument-sans": "^5.1.1",
+    "@fontsource-variable/jetbrains-mono": "^5.1.2",
+    "eslint": "^9.18.0",
+    "eslint-plugin-astro": "^1.3.1",
+    "prettier": "^3.4.2",
+    "prettier-plugin-astro": "^0.14.1",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.20.0",
+    "vitest": "^2.1.8"
+  }
+}

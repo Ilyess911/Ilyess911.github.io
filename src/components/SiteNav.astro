@@ -1,0 +1,172 @@
+---
+import { ANCHORS, anchorHref, getDictionary, homePath, otherLocale, type Locale } from '~/lib/i18n';
+import { withBase } from '~/config/site';
+import { PROFILE } from '~/data/profile';
+
+interface Props {
+  locale: Locale;
+  isHome: boolean;
+  altPath: string;
+}
+
+const { locale, isHome, altPath } = Astro.props;
+const dict = getDictionary(locale);
+const other = otherLocale(locale);
+
+const links = [
+  { href: anchorHref(locale, ANCHORS.selection, isHome), label: dict.nav.selection },
+  { href: anchorHref(locale, ANCHORS.approach, isHome), label: dict.nav.approach },
+  { href: anchorHref(locale, ANCHORS.experience, isHome), label: dict.nav.experience },
+  { href: anchorHref(locale, ANCHORS.contact, isHome), label: dict.nav.contact },
+];
+---
+
+<header class="site-nav">
+  <nav class="wrap site-nav__inner" aria-label={dict.nav.menu}>
+    <a class="site-nav__brand" href={homePath(locale)}>
+      <span class="site-nav__name">{PROFILE.name}</span>
+      <span class="site-nav__role meta">{PROFILE.role[locale]}</span>
+    </a>
+
+    <ul class="site-nav__links">
+      {
+        links.map((link) => (
+          <li>
+            <a class="site-nav__link" href={link.href}>
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <a
+      class="lang-switch"
+      href={withBase(altPath)}
+      hreflang={other}
+      lang={other}
+      aria-label={dict.nav.switchLanguage}
+    >
+      {dict.nav.switchLanguageShort}
+    </a>
+  </nav>
+</header>
+
+<style>
+  .site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .site-nav__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-5);
+    min-height: 4rem;
+  }
+
+  .site-nav__brand {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    min-width: 0;
+  }
+
+  .site-nav__name {
+    color: var(--ink);
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+
+  .site-nav__role {
+    display: none;
+    padding-left: var(--space-3);
+    border-left: 1px solid var(--rule);
+    text-transform: none;
+    letter-spacing: 0.01em;
+  }
+
+  .site-nav__links {
+    display: none;
+    gap: clamp(1rem, 2.4vw, 2rem);
+    margin-inline: auto;
+  }
+
+  .site-nav__link {
+    position: relative;
+    display: inline-block;
+    padding-block: 0.35rem;
+    color: var(--ink-2);
+    font-size: var(--step--1);
+    transition: color var(--dur) var(--ease);
+  }
+
+  .site-nav__link::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 1px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--dur) var(--ease);
+  }
+
+  .site-nav__link:hover {
+    color: var(--ink);
+  }
+
+  .site-nav__link:hover::after {
+    transform: scaleX(1);
+  }
+
+  .lang-switch {
+    flex-shrink: 0;
+    padding: 0.3rem 0.55rem;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--ink-3);
+    transition:
+      color var(--dur) var(--ease),
+      border-color var(--dur) var(--ease);
+  }
+
+  .lang-switch:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  @media (min-width: 34rem) {
+    .site-nav__role {
+      display: inline-block;
+    }
+  }
+
+  @media (min-width: 52rem) {
+    .site-nav__links {
+      display: flex;
+    }
+
+    /* Le rôle redevient superflu quand les liens de section sont visibles. */
+    .site-nav__role {
+      display: none;
+    }
+  }
+
+  @media (min-width: 68rem) {
+    .site-nav__role {
+      display: inline-block;
+    }
+  }
+</style>

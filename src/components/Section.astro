@@ -1,0 +1,34 @@
+---
+interface Props {
+  id?: string;
+  number: string;
+  label: string;
+  /** Fond légèrement enfoncé, pour rythmer la page sans introduire de cartes. */
+  sunk?: boolean;
+  labelledBy?: string;
+}
+
+const { id, number, label, sunk = false, labelledBy } = Astro.props;
+---
+
+<section id={id} class:list={['section', sunk && 'section--sunk']} aria-labelledby={labelledBy}>
+  <div class="wrap section-grid">
+    <p class="section-marker">
+      <span class="section-marker__num num">{number}</span>
+      <span>{label}</span>
+    </p>
+    <div class="section-body">
+      <slot />
+    </div>
+  </div>
+</section>
+
+<style>
+  .section--sunk {
+    background: var(--paper-sunk);
+  }
+
+  .section-body {
+    min-width: 0;
+  }
+</style>

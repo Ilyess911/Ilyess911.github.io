@@ -1,0 +1,150 @@
+---
+import { AXES } from '~/data/profile';
+import { getProject } from '~/data/projects';
+import { caseStudyPath, getDictionary, type Locale } from '~/lib/i18n';
+
+interface Props {
+  locale: Locale;
+  headingId: string;
+}
+
+const { locale, headingId } = Astro.props;
+const dict = getDictionary(locale);
+
+const axes = AXES.map((axis, index) => {
+  const project = getProject(axis.project);
+  if (!project) throw new Error(`Positioning: projet introuvable pour l'axe ${axis.key}`);
+  return { ...axis, project, index: String(index + 1).padStart(2, '0') };
+});
+---
+
+<h2 id={headingId} class="section-title positioning__title">{dict.positioning.title}</h2>
+<p class="section-intro">{dict.positioning.intro}</p>
+
+<ul class="axes">
+  {
+    axes.map((axis) => (
+      <li class="axis" data-reveal>
+        <div class="axis__head">
+          <h3 class="axis__label">{axis.label[locale]}</h3>
+          <span class="axis__index meta num" aria-hidden="true">
+            {axis.index} / 03
+          </span>
+        </div>
+
+        <p class="axis__body">{axis.body[locale]}</p>
+
+        <div class="axis__proof">
+          <p class="axis__proof-label meta">{dict.positioning.proofLabel}</p>
+          <p class="axis__proof-text">{axis.proof[locale]}</p>
+          <a class="axis__proof-link" href={caseStudyPath(locale, axis.project.slug)}>
+            {axis.project.name}
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  /* Le titre à trois termes ne doit jamais casser sur le signe de multiplication. */
+  .positioning__title {
+    max-width: none;
+  }
+
+  @media (min-width: 52rem) {
+    .positioning__title {
+      text-wrap: nowrap;
+    }
+  }
+
+  .axes {
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+    border-top: 1px solid var(--rule);
+  }
+
+  .axis {
+    display: grid;
+    gap: var(--space-4);
+    padding-block: clamp(1.75rem, 4vw, 2.75rem);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .axis__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+
+  .axis__label {
+    font-size: var(--step-2);
+    font-weight: 500;
+    letter-spacing: -0.025em;
+  }
+
+  .axis__body {
+    max-width: 42ch;
+    color: var(--ink-2);
+  }
+
+  .axis__proof {
+    padding-left: var(--space-5);
+    border-left: 1px solid var(--accent);
+  }
+
+  .axis__proof-label {
+    color: var(--accent);
+    margin-bottom: var(--space-2);
+  }
+
+  .axis__proof-text {
+    max-width: 46ch;
+    font-size: var(--step--1);
+    color: var(--ink-2);
+  }
+
+  .axis__proof-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    margin-top: var(--space-3);
+    font-size: var(--step--1);
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--rule-strong);
+    text-underline-offset: 0.24em;
+    transition:
+      color var(--dur) var(--ease),
+      text-decoration-color var(--dur) var(--ease);
+  }
+
+  .axis__proof-link:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+  }
+
+  .axis__proof-link span {
+    transition: transform var(--dur) var(--ease);
+  }
+
+  .axis__proof-link:hover span {
+    transform: translateX(2px);
+  }
+
+  @media (min-width: 52rem) {
+    .axis {
+      grid-template-columns: minmax(9rem, 0.9fr) minmax(0, 1.2fr) minmax(0, 1.3fr);
+      gap: clamp(1.5rem, 3vw, 3rem);
+      align-items: start;
+    }
+
+    .axis__head {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-2);
+    }
+  }
+</style>
