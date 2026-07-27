@@ -8,23 +8,38 @@
 
 # Session
 
-|                         |                                                                                                                          |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| **Date**                | 27 juillet 2026                                                                                                          |
-| **Durée approximative** | ~3 h 30, dont ~40 min d'audit préalable du disque et des dépôts                                                          |
-| **Branche Git**         | `main`                                                                                                                   |
-| **Dernier commit**      | `e7f9403` — _content: une seule vision au lieu de trois projets juxtaposés_                                              |
-| **État du repository**  | Propre au moment de la passation (`git status` vide). Ce document le rend « sale » : c'est normal, il n'est pas commité. |
-| **Remote**              | **Aucun.** `git remote -v` est vide. Le dépôt GitHub n'existe pas encore.                                                |
-| **Push effectué**       | **Non.** Rien n'est en ligne.                                                                                            |
+|                         |                                                                             |
+| ----------------------- | --------------------------------------------------------------------------- |
+| **Date**                | 27 juillet 2026                                                             |
+| **Durée approximative** | ~3 h 30, dont ~40 min d'audit préalable du disque et des dépôts             |
+| **Branche Git**         | `main`                                                                      |
+| **Dernier commit**      | `e7f9403` — _content: une seule vision au lieu de trois projets juxtaposés_ |
+| **État du repository**  | Propre.                                                                     |
+| **Remote**              | `origin` → `https://github.com/Ilyess911/Ilyess911.github.io` (public)      |
+| **Push effectué**       | **Oui**, le 27 juillet à 23 h 13.                                           |
+| **Site en ligne**       | **https://ilyess911.github.io** et **https://ilyess911.github.io/en/**      |
+
+### Mise à jour de fin de session
+
+Le corps de ce document a été rédigé **avant** la publication, alors qu'aucun dépôt distant n'existait. La mise en ligne a été faite juste après, dans la même session. Ce qui a changé depuis la rédaction :
+
+- dépôt public `Ilyess911/Ilyess911.github.io` créé, `main` poussé ;
+- GitHub Pages activé. **Attention** : Pages s'était auto-activé en mode `legacy` (source = branche), ce qui aurait servi le README au lieu du site construit. Il a fallu basculer explicitement en `build_type: workflow` via `gh api -X PUT repos/Ilyess911/Ilyess911.github.io/pages -f build_type=workflow`. À vérifier si Pages est un jour réinitialisé ;
+- le workflow `Build and deploy to GitHub Pages` est passé au vert du premier coup (typecheck, lint, tests, build, publication) ;
+- les six URL de contrôle répondent 200, les titres FR et EN sont corrects.
+
+**Ce qui n'a pas changé** : tous les points ouverts, risques et arbitrages listés plus bas restent valables. En particulier, la contradiction `medical-ai.fr` (risque n° 1) **est désormais publique**. C'est la première chose à traiter.
 
 ### Historique complet
 
 ```
+aeb9b55  2026-07-27 23:0x  docs: passation de session du 27 juillet 2026
 e7f9403  2026-07-27 22:34  content: une seule vision au lieu de trois projets juxtaposés
 545f398  2026-07-27 20:27  refactor: corrections issues de la revue de conception
 f6b34e3  2026-07-27 20:22  feat: portfolio bilingue Astro, prêt pour GitHub Pages
 ```
+
+Note : le commit `aeb9b55` a été amendé après coup pour appliquer Prettier à ce document. `npm run lint` vérifie le formatage des fichiers Markdown, et un document non formaté **fait échouer la CI**. Y penser avant tout ajout de documentation.
 
 ### Fichiers
 
@@ -241,7 +256,7 @@ Ces incidents ont coûté du temps. Les documenter évite de les revivre.
 
 ## Volontairement en attente
 
-- **Le déploiement.** Rien n'est poussé. C'est un choix : le dépôt GitHub public reste à créer par Ilyess, et plusieurs points de contenu sont à confirmer avant mise en ligne.
+- ~~**Le déploiement.**~~ **Fait en fin de session.** Le site est en ligne sur `https://ilyess911.github.io`. Les points de contenu à confirmer listés plus bas sont donc désormais publics : ils passent de « à traiter avant publication » à « à corriger en priorité ».
 - **La ligne CV.** L'emplacement existe dans `src/config/site.ts` (`CV = null`) et n'affiche rien tant qu'aucun fichier n'est déposé. Volontairement inactif plutôt que pointant vers un 404.
 - **Les captures Resum'EYE.** Le projet affiche un encart « captures à venir » plutôt qu'un visuel fabriqué.
 - **La photo de profil.** Aucun emplacement n'a été construit, faute de décision. Voir « Risques ».
@@ -360,9 +375,9 @@ Détaillé dans la section suivante. C'est un piège auquel un intervenant non a
 - [ ] **Confirmer « Airbus Helicopters »** dans `src/data/experience.ts`
 - [ ] **Confirmer la formulation du rôle aux JO Paris 2024**
 - [ ] **Relire la phrase pivot sur Air France Industries** et confirmer qu'elle est défendable en entretien
-- [ ] **Créer le dépôt GitHub** `Ilyess911.github.io` en public
-- [ ] **Activer GitHub Pages** : Settings → Pages → Build and deployment → Source → **GitHub Actions**. Sans cette étape, le job `deploy` échoue.
-- [ ] **Vérifier que le workflow passe au vert** après le premier push
+- [x] **Créer le dépôt GitHub** `Ilyess911.github.io` en public
+- [x] **Activer GitHub Pages** en mode GitHub Actions (a nécessité un basculement explicite depuis le mode `legacy`, voir la mise à jour de fin de session)
+- [x] **Vérifier que le workflow passe au vert** après le premier push
 
 ## Important
 
