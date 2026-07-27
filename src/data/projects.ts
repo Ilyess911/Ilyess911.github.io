@@ -232,13 +232,19 @@ export const PROJECTS: readonly Project[] = [
     },
     stack: ['React', 'TypeScript', 'Vite', 'Leaflet', 'Recharts', 'FastAPI', 'jsPDF'],
     codeVisibility: 'private',
-    links: [
-      {
-        kind: 'site',
-        label: { fr: 'Site du projet', en: 'Project website' },
-        href: 'https://medical-ai.fr',
-      },
-    ],
+    /*
+     * Lien vers le site du projet retiré le 27 juillet 2026.
+     *
+     * Raison : la landing publique affiche des logos de partenaires et annonce un
+     * produit « déployé auprès de collectivités françaises », deux affirmations que
+     * le code du démonstrateur ne soutient pas. Les lier depuis un portfolio bâti
+     * sur la traçabilité aurait offert une contradiction en un clic.
+     *
+     * À rétablir uniquement après correction de la landing :
+     *   { kind: 'site', label: { fr: 'Site du projet', en: 'Project website' },
+     *     href: 'https://medical-ai.fr' }
+     */
+    links: [],
     caseStudy: {
       problem: {
         fr: "On parle de désert médical à partir d'un chiffre unique, le plus souvent l'accessibilité potentielle localisée. Mais un élu qui doit décider où implanter une maison de santé, ou justifier une demande de financement, n'a pas besoin d'un chiffre : il a besoin d'un raisonnement qu'il peut défendre devant un conseil, face à des gens qui contesteront la méthode avant le résultat.",
@@ -332,8 +338,8 @@ export const PROJECTS: readonly Project[] = [
         },
       ],
       outcome: {
-        fr: "Démonstrateur v1.0 fonctionnel : moteur de score de 574 lignes, moteur de projection à trois et cinq ans, export PDF, onze sources publiques référencées avec leur année, leur licence et leur niveau de confiance. La marque MédiScore est déposée à l'INPI sous le numéro 5155219. Le site du projet est en ligne.",
-        en: 'Working v1.0 demonstrator: a 574-line scoring engine, a three and five year projection engine, PDF export, and eleven public sources referenced with year, licence and confidence level. The MédiScore trademark is registered with the French INPI under number 5155219. The project website is online.',
+        fr: "Démonstrateur v1.0 fonctionnel : moteur de score de 574 lignes, moteur de projection à trois et cinq ans, export PDF, onze sources publiques référencées avec leur année, leur licence et leur niveau de confiance. La marque MédiScore est déposée à l'INPI sous le numéro 5155219.",
+        en: 'Working v1.0 demonstrator: a 574-line scoring engine, a three and five year projection engine, PDF export, and eleven public sources referenced with year, licence and confidence level. The MédiScore trademark is registered with the French INPI under number 5155219.',
       },
       learnings: [
         {

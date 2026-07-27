@@ -331,9 +331,13 @@ Elle est faible mais réelle.
 
 # Risques
 
-## Risque 1 : la contradiction `medical-ai.fr` — élevé
+## Risque 1 : la contradiction `medical-ai.fr` — TRAITÉ le 27 juillet
 
-L'étude de cas Médical'IA lie le site du projet. Or ce site affiche, sous le libellé « Ils travaillent déjà avec nous », les logos de **Nanterre, l'ARS Île-de-France, Ramsay Santé et Nestlé**, et son fichier `llms.txt` affirme « Pas un projet étudiant ni un MVP, produit déployé auprès de collectivités françaises » ainsi que « utilisé par les communes, intercommunalités et ARS ».
+> **Résolu côté portfolio.** Le lien vers `medical-ai.fr` a été retiré de l'étude de cas Médical'IA, ainsi que la mention « le site du projet est en ligne » qui y renvoyait implicitement. Le site ne contient plus aucune référence à ce domaine. Le bloc `links` de Médical'IA est vide, avec un commentaire dans `src/data/projects.ts` expliquant pourquoi et à quelle condition le rétablir.
+>
+> **Le problème de fond, lui, n'est pas réglé** : la landing `medical-ai.fr` continue d'afficher publiquement des affirmations que le code ne soutient pas. Le portfolio n'y expose simplement plus personne. À traiter à la source si le lien doit un jour revenir. Analyse d'origine ci-dessous, conservée.
+
+L'étude de cas Médical'IA liait le site du projet. Or ce site affiche, sous le libellé « Ils travaillent déjà avec nous », les logos de **Nanterre, l'ARS Île-de-France, Ramsay Santé et Nestlé**, et son fichier `llms.txt` affirme « Pas un projet étudiant ni un MVP, produit déployé auprès de collectivités françaises » ainsi que « utilisé par les communes, intercommunalités et ARS ».
 
 **Rien dans le code ne soutient ces affirmations** : 10 communes, 100 % de données locales, aucun déploiement de la plateforme.
 
@@ -371,7 +375,7 @@ Détaillé dans la section suivante. C'est un piège auquel un intervenant non a
 
 ## Bloquant
 
-- [ ] **Trancher la contradiction `medical-ai.fr`** : corriger la landing, ou retirer le lien de `src/data/projects.ts`
+- [x] **Trancher la contradiction `medical-ai.fr`** : lien retiré de `src/data/projects.ts` le 27 juillet. La landing elle-même reste à corriger avant tout rétablissement du lien.
 - [ ] **Vérifier l'URL LinkedIn** en l'ouvrant réellement, puis corriger si besoin dans `src/config/site.ts`
 - [ ] **Confirmer « Airbus Helicopters »** dans `src/data/experience.ts`
 - [ ] **Confirmer la formulation du rôle aux JO Paris 2024**
@@ -448,8 +452,8 @@ Décisions arrêtées. **Ne pas les rouvrir sans raison explicite.**
 
 ## P0 — bloquant
 
-**P0.1 — Trancher la contradiction `medical-ai.fr`.**
-C'est la seule faille exploitable du dossier, et elle vise le point fort du portfolio. Tant qu'elle est ouverte, publier revient à donner à un recruteur attentif un moyen de retourner l'argument d'honnêteté. Coût : soit une correction sur la landing, soit la suppression d'une ligne.
+**P0.1 — ~~Trancher la contradiction `medical-ai.fr`~~ FAIT le 27 juillet.**
+Le lien a été retiré du portfolio. Reste, hors de ce dépôt, à corriger la landing `medical-ai.fr` elle-même : logos de partenaires et affirmations de déploiement que le code ne soutient pas. Tant que ce n'est pas fait, ne pas rétablir le lien.
 
 **P0.2 — Vérifier LinkedIn, Airbus Helicopters et la formulation JO 2024.**
 Trois informations non confirmées sur une page publique qui revendique la rigueur factuelle. Une erreur ici décrédibilise les 21 tests d'un coup. Coût : quelques minutes.
