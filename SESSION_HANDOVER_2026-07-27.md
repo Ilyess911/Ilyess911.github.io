@@ -8,16 +8,16 @@
 
 # Session
 
-|                         |                                                                             |
-| ----------------------- | --------------------------------------------------------------------------- |
-| **Date**                | 27 juillet 2026                                                             |
-| **Durée approximative** | ~3 h 30, dont ~40 min d'audit préalable du disque et des dépôts             |
-| **Branche Git**         | `main`                                                                      |
-| **Dernier commit**      | `e7f9403` — _content: une seule vision au lieu de trois projets juxtaposés_ |
-| **État du repository**  | Propre.                                                                     |
-| **Remote**              | `origin` → `https://github.com/Ilyess911/Ilyess911.github.io` (public)      |
-| **Push effectué**       | **Oui**, le 27 juillet à 23 h 13.                                           |
-| **Site en ligne**       | **https://ilyess911.github.io** et **https://ilyess911.github.io/en/**      |
+|                         |                                                                        |
+| ----------------------- | ---------------------------------------------------------------------- |
+| **Date**                | 27 juillet 2026                                                        |
+| **Durée approximative** | ~3 h 30, dont ~40 min d'audit préalable du disque et des dépôts        |
+| **Branche Git**         | `main`                                                                 |
+| **Dernier commit**      | Voir l'historique ci-dessous                                           |
+| **État du repository**  | Propre.                                                                |
+| **Remote**              | `origin` → `https://github.com/Ilyess911/Ilyess911.github.io` (public) |
+| **Push effectué**       | **Oui**, le 27 juillet à 23 h 13.                                      |
+| **Site en ligne**       | **https://ilyess911.github.io** et **https://ilyess911.github.io/en/** |
 
 ### Mise à jour de fin de session
 
@@ -33,13 +33,14 @@ Le corps de ce document a été rédigé **avant** la publication, alors qu'aucu
 ### Historique complet
 
 ```
-aeb9b55  2026-07-27 23:0x  docs: passation de session du 27 juillet 2026
+0253dc8  2026-07-27 23:19  docs: mise à jour de la passation après la mise en ligne
+ea9265f  2026-07-27 23:05  docs: passation de session du 27 juillet 2026
 e7f9403  2026-07-27 22:34  content: une seule vision au lieu de trois projets juxtaposés
 545f398  2026-07-27 20:27  refactor: corrections issues de la revue de conception
 f6b34e3  2026-07-27 20:22  feat: portfolio bilingue Astro, prêt pour GitHub Pages
 ```
 
-Note : le commit `aeb9b55` a été amendé après coup pour appliquer Prettier à ce document. `npm run lint` vérifie le formatage des fichiers Markdown, et un document non formaté **fait échouer la CI**. Y penser avant tout ajout de documentation.
+Note : `ea9265f` a été amendé avant publication pour appliquer Prettier à ce document. `npm run lint` vérifie le formatage des fichiers Markdown, et un document non formaté **fait échouer la CI**. Y penser avant tout ajout de documentation.
 
 ### Fichiers
 
