@@ -23,9 +23,11 @@ export const PROFILE = {
   /** Affiliations affichées en filet sous le hero. Texte, pas de logos. */
   affiliations: ['Air France Industries', 'ESILV', 'Nexya Agency'] as const,
 
+  /* Cette ligne répond à la question qu'un recruteur se pose en premier :
+     quel poste, et à partir de quand. Elle apparaît dès le hero, pas seulement en bas de page. */
   availability: {
-    fr: 'Disponible pour un stage de trois mois à partir de février 2027.',
-    en: 'Available for a three-month internship from February 2027.',
+    fr: 'Stage de trois mois à partir de février 2027, en sales engineering, produit ou développement commercial technique.',
+    en: 'Three-month internship from February 2027, in sales engineering, product or technical business development.',
   } satisfies I18n,
 
   about: {

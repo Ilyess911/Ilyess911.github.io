@@ -114,6 +114,15 @@ Les pages `/projets/<slug>/` et `/en/work/<slug>/` sont générées automatiquem
 
 Astro se charge de la conversion WebP, du `srcset` et des dimensions : aucun saut de mise en page possible. Tant qu'un projet n'a pas d'image, la page affiche un encart « captures à venir » plutôt qu'un espace vide ou un visuel factice.
 
+### Ajouter le CV
+
+Le lien de téléchargement n'apparaît que si un fichier existe réellement.
+
+1. Déposer les PDF dans `public/cv/`, par exemple `ilyess-assadi-cv-fr.pdf` et `ilyess-assadi-cv-en.pdf`.
+2. Dans `src/config/site.ts`, remplacer `export const CV = null` par les deux chemins.
+
+Tant que la valeur reste `null`, la ligne « CV » est simplement absente de la page contact : aucun lien mort.
+
 ### Traductions
 
 `src/data/translations/fr.ts` définit la forme du dictionnaire ; `en.ts` doit exposer exactement les mêmes clés. Les tests vérifient la parité des clés et signalent toute chaîne française laissée telle quelle côté anglais.

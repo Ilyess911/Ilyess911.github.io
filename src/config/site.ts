@@ -24,6 +24,15 @@ export const CONTACT = {
   location: { fr: 'Paris, France', en: 'Paris, France' },
 } as const;
 
+/**
+ * CV téléchargeable. Reste à `null` tant que le fichier n'existe pas :
+ * le lien n'est alors tout simplement pas affiché, plutôt que de pointer vers un 404.
+ *
+ * Pour l'activer : déposer le PDF dans `public/cv/`, puis remplacer `null` par
+ *   { fr: '/cv/ilyess-assadi-cv-fr.pdf', en: '/cv/ilyess-assadi-cv-en.pdf' }
+ */
+export const CV: { readonly fr: string; readonly en: string } | null = null;
+
 export const SEO = {
   themeColor: '#15171c',
   ogImage: 'og.png',

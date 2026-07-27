@@ -140,6 +140,8 @@ export const fr = {
     copyEmail: 'Copier l’adresse',
     emailCopied: 'Adresse copiée',
     copyFailed: 'Copie impossible — sélectionnez l’adresse manuellement',
+    cvLabel: 'CV',
+    cvDownload: 'Télécharger le CV (PDF)',
     locationLabel: 'Localisation',
     linkedinLabel: 'LinkedIn',
     githubLabel: 'GitHub',

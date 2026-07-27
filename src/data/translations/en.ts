@@ -139,6 +139,8 @@ export const en: Dictionary = {
     copyEmail: 'Copy address',
     emailCopied: 'Address copied',
     copyFailed: 'Copy failed — please select the address manually',
+    cvLabel: 'Résumé',
+    cvDownload: 'Download résumé (PDF)',
     locationLabel: 'Location',
     linkedinLabel: 'LinkedIn',
     githubLabel: 'GitHub',

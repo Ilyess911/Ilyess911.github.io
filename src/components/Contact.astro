@@ -1,5 +1,5 @@
 ---
-import { CONTACT } from '~/config/site';
+import { CONTACT, CV, withBase } from '~/config/site';
 import { PROFILE } from '~/data/profile';
 import { getDictionary, type Locale } from '~/lib/i18n';
 
@@ -72,6 +72,20 @@ const dict = getDictionary(locale);
     <dt class="meta">{dict.hero.availabilityLabel}</dt>
     <dd><span class="contact__value">{PROFILE.availability[locale]}</span></dd>
   </div>
+
+  {
+    /* Affiché uniquement si un CV est réellement déposé : voir CV dans src/config/site.ts. */
+    CV && (
+      <div class="contact__row">
+        <dt class="meta">{dict.contact.cvLabel}</dt>
+        <dd>
+          <a class="contact__value link" href={withBase(CV[locale])} download>
+            {dict.contact.cvDownload}
+          </a>
+        </dd>
+      </div>
+    )
+  }
 </dl>
 
 <p class="copy-status visually-hidden" role="status" aria-live="polite"></p>
