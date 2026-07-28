@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import Base from '~/layouts/Base.astro';
 import Section from '~/components/Section.astro';
 
+import { CONTACT } from '~/config/site';
 import type { Project } from '~/data/types';
 import { CASE_STUDY_PROJECTS } from '~/data/projects';
 import { getProjectImage } from '~/lib/images';
@@ -37,9 +38,6 @@ const description = `${project.tagline[locale]} ${project.positioning[locale]}`.
 const currentIndex = CASE_STUDY_PROJECTS.findIndex((p) => p.slug === project.slug);
 const next = CASE_STUDY_PROJECTS[(currentIndex + 1) % CASE_STUDY_PROJECTS.length];
 
-/* Numérotation des sections de l'étude de cas, cohérente avec la page d'accueil. */
-const n = (i: number) => String(i).padStart(2, '0');
-
 /* Résout les visuels. Une clé absente du registre est une erreur de build,
    jamais une image cassée en production. */
 const images = study.images.map((image) => {
@@ -68,94 +66,110 @@ const images = study.images.map((image) => {
           {dict.caseStudy.backToSelection}
         </a>
 
-        <h1 class="case__title">{projectTitle(project, locale)}</h1>
-        <p class="case__tagline">{project.tagline[locale]}</p>
-        <p class="case__positioning">{project.positioning[locale]}</p>
+        <p class="eyebrow eyebrow--accent case__kicker">
+          <span class="num">{project.year}</span>
+          <span class="case__kicker-sep" aria-hidden="true">/</span>
+          <span>{stageLabel(project, locale)}</span>
+        </p>
+        <h1 class="case__title title-xl">{projectTitle(project, locale)}</h1>
+        <div class="case__head">
+          <div>
+            <p class="case__tagline">{project.tagline[locale]}</p>
+            <p class="case__positioning">{project.positioning[locale]}</p>
+          </div>
 
-        <dl class="case__facts">
-          <div class="case__fact">
-            <dt class="meta">{dict.caseStudy.period}</dt>
-            <dd class="num">{project.year}</dd>
-          </div>
-          <div class="case__fact">
-            <dt class="meta">{dict.caseStudy.status}</dt>
-            <dd>{stageLabel(project, locale)}</dd>
-          </div>
-          <div class="case__fact case__fact--wide">
-            <dt class="meta">{dict.caseStudy.role}</dt>
-            <dd>{project.roleLabel[locale]}</dd>
-          </div>
-          <div class="case__fact case__fact--wide">
-            <dt class="meta">{dict.caseStudy.stack}</dt>
-            <dd>{project.stack.join(' · ')}</dd>
-          </div>
-          <div class="case__fact case__fact--wide">
-            <dt class="meta">{dict.caseStudy.links}</dt>
-            <dd class="case__links">
-              {
-                project.links.map((link) => (
-                  <a class="link" href={link.href} rel="noopener noreferrer" target="_blank">
-                    {link.label[locale]} <span aria-hidden="true">↗</span>
-                  </a>
-                ))
-              }
-              <span
-                class:list={[
-                  'case__code',
-                  project.codeVisibility === 'public' && 'case__code--public',
-                ]}
-              >
-                {codeLabel(project, locale)}
-              </span>
-              {
-                project.codeVisibility === 'private' && (
-                  <span class="case__code-note">{dict.code.privateNote}</span>
-                )
-              }
-            </dd>
-          </div>
-        </dl>
+          <dl class="case__facts card">
+            <div class="case__fact">
+              <dt class="eyebrow">{dict.caseStudy.role}</dt>
+              <dd>{project.roleLabel[locale]}</dd>
+            </div>
+            <div class="case__fact">
+              <dt class="eyebrow">{dict.caseStudy.stack}</dt>
+              <dd class="case__stack">
+                {project.stack.map((item) => <span class="tag">{item}</span>)}
+              </dd>
+            </div>
+            <div class="case__fact">
+              <dt class="eyebrow">{dict.caseStudy.links}</dt>
+              <dd class="case__links">
+                {
+                  project.links.map((link) => (
+                    <a class="link" href={link.href} rel="noopener noreferrer" target="_blank">
+                      {link.label[locale]} <span aria-hidden="true">↗</span>
+                    </a>
+                  ))
+                }
+                <span
+                  class:list={[
+                    'case__code',
+                    project.codeVisibility === 'public' && 'case__code--public',
+                  ]}
+                >
+                  {codeLabel(project, locale)}
+                </span>
+                {
+                  project.codeVisibility === 'private' && (
+                    <span class="case__code-note">{dict.code.privateNote}</span>
+                  )
+                }
+              </dd>
+            </div>
+          </dl>
+        </div>
       </div>
     </header>
 
-    <Section number={n(1)} label={dict.caseStudy.problem} labelledBy="cs-problem">
-      <h2 id="cs-problem" class="section-title">{dict.caseStudy.problem}</h2>
-      <p class="case__prose">{study.problem[locale]}</p>
+    <Section rule labelledBy="cs-problem">
+      <div class="case__split case__split--intro">
+        <h2 id="cs-problem" class="case__h title-lg">{dict.caseStudy.problem}</h2>
+        <p class="case__prose">{study.problem[locale]}</p>
+      </div>
 
       <div class="case__pair">
         <div>
-          <h3 class="case__sub meta">{dict.caseStudy.audience}</h3>
+          <h3 class="case__sub eyebrow">{dict.caseStudy.audience}</h3>
           <p class="case__prose case__prose--small">{study.audience[locale]}</p>
         </div>
         <div>
-          <h3 class="case__sub meta">{dict.caseStudy.value}</h3>
+          <h3 class="case__sub eyebrow">{dict.caseStudy.value}</h3>
           <p class="case__prose case__prose--small">{study.valueProposition[locale]}</p>
         </div>
       </div>
     </Section>
 
-    <Section number={n(2)} label={dict.caseStudy.product} labelledBy="cs-product" sunk>
-      <h2 id="cs-product" class="section-title">{dict.caseStudy.product}</h2>
-      <p class="case__prose">{study.product[locale]}</p>
+    <Section rule labelledBy="cs-product" sunk>
+      <div class="case__split case__split--intro">
+        <h2 id="cs-product" class="case__h title-lg">{dict.caseStudy.product}</h2>
+        <p class="case__prose">{study.product[locale]}</p>
+      </div>
 
       {
         images.length > 0 ? (
           <div class="case__shots">
             {images.map(({ image, asset }, i) => (
-              <figure class="shot" data-reveal>
-                <Image
-                  src={asset}
-                  alt={image.alt[locale]}
-                  widths={[420, 640, 860, 1200, 1600, 2000]}
-                  sizes="(min-width: 76rem) 62rem, (min-width: 60rem) calc(100vw - 18rem), calc(100vw - 2.5rem)"
-                  loading={i === 0 ? 'eager' : 'lazy'}
-                  fetchpriority={i === 0 ? 'high' : 'auto'}
-                  decoding="async"
-                  quality={80}
-                />
-                {image.caption && (
-                  <figcaption class="shot__caption">{image.caption[locale]}</figcaption>
-                )}
+              <figure class="shot frame" data-reveal-plate>
+                <figcaption class="frame__bar">
+                  <span class="frame__dots" aria-hidden="true">
+                    <span />
+                    <span />
+                    <span />
+                  </span>
+                  <span class="frame__label">
+                    {project.slug} — {image.caption ? image.caption[locale] : image.alt[locale]}
+                  </span>
+                </figcaption>
+                <span class="frame__body">
+                  <Image
+                    src={asset}
+                    alt={image.alt[locale]}
+                    widths={[420, 640, 860, 1200, 1600, 2000]}
+                    sizes="(min-width: 76rem) 62rem, (min-width: 60rem) calc(100vw - 18rem), calc(100vw - 2.5rem)"
+                    loading={i === 0 ? 'eager' : 'lazy'}
+                    fetchpriority={i === 0 ? 'high' : 'auto'}
+                    decoding="async"
+                    quality={80}
+                  />
+                </span>
               </figure>
             ))}
           </div>
@@ -165,32 +179,36 @@ const images = study.images.map((image) => {
       }
     </Section>
 
-    <Section number={n(3)} label={dict.caseStudy.role} labelledBy="cs-role">
-      <h2 id="cs-role" class="section-title">{dict.caseStudy.role}</h2>
+    <Section rule labelledBy="cs-role">
+      <div class:list={['case__split', 'case__split--role', !study.collaboration && 'is-bare']}>
+        <div class="case__role-side">
+          <h2 id="cs-role" class="case__h title-lg">{dict.caseStudy.role}</h2>
 
-      <ul class="case__role-list">
-        {study.role.map((item) => <li>{item[locale]}</li>)}
-      </ul>
+          {
+            study.collaboration && (
+              <div class="case__collab">
+                <h3 class="case__sub eyebrow">{dict.caseStudy.collaboration}</h3>
+                <p class="case__prose case__prose--small">{study.collaboration[locale]}</p>
+              </div>
+            )
+          }
+        </div>
 
-      {
-        study.collaboration && (
-          <div class="case__collab">
-            <h3 class="case__sub meta">{dict.caseStudy.collaboration}</h3>
-            <p class="case__prose case__prose--small">{study.collaboration[locale]}</p>
-          </div>
-        )
-      }
+        <ul class="case__role-list">
+          {study.role.map((item) => <li>{item[locale]}</li>)}
+        </ul>
+      </div>
     </Section>
 
-    <Section number={n(4)} label={dict.caseStudy.decisions} labelledBy="cs-decisions" sunk>
-      <h2 id="cs-decisions" class="section-title">{dict.caseStudy.decisions}</h2>
+    <Section rule labelledBy="cs-decisions" sunk>
+      <h2 id="cs-decisions" class="case__h title-lg">{dict.caseStudy.decisions}</h2>
 
       <ol class="decisions">
         {
           study.decisions.map((decision, i) => (
-            <li class="decision" data-reveal>
-              <span class="decision__num meta num" aria-hidden="true">
-                {n(i + 1)}
+            <li class="decision card" data-reveal>
+              <span class="decision__num eyebrow num" aria-hidden="true">
+                {String(i + 1).padStart(2, '0')}
               </span>
               <div>
                 <h3 class="decision__title">{decision.title[locale]}</h3>
@@ -202,33 +220,51 @@ const images = study.images.map((image) => {
       </ol>
     </Section>
 
-    <Section number={n(5)} label={dict.caseStudy.outcome} labelledBy="cs-outcome">
-      <h2 id="cs-outcome" class="section-title">{dict.caseStudy.outcome}</h2>
-      <p class="case__prose">{study.outcome[locale]}</p>
+    <Section rule labelledBy="cs-outcome">
+      <h2 id="cs-outcome" class="case__h title-lg">{dict.caseStudy.outcome}</h2>
 
-      <h3 class="case__sub case__sub--spaced meta">{dict.caseStudy.learnings}</h3>
-      <ul class="case__list">
-        {study.learnings.map((item) => <li>{item[locale]}</li>)}
-      </ul>
+      <div class="case__split case__split--outcome">
+        <p class="case__prose case__prose--outcome">{study.outcome[locale]}</p>
+
+        <div>
+          <h3 class="case__sub eyebrow">{dict.caseStudy.learnings}</h3>
+          <ul class="case__list">
+            {study.learnings.map((item) => <li>{item[locale]}</li>)}
+          </ul>
+        </div>
+      </div>
     </Section>
 
-    <Section number={n(6)} label={dict.caseStudy.limits} labelledBy="cs-limits">
-      <h2 id="cs-limits" class="section-title">{dict.caseStudy.limits}</h2>
-      <p class="section-intro">{dict.caseStudy.limitsIntro}</p>
+    <Section rule labelledBy="cs-limits">
+      <div class="case__split case__split--limits">
+        <div>
+          <h2 id="cs-limits" class="case__h title-lg">{dict.caseStudy.limits}</h2>
+          <p class="case__limits-lede">{dict.caseStudy.limitsIntro}</p>
+        </div>
 
-      <ul class="case__list case__list--limits">
-        {study.limits.map((item) => <li>{item[locale]}</li>)}
-      </ul>
+        <ul class="case__list case__list--limits">
+          {study.limits.map((item) => <li>{item[locale]}</li>)}
+        </ul>
+      </div>
     </Section>
 
     <nav class="case__next" aria-label={dict.caseStudy.nextProject}>
-      <div class="wrap">
+      <div class="wrap case__next-grid">
         <a class="case__next-link" href={caseStudyPath(locale, next?.slug ?? project.slug)}>
-          <span class="meta">{dict.caseStudy.nextProject}</span>
+          <span class="eyebrow">{dict.caseStudy.nextProject}</span>
           <span class="case__next-name">
             {next ? projectTitle(next, locale) : projectTitle(project, locale)}
             <span aria-hidden="true">→</span>
           </span>
+        </a>
+
+        {
+          /* Un recruteur convaincu par une étude de cas ne doit pas avoir à
+            remonter jusqu'à la home pour trouver comment écrire. */
+        }
+        <a class="btn btn--primary case__reach" href={`mailto:${CONTACT.email}`}>
+          <span>{dict.contact.cta}</span>
+          <span class="btn__arrow" aria-hidden="true">→</span>
         </a>
       </div>
     </nav>
@@ -247,7 +283,7 @@ const images = study.images.map((image) => {
     gap: 0.5em;
     font-size: var(--step--1);
     color: var(--ink-3);
-    transition: color var(--dur) var(--ease);
+    transition: color var(--dur-hover) var(--ease-out);
   }
 
   .case__back:hover {
@@ -256,10 +292,9 @@ const images = study.images.map((image) => {
 
   .case__title {
     margin-top: clamp(1.5rem, 4vw, 2.5rem);
-    font-size: var(--step-4);
-    font-weight: 500;
-    letter-spacing: -0.035em;
-    max-width: 16ch;
+    font-size: var(--step-5);
+    line-height: 0.94;
+    max-width: 14ch;
   }
 
   .case__tagline {
@@ -279,14 +314,14 @@ const images = study.images.map((image) => {
     display: grid;
     gap: 0;
     margin-top: clamp(2.5rem, 6vw, 3.5rem);
-    border-top: 1px solid var(--rule);
+    border-top: 1px solid var(--line);
   }
 
   .case__fact {
     display: grid;
     gap: var(--space-2);
     padding-block: var(--space-4);
-    border-bottom: 1px solid var(--rule);
+    border-bottom: 1px solid var(--line);
   }
 
   .case__fact dd {
@@ -320,10 +355,42 @@ const images = study.images.map((image) => {
     color: var(--ink-3);
   }
 
+  .case__stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+
+  .tag {
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--line);
+    border-radius: var(--r-sm);
+    background: var(--canvas-sunk);
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    line-height: 1.4;
+    color: var(--ink-3);
+  }
+
   .case__prose {
     max-width: var(--measure);
     margin-top: var(--space-5);
     color: var(--ink-2);
+  }
+
+  /* « Où en est le projet » porte les faits commerciaux : c'est le passage
+     qu'un recruteur avant-vente cherche. Il ne peut pas être composé comme
+     une note de bas de page. */
+  #cs-outcome ~ .case__prose,
+  .case__prose--outcome {
+    font-size: var(--step-1);
+    line-height: 1.6;
+    color: var(--ink);
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+    border: 1px solid var(--accent-line);
+    border-radius: var(--r-lg);
+    background: var(--accent-soft);
+    max-width: 68ch;
   }
 
   .case__prose--small {
@@ -336,7 +403,7 @@ const images = study.images.map((image) => {
     gap: var(--space-6);
     margin-top: clamp(2rem, 5vw, 3rem);
     padding-top: var(--space-5);
-    border-top: 1px solid var(--rule);
+    border-top: 1px solid var(--line);
   }
 
   .case__sub {
@@ -350,37 +417,40 @@ const images = study.images.map((image) => {
   .case__role-list {
     max-width: var(--measure);
     margin-top: var(--space-5);
-    border-top: 1px solid var(--rule);
+    border-top: 1px solid var(--line);
+  }
+
+  .case__collab {
+    margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
   }
 
   .case__role-list li {
     padding-block: var(--space-3);
-    border-bottom: 1px solid var(--rule);
+    border-bottom: 1px solid var(--line);
     font-size: var(--step--1);
     color: var(--ink-2);
   }
 
   .case__collab {
     max-width: var(--measure);
-    margin-top: clamp(2rem, 5vw, 3rem);
     padding: var(--space-5);
-    border: 1px solid var(--rule-strong);
+    border: 1px solid var(--line-strong);
     border-left: 2px solid var(--accent);
-    border-radius: var(--radius);
-    background: var(--paper-raised);
+    border-radius: var(--r-md);
+    background: var(--surface);
   }
 
   .case__list {
     max-width: var(--measure);
     margin-top: var(--space-4);
-    border-top: 1px solid var(--rule);
+    border-top: 1px solid var(--line);
   }
 
   .case__list li {
     position: relative;
     padding-left: var(--space-5);
     padding-block: var(--space-4);
-    border-bottom: 1px solid var(--rule);
+    border-bottom: 1px solid var(--line);
     color: var(--ink-2);
   }
 
@@ -391,21 +461,26 @@ const images = study.images.map((image) => {
     top: 1.7em;
     width: 0.75rem;
     height: 1px;
-    background: var(--rule-strong);
+    background: var(--line-strong);
   }
 
   .case__list--limits li::before {
     background: var(--accent);
   }
 
+  /* Absence de capture : une bande pleine largeur plutôt qu'un petit encadré
+     posé dans un coin. L'honnêteté doit occuper la place qu'aurait prise
+     l'image, pas se signaler comme un oubli. */
   .case__pending {
-    max-width: var(--measure);
-    margin-top: var(--space-5);
-    padding: var(--space-4) var(--space-5);
-    border: 1px dashed var(--rule-strong);
-    border-radius: var(--radius);
+    margin-top: clamp(2rem, 4vw, 3rem);
+    padding: clamp(2rem, 5vw, 3.5rem) var(--space-5);
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--r-lg);
+    background: var(--surface-2);
     font-size: var(--step--1);
+    line-height: 1.6;
     color: var(--ink-3);
+    text-align: center;
   }
 
   .case__shots {
@@ -417,9 +492,9 @@ const images = study.images.map((image) => {
   .shot img {
     width: 100%;
     height: auto;
-    border: 1px solid var(--rule);
-    border-radius: var(--radius);
-    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    background: var(--surface);
   }
 
   .shot__caption {
@@ -430,7 +505,7 @@ const images = study.images.map((image) => {
 
   .decisions {
     margin-top: clamp(2rem, 5vw, 3rem);
-    border-top: 1px solid var(--rule);
+    border-top: 1px solid var(--line);
   }
 
   .decision {
@@ -438,7 +513,7 @@ const images = study.images.map((image) => {
     grid-template-columns: 2rem minmax(0, 1fr);
     gap: var(--space-4);
     padding-block: clamp(1.5rem, 3.5vw, 2.25rem);
-    border-bottom: 1px solid var(--rule);
+    border-bottom: 1px solid var(--line);
   }
 
   .decision__num {
@@ -458,8 +533,145 @@ const images = study.images.map((image) => {
     color: var(--ink-2);
   }
 
+  /* ── Compositions ─────────────────────────────────────────────────────
+     Chaque section a une grille dont les deux colonnes ont une fonction
+     distincte, jamais deux `1fr` posées côte à côte. Sans cela, tous les
+     blocs faisaient 587 px dans un conteneur de 1072 et la moitié droite de
+     la page restait vide sur cinq sections d'affilée. */
+
+  .case__split {
+    display: grid;
+    gap: clamp(1.5rem, 3vw, 2.25rem);
+  }
+
+  .case__limits-lede {
+    max-width: 34ch;
+    margin-top: var(--space-4);
+    font-size: var(--step--1);
+    line-height: 1.6;
+    color: var(--ink-3);
+  }
+
+  @media (min-width: 62rem) {
+    /* Entrée de section : le titre tient une colonne étroite, l'exposé
+       occupe la large. Le titre devient un repère, pas une bannière. */
+    .case__split--intro {
+      grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr);
+      column-gap: clamp(2.5rem, 5vw, 4.5rem);
+      align-items: start;
+    }
+
+    .case__split--intro .case__prose {
+      max-width: none;
+      margin-top: 0.4rem;
+      columns: 2;
+      column-gap: clamp(2rem, 4vw, 3.5rem);
+    }
+
+    /* Mon rôle : à gauche le titre et l'attribution, à droite la liste des
+       responsabilités sur deux colonnes. La collaboration cesse d'être une
+       note sous une liste : elle devient l'un des deux blocs de la section. */
+    /* Sans bloc de collaboration, la colonne de gauche ne porte que le titre :
+       elle se resserre pour ne pas creuser un vide sous lui. */
+    .case__split--role.is-bare {
+      grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr);
+    }
+
+    .case__split--role {
+      grid-template-columns: minmax(0, 0.72fr) minmax(0, 1fr);
+      column-gap: clamp(2.5rem, 5vw, 4.5rem);
+      align-items: start;
+    }
+
+    .case__split--role .case__role-list {
+      max-width: none;
+      margin-top: 0;
+      columns: 2;
+      column-gap: clamp(2rem, 4vw, 3rem);
+      border-top: 0;
+    }
+
+    .case__split--role .case__role-list li {
+      break-inside: avoid;
+      border-top: 1px solid var(--line);
+      border-bottom: 0;
+    }
+
+    /* Résultats : l'encart de statut fait contrepoids aux enseignements. */
+    .case__split--outcome {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
+      column-gap: clamp(2.5rem, 5vw, 4rem);
+      align-items: start;
+      margin-top: var(--space-5);
+    }
+
+    .case__split--outcome .case__prose--outcome {
+      max-width: none;
+      margin-top: 0;
+    }
+
+    .case__split--outcome .case__list {
+      max-width: none;
+      margin-top: var(--space-4);
+    }
+
+    /* Limites : l'avertissement tient la colonne étroite, la liste s'étale
+       sur deux colonnes au lieu de descendre sur quatre cent cinquante
+       pixels de haut dans la moitié gauche. */
+    .case__split--limits {
+      grid-template-columns: minmax(0, 0.55fr) minmax(0, 1fr);
+      column-gap: clamp(2.5rem, 5vw, 4.5rem);
+      align-items: start;
+    }
+
+    .case__split--limits .case__list {
+      max-width: none;
+      margin-top: 0;
+      columns: 2;
+      column-gap: clamp(2rem, 4vw, 3rem);
+      border-top: 0;
+    }
+
+    .case__split--limits .case__list li {
+      break-inside: avoid;
+      border-top: 1px solid var(--line);
+      border-bottom: 0;
+    }
+
+    /* En-tête : le récit à gauche, la fiche technique à droite. */
+    .case__head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 0.78fr);
+      column-gap: clamp(2.5rem, 5vw, 4.5rem);
+      align-items: start;
+      margin-top: clamp(1.5rem, 3vw, 2rem);
+    }
+
+    .case__facts {
+      margin-top: 0;
+    }
+
+    /* Décisions : deux colonnes de cartes. Empilées, quatre cartes pleine
+       largeur faisaient huit cents pixels de haut pour quatre idées. */
+    .decisions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(1rem, 2vw, 1.5rem);
+      align-items: start;
+      border-top: 0;
+    }
+
+    /* Fin de page : le projet suivant à gauche, l'action à droite. */
+    .case__next-grid {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-6);
+    }
+  }
+
   .case__next {
-    border-top: 1px solid var(--rule);
+    border-top: 1px solid var(--line);
     padding-block: clamp(2.5rem, 6vw, 4rem);
   }
 
@@ -476,7 +688,7 @@ const images = study.images.map((image) => {
     font-weight: 500;
     letter-spacing: -0.03em;
     color: var(--ink);
-    transition: color var(--dur) var(--ease);
+    transition: color var(--dur-hover) var(--ease-out);
   }
 
   .case__next-link:hover .case__next-name {
@@ -484,7 +696,7 @@ const images = study.images.map((image) => {
   }
 
   .case__next-name span {
-    transition: transform var(--dur) var(--ease);
+    transition: transform var(--dur-hover) var(--ease-out);
   }
 
   .case__next-link:hover .case__next-name span {

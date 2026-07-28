@@ -1,0 +1,179 @@
+---
+import { getDictionary, type Locale } from '~/lib/i18n';
+
+/**
+ * La preuve terrain.
+ *
+ * Le portfolio montrait trois interfaces sans jamais dire qu'elles avaient été
+ * présentées, démarchées, négociées. Ces faits existaient, mais enterrés dans
+ * les études de cas. Ils remontent ici, sous le hero, en trois lignes.
+ *
+ * Règle absolue de ce bloc : aucun chiffre qui ne soit vérifiable, aucune
+ * traction inventée. La phrase « Aucun contrat signé à ce jour » fait partie
+ * de la preuve — c'est elle qui rend les trois autres croyables.
+ */
+
+interface Props {
+  locale: Locale;
+  headingId: string;
+}
+
+const { locale, headingId } = Astro.props;
+const dict = getDictionary(locale);
+
+const facts = [
+  { label: dict.proof.f1Label, body: dict.proof.f1 },
+  { label: dict.proof.f2Label, body: dict.proof.f2 },
+  { label: dict.proof.f3Label, body: dict.proof.f3 },
+];
+---
+
+<section class="proof" aria-labelledby={headingId}>
+  <div class="wrap">
+    <header class="proof__open" data-reveal>
+      <div class="proof__head">
+        <p class="eyebrow eyebrow--accent">{dict.proof.label}</p>
+        <h2 id={headingId} class="proof__title title-lg">{dict.proof.title}</h2>
+      </div>
+
+      <figure class="proof__lesson" data-reveal>
+        <blockquote>{dict.proof.lesson}</blockquote>
+        <figcaption class="eyebrow">{dict.proof.lessonSource}</figcaption>
+      </figure>
+    </header>
+
+    <ol class="proof__facts">
+      {
+        facts.map((fact, i) => (
+          <li class="proof__fact" data-reveal>
+            <p class="eyebrow num proof__index" aria-hidden="true">
+              {String(i + 1).padStart(2, '0')}
+            </p>
+            <p class="proof__label">{fact.label}</p>
+            <p class="proof__text">{fact.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+
+    <p class="proof__outcome" data-reveal>{dict.proof.outcome}</p>
+  </div>
+</section>
+
+<style>
+  .proof {
+    padding-block: clamp(3.5rem, 8vw, 6rem);
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .proof__open {
+    margin-bottom: clamp(1.75rem, 3.5vw, 2.5rem);
+  }
+
+  .proof__title {
+    margin-top: var(--space-4);
+    max-width: 15ch;
+  }
+
+  /* L'idée centrale est la citation, pas la liste : c'est la seule ligne du
+     site qui prouve qu'on a été confronté à un acheteur. Elle passe donc en
+     masse principale, et les trois faits deviennent ses satellites. */
+  /* Sous 62rem le titre et la citation s'empilent : à la même échelle et sans
+     séparation, ils se lisaient comme une seule phrase. La citation redescend
+     d'un cran et prend le filet d'accent qu'elle a en grand écran. */
+  .proof__lesson {
+    margin-top: clamp(2rem, 5vw, 2.75rem);
+    padding-left: var(--space-5);
+    border-left: 1px solid var(--accent-line);
+  }
+
+  .proof__lesson blockquote {
+    font-size: var(--step-3);
+    font-weight: 650;
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    text-wrap: pretty;
+  }
+
+  .proof__lesson figcaption {
+    margin-top: var(--space-5);
+    color: var(--accent);
+  }
+
+  /* Bande de satellites : trois colonnes denses, un seul filet au-dessus. */
+  .proof__facts {
+    display: grid;
+    gap: clamp(1.75rem, 3vw, 2.5rem);
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    padding-top: clamp(1.5rem, 3vw, 2rem);
+    border-top: 1px solid var(--line);
+  }
+
+  .proof__index {
+    color: var(--accent);
+  }
+
+  .proof__label {
+    margin-top: var(--space-3);
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: -0.012em;
+    color: var(--ink);
+  }
+
+  .proof__text {
+    margin-top: var(--space-2);
+    font-size: var(--step--1);
+    line-height: 1.6;
+    color: var(--ink-2);
+  }
+
+  /* Le résultat négatif ferme la bande : c'est lui qui rend les trois faits
+     croyables, il ne peut pas être une note de bas de page. */
+  .proof__outcome {
+    margin-top: clamp(1.5rem, 3vw, 2rem);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--line);
+    font-size: var(--step--1);
+    font-weight: 600;
+    color: var(--ink-3);
+  }
+
+  @media (min-width: 62rem) {
+    /* Titre à gauche, citation à droite et dominante : le bandeau vide de
+       485 px qui suivait le titre disparaît parce qu'il est occupé. */
+    .proof__open {
+      display: grid;
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      column-gap: clamp(2.5rem, 5vw, 4rem);
+      align-items: start;
+      margin-bottom: 0;
+    }
+
+    .proof__lesson {
+      margin-top: 0;
+      padding-left: clamp(2rem, 4vw, 3rem);
+    }
+
+    .proof__lesson blockquote {
+      font-size: var(--step-4);
+    }
+
+    /* Le titre est plus court que la citation : centré sur elle, il cesse de
+       pendre en haut d'une cellule dont la hauteur est dictée par le voisin. */
+    .proof__head {
+      align-self: center;
+    }
+
+    .proof__facts {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      column-gap: clamp(2rem, 4vw, 3.5rem);
+    }
+
+    .proof__outcome {
+      text-align: right;
+    }
+  }
+</style>

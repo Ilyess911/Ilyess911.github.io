@@ -25,13 +25,13 @@ const PAGES = [
   { name: 'home-fr', path: '/' },
   { name: 'home-en', path: '/en/' },
   { name: 'case-time2drive', path: '/projets/time2drive/' },
-  { name: 'case-medical-ia', path: '/projets/medical-ia/' },
   { name: 'case-resum-eye', path: '/projets/resum-eye/' },
   { name: '404', path: '/404.html' },
 ];
 
 const VIEWPORTS = [
   { name: 'desktop', width: 1440, height: 900, mobile: false, scale: 2 },
+  { name: 'tablet', width: 1024, height: 768, mobile: false, scale: 2 },
   { name: 'mobile', width: 390, height: 844, mobile: true, scale: 2 },
   { name: 'narrow', width: 320, height: 568, mobile: true, scale: 1 },
 ];
@@ -161,10 +161,21 @@ async function main() {
             expression: `(() => {
               const vw = document.documentElement.clientWidth;
               const offenders = [];
+              /* Un élément volontairement rogné par un ancêtre en overflow
+                 hidden dépasse sur le papier mais pas à l'écran : le signaler
+                 noierait les vrais débordements dans du bruit. */
+              const isClipped = (el) => {
+                for (let p = el.parentElement; p; p = p.parentElement) {
+                  const o = getComputedStyle(p).overflowX;
+                  if (o === 'hidden' || o === 'clip') return true;
+                }
+                return false;
+              };
               for (const el of document.querySelectorAll('body *')) {
                 const r = el.getBoundingClientRect();
                 if (r.width === 0) continue;
                 if (r.right > vw + 1 || r.left < -1) {
+                  if (isClipped(el)) continue;
                   offenders.push({
                     tag: el.tagName.toLowerCase(),
                     cls: el.className && String(el.className).slice(0, 60),

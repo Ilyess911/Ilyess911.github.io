@@ -1,4 +1,4 @@
-import type { I18n, Principle, SkillGroup } from './types';
+import type { I18n } from './types';
 
 export const PROFILE = {
   name: 'Ilyess Assadi',
@@ -10,18 +10,19 @@ export const PROFILE = {
   } satisfies I18n,
 
   /**
-   * Titre principal du hero. Trois temps, une idée par ligne.
-   * Il énonce le problème commun à tous les projets, pas une méthode de travail :
-   * c'est lui qui empêche le site de se lire comme une collection.
+   * La phrase du hero. Une seule, à la première personne.
+   * Le manifeste en trois lignes sonnait comme une accroche d'agence :
+   * ici c'est quelqu'un qui dit ce qu'il fait.
    */
   headline: {
-    fr: ["L'information existe.", "Elle n'est pas lisible.", 'Je construis ce qui manque.'],
-    en: ['The information exists.', 'Nobody can act on it.', 'I build what is missing.'],
-  } satisfies I18n<readonly string[]>,
+    fr: 'Je construis les instruments qui manquent à ceux qui décident.',
+    en: 'I build the instruments that decision makers are missing.',
+  } satisfies I18n,
 
+  /** Les trois repères, sous la phrase. Rien d'autre. */
   subline: {
-    fr: "Étudiant ingénieur à l'ESILV, apprenti ingénieur méthodes chez Air France Industries. Je construis des outils pour des métiers qui décident tous les jours sans instrument : auto-écoles, collectivités, équipes RH, maintenance aéronautique. Et j'écris toujours ce que l'outil ne sait pas encore faire.",
-    en: 'Engineering student at ESILV, methods engineering apprentice at Air France Industries. I build tools for people who make decisions every day without an instrument: driving schools, local authorities, HR teams, aviation maintenance. And I always write down what the tool cannot do yet.',
+    fr: 'ESILV · Air France Industries · Nexya Agency',
+    en: 'ESILV · Air France Industries · Nexya Agency',
   } satisfies I18n,
 
   /** Affiliations affichées en filet sous le hero. Texte, pas de logos. */
@@ -29,140 +30,132 @@ export const PROFILE = {
 
   /* Cette ligne répond à la question qu'un recruteur se pose en premier :
      quel poste, et à partir de quand. Elle apparaît dès le hero, pas seulement en bas de page. */
+  /* Résumé de la ligne ci-dessous, pour la pastille de statut : une pill est un
+     objet d'une seule ligne, elle ne peut pas porter une phrase entière. */
+  availabilityShort: {
+    fr: 'Février 2027',
+    en: 'February 2027',
+  } satisfies I18n,
+
   availability: {
     fr: 'Stage de trois mois à partir de février 2027, en sales engineering, produit ou développement commercial technique.',
     en: 'Three-month internship from February 2027, in sales engineering, product or technical business development.',
   } satisfies I18n,
 
+  /**
+   * Texte d'introduction, en trois temps. Il est composé en paragraphes distincts
+   * pour permettre une mise en page éditoriale, le premier servant d'exergue.
+   */
   about: {
-    fr: "Je viens de l'industrie : maintenance aéronautique, méthodes, opérations. C'est là que j'ai vu pour la première fois le problème que je retrouve partout depuis. La donnée est là, tout le monde la voit passer, et la décision se prend quand même sans elle, parce que personne n'a le temps de la rendre lisible. Depuis, je construis cet instrument manquant, et je passe autant de temps à expliquer ce qu'il vaut qu'à l'écrire. C'est vers ce métier que je vais : celui où une contrainte technique se transforme en argument devant quelqu'un qui décide.",
-    en: 'I come from industry: aviation maintenance, methods, operations. That is where I first saw the problem I have found everywhere since. The data is there, everyone watches it go by, and the decision still gets made without it, because nobody has time to make it readable. Since then I have been building that missing instrument, and I spend as much time explaining what it is worth as writing it. That is the job I am heading towards: the one where a technical constraint turns into an argument in front of someone who decides.',
-  } satisfies I18n,
+    fr: [
+      "Je viens de l'industrie.",
+      "Maintenance aéronautique, méthodes, opérations. C'est en atelier que j'ai vu pour la première fois le problème que je retrouve partout depuis : la donnée est là, tout le monde la voit passer, et la décision se prend quand même sans elle, parce que personne n'a le temps de la rendre lisible.",
+      "Depuis, je construis cet instrument manquant. Je passe autant de temps à expliquer ce qu'il vaut qu'à l'écrire, et j'écris toujours ce qu'il ne sait pas encore faire. C'est vers ce métier que je vais : celui où une contrainte technique se transforme en argument devant quelqu'un qui décide.",
+    ],
+    en: [
+      'I come from industry.',
+      'Aviation maintenance, methods, operations. The shop floor is where I first saw the problem I have found everywhere since: the data is there, everyone watches it go by, and the decision still gets made without it, because nobody has time to make it readable.',
+      'Since then I have been building that missing instrument. I spend as much time explaining what it is worth as writing it, and I always write down what it cannot do yet. That is the job I am heading towards: the one where a technical constraint turns into an argument in front of someone who decides.',
+    ],
+  } satisfies I18n<readonly string[]>,
 } as const;
 
 /**
- * Les trois axes du positionnement.
+ * La manière de travailler, en cinq temps.
  *
- * Ce ne sont pas trois compétences juxtaposées mais trois étapes du même geste,
- * appliquées au même objet : la décision. Chacune est ancrée sur un projet réel,
- * de sorte que les trois projets illustrent une seule chaîne et non trois talents.
+ * Ce n'est pas une liste de qualités : chaque étape est ancrée sur un travail réel,
+ * projet ou expérience, et la preuve citée est vérifiable dans le contenu du site.
  */
-export const AXES = [
+export const METHOD: readonly {
+  readonly step: string;
+  readonly label: I18n;
+  readonly body: I18n;
+  readonly proof: I18n;
+  readonly source: I18n;
+  /** Slug de projet si la preuve renvoie vers une étude de cas. */
+  readonly project?: string;
+}[] = [
   {
-    key: 'engineering',
-    label: { fr: 'Engineering', en: 'Engineering' } satisfies I18n,
+    step: '01',
+    label: { fr: 'Comprendre', en: 'Understand' },
     body: {
-      fr: 'Aller chercher la donnée là où elle est, et savoir ce qu’elle vaut avant de s’en servir.',
-      en: 'Go and find the data where it lives, and know what it is worth before using it.',
-    } satisfies I18n,
+      fr: "Lire le système avant de vouloir le changer : la réglementation, la documentation, et ce qui se passe réellement à l'atelier.",
+      en: 'Read the system before trying to change it: the regulation, the documentation, and what actually happens on the floor.',
+    },
     proof: {
-      fr: 'Onze sources publiques, un statut de provenance par variable, et une marge d’incertitude affichée à côté du score.',
-      en: 'Eleven public sources, a provenance status on every variable, and an uncertainty margin displayed next to the score.',
-    } satisfies I18n,
-    project: 'medical-ia',
+      fr: "La donnée technique est disponible, et la décision se prend quand même sans elle. C'est là que tout part.",
+      en: 'The technical data is available, and the decision still gets made without it. That is where it all starts.',
+    },
+    source: { fr: 'Air France Industries', en: 'Air France Industries' },
   },
   {
-    key: 'product',
-    label: { fr: 'Product', en: 'Product' } satisfies I18n,
+    step: '02',
+    label: { fr: 'Structurer', en: 'Structure' },
     body: {
-      fr: 'En faire un écran où la décision devient évidente pour celui qui doit la prendre.',
-      en: 'Turn it into a screen where the decision becomes obvious to whoever has to make it.',
-    } satisfies I18n,
+      fr: "Choisir l'unité de compte du métier, pas celle du logiciel. C'est elle qui décide de la forme de tout le reste.",
+      en: 'Choose the unit of account of the work, not the one of the software. It decides the shape of everything else.',
+    },
     proof: {
-      fr: 'Le vide du planning rendu visible, parce que ce sont les créneaux vides qu’une auto-école vend.',
-      en: 'Empty space in the schedule made visible, because empty slots are what a driving school sells.',
-    } satisfies I18n,
+      fr: "Le crédit d'heures plutôt que la réservation : chaque écran répond à « combien d'heures sont dues, consommées, disponibles ».",
+      en: 'The hour credit rather than the booking: every screen answers "how many hours are owed, used, available".',
+    },
+    source: { fr: 'Time2Drive', en: 'Time2Drive' },
     project: 'time2drive',
   },
   {
-    key: 'business',
-    label: { fr: 'Business', en: 'Business' } satisfies I18n,
+    step: '03',
+    label: { fr: 'Construire', en: 'Build' },
     body: {
-      fr: 'Chiffrer ce que cette décision change, et le défendre devant celui qui signe.',
-      en: 'Put a number on what that decision changes, and defend it in front of whoever signs.',
-    } satisfies I18n,
+      fr: 'Le moins de pièces possible, chacune à sa place, et rien qui ne serve à une décision.',
+      en: 'As few parts as possible, each in its place, and nothing that does not serve a decision.',
+    },
     proof: {
-      fr: 'Plusieurs mois de discussions avec un groupe d’ingénierie, jusqu’à la conformité et la tarification.',
+      fr: "TypeScript strict, quatre dépendances, aucune bibliothèque d'animation ni d'état.",
+      en: 'Strict TypeScript, four dependencies, no animation or state library.',
+    },
+    source: { fr: 'Atlas', en: 'Atlas' },
+    project: 'atlas',
+  },
+  {
+    step: '04',
+    label: { fr: 'Mesurer', en: 'Measure' },
+    body: {
+      fr: "Un chiffre qu'on peut contester vaut mieux qu'une promesse qu'on doit croire.",
+      en: 'A number you can argue with beats a promise you have to believe.',
+    },
+    proof: {
+      fr: 'Le calcul de valeur vit dans le produit, hypothèses affichées : taux horaire, occupation cible, heures facturables.',
+      en: 'The value calculation lives inside the product, assumptions on screen: hourly rate, target occupancy, billable hours.',
+    },
+    source: { fr: 'Time2Drive', en: 'Time2Drive' },
+    project: 'time2drive',
+  },
+  {
+    step: '05',
+    label: { fr: 'Expliquer', en: 'Explain' },
+    body: {
+      fr: "La valeur se défend devant quelqu'un qui décide, et ce n'est jamais la démonstration technique qui tranche.",
+      en: 'Value gets defended in front of someone who decides, and it is never the technical demo that settles it.',
+    },
+    proof: {
+      fr: "Plusieurs mois de discussions avec un groupe d'ingénierie, jusqu'à la conformité et la tarification.",
       en: 'Months of discussions with an engineering group, all the way to compliance and pricing.',
-    } satisfies I18n,
+    },
+    source: { fr: "Resum'EYE", en: "Resum'EYE" },
     project: 'resum-eye',
   },
-] as const;
-
-/** Manière de travailler. Quatre principes, chacun vérifiable dans les études de cas. */
-export const PRINCIPLES: readonly Principle[] = [
-  {
-    title: {
-      fr: 'Je pars du métier, pas de la stack.',
-      en: 'I start from the work, not the stack.',
-    },
-    body: {
-      fr: "Un planning d'auto-école, un atelier de maintenance et un conseil municipal ont le même angle mort, mais pas les mêmes contraintes. C'est le métier qui dicte la forme de l'instrument. Le choix technique vient après, et il se justifie par lui.",
-      en: 'A driving school schedule, a maintenance shop and a city council share the same blind spot, but not the same constraints. The work dictates the shape of the instrument. The technical choice comes after, and is justified by it.',
-    },
-  },
-  {
-    title: { fr: 'Je nomme les limites.', en: 'I name the limits.' },
-    body: {
-      fr: "Quand on construit l'instrument qui sert à décider, on doit à celui qui décide le degré de confiance qu'il peut lui accorder. C'est une obligation, pas une modestie. D'où la section « Limites » de chaque projet, et le fait que sur Médical'IA le code refuse d'étiqueter « réelle » une variable qui ne l'est pas.",
-      en: 'When you build the instrument someone decides with, you owe that person the confidence they can place in it. That is an obligation, not modesty. Hence the "Limits" section on every project, and the fact that in Médical\'IA the code refuses to label a variable "real" when it is not.',
-    },
-  },
-  {
-    title: { fr: 'Je chiffre avant de convaincre.', en: 'I quantify before I convince.' },
-    body: {
-      fr: "Sur Time2Drive, le calcul de valeur est dans le produit, avec ses hypothèses visibles : taux horaire, taux d'occupation cible, heures facturables. Un gérant peut contester le chiffre, c'est le but.",
-      en: 'In Time2Drive the value calculation lives inside the product, with its assumptions on screen: hourly rate, target occupancy, billable hours. An owner can argue with the number, which is the point.',
-    },
-  },
-  {
-    title: { fr: 'Je dis qui a fait quoi.', en: 'I say who did what.' },
-    body: {
-      fr: "Quand une partie du travail n'est pas la mienne, c'est écrit, à l'endroit où ça compte. Un portfolio qui gonfle les rôles ne survit pas au premier entretien technique.",
-      en: 'When part of the work is not mine, it is written down where it matters. A portfolio that inflates roles does not survive the first technical interview.',
-    },
-  },
 ];
 
-/** Compétences groupées et contextualisées. Ni barres de pourcentage, ni nuage de badges. */
-export const SKILLS: readonly SkillGroup[] = [
-  {
-    label: { fr: 'Produit et interface', en: 'Product and interface' },
-    items: [
-      'TypeScript',
-      'React',
-      'Next.js',
-      'Astro',
-      'Conception d’interface',
-      'Parcours utilisateur',
-    ],
-  },
-  {
-    label: { fr: 'Données et IA', en: 'Data and AI' },
-    items: ['Python', 'pandas', 'scikit-learn', 'SQL', 'Workflows LLM', 'Sorties structurées'],
-  },
-  {
-    label: { fr: 'Ingénierie et opérations', en: 'Engineering and operations' },
-    items: [
-      'Lean',
-      'Méthodes de maintenance',
-      'Suivi de KPI',
-      'Automatisation de processus',
-      '3DEXPERIENCE',
-      'R Studio',
-    ],
-  },
-  {
-    label: { fr: 'Business', en: 'Business' },
-    items: [
-      'Développement commercial',
-      'Démonstration produit',
-      'Négociation',
-      'Analyse de marché',
-      'CRM',
-    ],
-  },
-];
+/**
+ * La phrase qui ferme la section « manière de travailler ».
+ *
+ * Elle remplace l'ancienne liste de quatre principes : une seule affirmation,
+ * composée en exergue, dit mieux la même chose qu'une énumération.
+ */
+export const CREDO = {
+  fr: "Quand on construit l'instrument avec lequel un autre décide, on lui doit le degré de confiance qu'il peut lui accorder. C'est une obligation, pas une modestie. C'est pour ça que chaque projet présenté ici commence par ce qu'il ne sait pas encore faire.",
+  en: 'When you build the instrument someone else decides with, you owe them the confidence they can place in it. That is an obligation, not modesty. It is why every project shown here starts with what it cannot do yet.',
+} satisfies I18n;
 
 export const LANGUAGES: readonly { readonly label: I18n; readonly level: I18n }[] = [
   {

@@ -33,8 +33,12 @@ export const PROJECTS: readonly Project[] = [
       en: 'A driving school owner does not know how many hours went unsold today. The information is there all the same, scattered across a phone, a spreadsheet and a personal calendar. Time2Drive brings it together and makes it visible.',
     },
     roleLabel: {
-      fr: 'Cadrage produit, design, analytics, landing, go-to-market',
-      en: 'Product framing, design, analytics, landing page, go-to-market',
+      fr: 'Produit, UI, analytics, modèle ROI, tests, landing, go-to-market',
+      en: 'Product, UI, analytics, ROI model, tests, landing page, go-to-market',
+    },
+    credit: {
+      fr: 'Socle backend initial par Adel Bousri ; le produit a ensuite évolué à deux.',
+      en: 'Initial backend foundation by Adel Bousri; the product then evolved as a pair.',
     },
     stack: ['Next.js', 'TypeScript', 'Prisma', 'PostgreSQL', 'Lucia Auth', 'Vitest', 'Playwright'],
     codeVisibility: 'private',
@@ -43,6 +47,30 @@ export const PROJECTS: readonly Project[] = [
         kind: 'demo',
         label: { fr: 'Landing en ligne', en: 'Live landing page' },
         href: 'https://lp-time2drive.vercel.app',
+      },
+    ],
+    covers: [
+      {
+        key: 'time2drive-cockpit',
+        mobileKey: 'time2drive-triage',
+        alt: {
+          fr: "Cockpit du gérant : occupation de la journée, grille des créneaux par moniteur, rail des points à traiter et indicateurs d'heures réservées.",
+          en: 'Owner cockpit: day occupancy, slot grid per instructor, a rail of items to handle and booked-hours indicators.',
+        },
+      },
+      {
+        key: 'time2drive-landing',
+        alt: {
+          fr: "Page publique de Time2Drive : accroche « Le planning d'auto-école, enfin pilotable », sous-titre et deux appels à action.",
+          en: 'Public Time2Drive page: the headline "The driving school schedule, finally steerable", a subtitle and two calls to action.',
+        },
+      },
+      {
+        key: 'time2drive-lanes',
+        alt: {
+          fr: 'Détail du cockpit : la grille des créneaux, un couloir par moniteur, avec les cases vides laissées telles quelles.',
+          en: 'Cockpit detail: the slot grid, one lane per instructor, with the empty cells left as they are.',
+        },
       },
     ],
     caseStudy: {
@@ -217,7 +245,10 @@ export const PROJECTS: readonly Project[] = [
     category: { fr: 'IA et santé publique', en: 'AI and public health' },
     year: '2025 — 2026',
     stage: 'demonstrator',
-    featured: true,
+    featured: false,
+    /* Hors périmètre depuis le 28 juillet 2026, sur décision. Le contenu est
+       conservé intact : repasser `hidden` à false et `featured` à true le rétablit. */
+    hidden: true,
     tagline: {
       fr: "Aide à la décision sur l'accès aux soins, pour les acteurs publics.",
       en: 'Decision support on healthcare access, built for public authorities.',
@@ -421,6 +452,46 @@ export const PROJECTS: readonly Project[] = [
       fr: 'Outil de pré-tri de candidatures pour équipes RH.',
       en: 'Application screening tool for HR teams.',
     },
+    /* Le cycle complet, en cinq temps. Ce projet est le seul du portfolio qui
+       va du prototype à la table d'un acheteur : c'est la preuve la plus
+       directe du métier visé, et il n'avait aucune capture pour la porter. */
+    arc: [
+      {
+        label: { fr: 'Terrain', en: 'Field' },
+        body: {
+          fr: 'Relation de plusieurs mois avec un groupe d’ingénierie français.',
+          en: 'A months-long relationship with a French engineering group.',
+        },
+      },
+      {
+        label: { fr: 'Intégration', en: 'Integration' },
+        body: {
+          fr: 'Validation de l’intégration par API dans leur système existant.',
+          en: 'Validation of API integration into their existing system.',
+        },
+      },
+      {
+        label: { fr: 'Objection', en: 'Objection' },
+        body: {
+          fr: 'Conformité RGPD et responsabilité juridique de la décision.',
+          en: 'GDPR compliance and legal liability for the decision.',
+        },
+      },
+      {
+        label: { fr: 'Modèle', en: 'Pricing' },
+        body: {
+          fr: 'Tarification au volume, discutée et non aboutie.',
+          en: 'Volume-based pricing, discussed and not concluded.',
+        },
+      },
+      {
+        label: { fr: 'Démonstration', en: 'Demo' },
+        body: {
+          fr: 'Présentation en direct devant des décideurs du secteur, Café IA de Syntec-Ingénierie.',
+          en: 'Live presentation to industry decision makers, Syntec-Ingénierie’s Café IA.',
+        },
+      },
+    ],
     positioning: {
       fr: "Un recruteur écarte des centaines de candidatures sans qu'il reste de trace de ce qui a été évalué. Resum'EYE devait produire cette trace. Le produit est resté un prototype, la relation commerciale a été réelle, et c'est le projet qui m'a appris la différence.",
       en: "A recruiter rejects hundreds of applications with no record of what was actually assessed. Resum'EYE was meant to produce that record. The product stayed a prototype, the commercial relationship was real, and this is the project that taught me the difference.",
@@ -539,7 +610,7 @@ export const PROJECTS: readonly Project[] = [
     name: 'Atlas',
     year: '2026',
     stage: 'prototype',
-    featured: false,
+    featured: true,
     tagline: {
       fr: 'Poste de travail du commercial B2B, organisé autour de la journée plutôt que du pipeline.',
       en: 'A workspace for B2B sales, organised around the day rather than the pipeline.',
@@ -552,6 +623,16 @@ export const PROJECTS: readonly Project[] = [
     stack: ['Next.js', 'TypeScript', 'Tailwind CSS'],
     codeVisibility: 'private',
     links: [],
+    covers: [
+      {
+        key: 'atlas-today',
+        mobileKey: 'atlas-agenda',
+        alt: {
+          fr: "Écran Today d'Atlas : huit actions classées par impact, un brouillon de réponse marqué comme généré, l'agenda du jour et les engagements de la semaine.",
+          en: "Atlas Today screen: eight actions ranked by impact, a reply draft flagged as generated, the day's agenda and the week's commitments.",
+        },
+      },
+    ],
   },
 
   // ────────────────────────────────────────────────────────────────────────
@@ -590,12 +671,18 @@ export const PROJECTS: readonly Project[] = [
   },
 ];
 
-/** Projets mis en avant dans la sélection principale. */
-export const FEATURED_PROJECTS = PROJECTS.filter((p) => p.featured);
+/**
+ * Projets dans le périmètre. Un projet `hidden` n'est rendu nulle part :
+ * ni accueil, ni pied de page, ni page dédiée, ni sitemap.
+ */
+export const VISIBLE_PROJECTS = PROJECTS.filter((p) => !p.hidden);
+
+/** Chapitres de la page d'accueil, dans l'ordre de lecture. */
+export const FEATURED_PROJECTS = VISIBLE_PROJECTS.filter((p) => p.featured);
 
 /** Projets disposant d'une page d'étude de cas dédiée. */
-export const CASE_STUDY_PROJECTS = PROJECTS.filter((p) => p.caseStudy !== undefined);
+export const CASE_STUDY_PROJECTS = VISIBLE_PROJECTS.filter((p) => p.caseStudy !== undefined);
 
 export function getProject(slug: string): Project | undefined {
-  return PROJECTS.find((p) => p.slug === slug);
+  return VISIBLE_PROJECTS.find((p) => p.slug === slug);
 }

@@ -42,6 +42,7 @@ export const EXPERIENCE: readonly ExperienceItem[] = [
       },
     ],
   },
+
   {
     org: 'Nexya Agency',
     kind: 'work',
@@ -69,6 +70,27 @@ export const EXPERIENCE: readonly ExperienceItem[] = [
       },
     ],
   },
+
+  {
+    org: 'Paris 2024',
+    kind: 'other',
+    role: { fr: 'Juge d’athlétisme certifié', en: 'Certified athletics official' },
+    period: { fr: '2024', en: '2024' },
+    start: '2024-01',
+    end: '2024-12',
+    location: 'Paris',
+    summary: {
+      fr: "Certification de juge d'athlétisme et participation aux Jeux olympiques de Paris 2024. Un environnement international où le protocole est écrit à l'avance et où tout se joue dans la gestion de l'imprévu.",
+      en: 'Athletics officiating certification and participation in the Paris 2024 Olympic Games. An international environment where the protocol is written in advance and everything is decided by how you handle the unexpected.',
+    },
+    highlights: [
+      {
+        fr: 'Accueil événementiel chez City One Events depuis décembre 2022 : brief, flux de public, décisions rapides.',
+        en: 'Event hosting with City One Events since December 2022: briefings, crowd flow, fast decisions.',
+      },
+    ],
+  },
+
   {
     org: 'Airbus Helicopters',
     kind: 'work',
@@ -93,6 +115,7 @@ export const EXPERIENCE: readonly ExperienceItem[] = [
       },
     ],
   },
+
   {
     org: 'Amundi Asset Management',
     kind: 'work',
@@ -109,25 +132,6 @@ export const EXPERIENCE: readonly ExperienceItem[] = [
       en: 'A first encounter with a world where value is proven by numbers and sold through relationships. A lens that later proved useful on technical products.',
     },
     highlights: [],
-  },
-  {
-    org: 'Paris 2024',
-    kind: 'other',
-    role: { fr: 'Juge d’athlétisme certifié', en: 'Certified athletics official' },
-    period: { fr: '2024', en: '2024' },
-    start: '2024-01',
-    end: '2024-12',
-    location: 'Paris',
-    summary: {
-      fr: "Certification de juge d'athlétisme et participation aux Jeux olympiques de Paris 2024. Un environnement international où le protocole est écrit à l'avance et où tout se joue dans la gestion de l'imprévu.",
-      en: 'Athletics officiating certification and participation in the Paris 2024 Olympic Games. An international environment where the protocol is written in advance and everything is decided by how you handle the unexpected.',
-    },
-    highlights: [
-      {
-        fr: 'Accueil événementiel chez City One Events depuis décembre 2022 : brief, flux de public, décisions rapides.',
-        en: 'Event hosting with City One Events since December 2022: briefings, crowd flow, fast decisions.',
-      },
-    ],
   },
 ];
 

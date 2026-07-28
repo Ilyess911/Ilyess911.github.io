@@ -7,15 +7,16 @@ export const fr = {
   meta: {
     title: 'Ilyess Assadi — Ingénierie, produit et business',
     description:
-      "Étudiant ingénieur à l'ESILV et apprenti chez Air France Industries. Je construis des instruments de décision pour des métiers qui décident sans instrument : auto-écoles, collectivités, équipes RH, maintenance aéronautique.",
+      "Étudiant ingénieur à l'ESILV et apprenti chez Air France Industries. Je construis des instruments de décision pour des métiers qui décident sans instrument : auto-écoles, équipes RH, forces de vente, maintenance aéronautique.",
     langLabel: 'Français',
     localeTag: 'fr-FR',
   },
 
   nav: {
+    contactCta: 'Me contacter',
     skipToContent: 'Aller au contenu principal',
     home: 'Accueil',
-    selection: 'Sélection',
+    selection: 'Projets',
     approach: 'Méthode',
     experience: 'Parcours',
     contact: 'Contact',
@@ -26,51 +27,60 @@ export const fr = {
   },
 
   hero: {
+    previewStage: 'Prototype',
+    targetLabel: 'Poste recherché',
+    targetRole: 'Sales Engineering · Solutions Engineering',
+    targetTerms: 'Stage de 3 mois · à partir de février 2027',
+    discipline: 'Engineering × Product × Business',
+    portraitAlt: "Portrait d'Ilyess Assadi.",
+    statusLabel: 'Recherche',
+    nowLabel: 'En ce moment',
+    nowValue:
+      "Apprenti ingénieur méthodes chez Air France Industries, en dernière année à l'ESILV.",
+    stackLabel: 'Terrain',
+    previewLabel: 'atlas — écran today',
+    projectsLabel: 'Produits',
     availabilityLabel: 'Disponibilité',
-    primaryCta: 'Voir la sélection',
+    primaryCta: 'Voir mes projets',
     secondaryCta: 'GitHub',
-    tertiaryCta: 'Me contacter',
+    tertiaryCta: 'LinkedIn',
+    fragmentAlt:
+      "Détail de l'écran Today d'Atlas : une liste d'actions classées par impact, dont un brouillon de réponse marqué comme généré par une machine.",
+    fragmentCaption: 'Atlas — écran Today, détail.',
   },
 
   /* Le libellé de l'épine dorsale ne répète jamais le titre de la section :
      l'un classe, l'autre raconte. */
   sections: {
-    positioning: { number: '01', label: 'Positionnement' },
-    selection: { number: '02', label: 'Travaux' },
-    approach: { number: '03', label: 'Méthode' },
-    experience: { number: '04', label: 'Parcours' },
-    toolbox: { number: '05', label: 'Outils' },
+    intro: { number: '01', label: 'À propos' },
+    selection: { number: '02', label: 'Projets' },
+    experience: { number: '03', label: 'Parcours' },
+    approach: { number: '04', label: 'Méthode' },
+    workshop: { number: '05', label: 'Atelier' },
     contact: { number: '06', label: 'Contact' },
   },
 
-  positioning: {
-    title: 'Engineering × Product × Business',
-    intro:
-      "Ce ne sont pas trois compétences côte à côte, mais trois étapes du même geste : trouver la donnée, en faire une décision, défendre ce qu'elle vaut. Chacune est ancrée sur un projet réel, et c'est la même chaîne à chaque fois.",
-    proofLabel: 'Preuve',
+  intro: {
+    title: 'À propos',
   },
 
   studio: {
-    label: 'Studio',
-    name: 'Nexya Agency',
     description:
-      "Studio produit indépendant, co-fondé en juillet 2025. C'est le cadre dans lequel trois de ces produits ont été conçus, construits et présentés à de vrais interlocuteurs. Trois marchés sans rapport, un même angle mort : la décision quotidienne y est prise à l'aveugle.",
-    futureLabel: 'Produits à venir',
+      "Time2Drive et Resum'EYE ont été conçus, construits et présentés à de vrais interlocuteurs sous Nexya Agency, studio produit co-fondé en juillet 2025.",
   },
 
   selection: {
-    title: 'Projets sélectionnés',
-    intro:
-      "Une auto-école, une collectivité, une équipe RH. Trois métiers qui n'ont rien en commun, sauf ceci : la décision se prend tous les jours, sur une information qui existe déjà mais que personne n'a rendue lisible. Chaque projet est le même geste, appliqué à un terrain différent, et raconté en entier : décisions et limites comprises.",
-    columns: {
-      project: 'Projet',
-      year: 'Année',
-      role: 'Rôle',
-      status: 'Statut',
-    },
+    exitTitle: 'Un de ces problèmes ressemble au vôtre ?',
+    exitCta: 'Parlons-en',
+    title: 'Trois chantiers, un même angle mort.',
     readCase: 'Lire l’étude de cas',
-    noCase: 'Pas d’étude de cas dédiée',
-    otherWork: 'Autres travaux',
+  },
+
+  chapter: {
+    role: 'Rôle',
+    builtWith: 'Construit avec',
+    code: 'Code',
+    ongoing: 'Chantier en cours, pas encore d’étude de cas.',
   },
 
   stage: {
@@ -88,7 +98,7 @@ export const fr = {
   },
 
   caseStudy: {
-    backToSelection: 'Retour à la sélection',
+    backToSelection: 'Retour aux projets',
     overview: 'En bref',
     problem: 'Le problème',
     audience: 'Pour qui',
@@ -111,10 +121,8 @@ export const fr = {
       'Captures produit à venir. Aucune image d’interface n’est publiée tant qu’elle n’est pas une capture réelle du produit.',
   },
 
-  approach: {
-    title: 'Manière de travailler',
-    intro:
-      'Quatre règles qui découlent du reste. Quand on construit l’instrument avec lequel un autre décide, elles ne sont pas des préférences. Chacune se vérifie dans les études de cas ci-dessus.',
+  method: {
+    credoLabel: 'La règle qui tient le reste',
   },
 
   experience: {
@@ -122,23 +130,29 @@ export const fr = {
     intro:
       "C'est en atelier que j'ai vu le problème pour la première fois : une donnée technique disponible, et une décision prise sans elle. Tout ce que je construis depuis vient de là.",
     educationTitle: 'Formation',
+    more: 'Détail',
+    less: 'Replier',
     confidentialityNote:
       'Aucune information confidentielle, donnée interne ou document d’entreprise ne figure sur ce site.',
   },
 
-  toolbox: {
-    title: 'Ce avec quoi je travaille',
+  workshop: {
+    title: 'Aussi en chantier',
     intro:
-      'Les outils dont je me sers réellement, groupés par usage : trouver la donnée, en faire un écran, en défendre la valeur. Sans niveau affiché, parce qu’un pourcentage de compétence ne veut rien dire.',
-    languagesTitle: 'Langues',
+      'Ce qui est réellement en chantier, avec son statut exact. Quand le code est ouvert, le lien est vérifiable ; quand il ne l’est pas, c’est écrit.',
+    thisSite: 'Ce site',
+    livePublic: 'En ligne · Code public',
+    languages: 'Langues',
+    githubCta: 'Voir le profil GitHub',
   },
 
   contact: {
-    title: 'Parlons-en',
+    cta: 'M’écrire',
+    title: 'Construisons quelque chose d’utile.',
     intro:
       'Je cherche le poste où ce travail se fait pour de vrai, chez quelqu’un dont c’est le métier : avant-vente, sales engineering, produit ou développement commercial technique.',
     emailLabel: 'Email',
-    copyEmail: 'Copier l’adresse',
+    copyEmail: 'Copier',
     emailCopied: 'Adresse copiée',
     copyFailed: 'Copie impossible — sélectionnez l’adresse manuellement',
     cvLabel: 'CV',
@@ -146,8 +160,6 @@ export const fr = {
     locationLabel: 'Localisation',
     linkedinLabel: 'LinkedIn',
     githubLabel: 'GitHub',
-    githubNote:
-      'La plupart de mes dépôts récents sont privés. Ce que vous pouvez ouvrir est signalé projet par projet.',
   },
 
   footer: {
@@ -163,6 +175,21 @@ export const fr = {
     title: 'Cette page n’existe pas',
     body: 'Le lien est peut-être ancien, ou l’adresse comporte une erreur. Voici les pages qui existent bien.',
     backHome: 'Retour à l’accueil',
+  },
+
+  proof: {
+    label: 'Sur le terrain',
+    title: 'Deux produits, deux cycles de vente réels.',
+    f1Label: 'Démonstration',
+    f1: 'Resum’EYE présenté en direct devant des décideurs du secteur lors du « Café IA » de Syntec-Ingénierie.',
+    f2Label: 'Cycle B2B',
+    f2: 'Relation de plusieurs mois avec un groupe d’ingénierie français : intégration par API, conformité RGPD, tarification au volume.',
+    f3Label: 'Prospection',
+    f3: 'Campagne d’appels et d’emails auprès d’auto-écoles d’Île-de-France pour Time2Drive.',
+    outcome: 'Aucun contrat signé à ce jour.',
+    lesson:
+      'La première objection d’un acheteur RH n’est pas la performance du modèle, c’est la responsabilité juridique.',
+    lessonSource: 'Resum’EYE — ce que j’en retiens',
   },
 };
 

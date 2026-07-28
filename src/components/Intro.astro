@@ -1,0 +1,62 @@
+---
+import { PROFILE } from '~/data/profile';
+import { getDictionary, type Locale } from '~/lib/i18n';
+
+/**
+ * Introduction.
+ *
+ * Une phrase d'ouverture composée grande, deux paragraphes à côté, et rien
+ * d'autre. La home donne envie, l'étude de cas approfondit.
+ */
+
+interface Props {
+  locale: Locale;
+  headingId: string;
+}
+
+const { locale, headingId } = Astro.props;
+const dict = getDictionary(locale);
+
+const [exergue, ...rest] = PROFILE.about[locale];
+---
+
+<h2 id={headingId} class="visually-hidden">{dict.intro.title}</h2>
+
+<div class="intro">
+  <p class="intro__exergue title-xl" data-reveal>{exergue}</p>
+  <div class="intro__body" data-reveal>{rest.map((paragraph) => <p>{paragraph}</p>)}</div>
+</div>
+
+<style>
+  .intro {
+    display: grid;
+    gap: clamp(1.75rem, 4vw, 3rem);
+  }
+
+  /* L'exergue est court, le corps est long : composés à la même échelle, le
+     bloc de gauche pesait un tiers du droit et laissait cent soixante-seize
+     pixels de vide sous lui. À l'échelle d'un titre, il fait contrepoids. */
+  .intro__exergue {
+    max-width: 12ch;
+    text-wrap: initial;
+  }
+
+  .intro__body {
+    display: grid;
+    gap: var(--space-4);
+    max-width: 54ch;
+    font-size: var(--step-0);
+    line-height: 1.65;
+    color: var(--ink-2);
+  }
+
+  @media (min-width: 62rem) {
+    .intro {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+      column-gap: clamp(3rem, 7vw, 6rem);
+      /* Centrées : la colonne courte ne pend plus sous la longue, le blanc se
+         répartit de part et d'autre au lieu de s'accumuler d'un seul côté. */
+      align-items: center;
+    }
+  }
+</style>

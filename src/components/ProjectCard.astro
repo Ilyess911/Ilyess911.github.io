@@ -1,0 +1,561 @@
+---
+import { getImage, Image } from 'astro:assets';
+
+import type { Project } from '~/data/types';
+import { getProjectImage } from '~/lib/images';
+import { caseStudyPath, getDictionary, type Locale } from '~/lib/i18n';
+import { codeLabel, projectTitle, stageLabel } from '~/lib/project';
+
+/**
+ * Un projet, présenté comme un produit.
+ *
+ * La carte reprend le vocabulaire des deux landing pages : surface blanche,
+ * hairline, rayon, ombre teintée encre, et surtout la capture montée dans un
+ * chrome de fenêtre. Une capture posée à plat est une image ; une capture
+ * encadrée est un logiciel.
+ *
+ * Deux mises en page seulement, pour que le rythme existe sans que la page
+ * devienne un catalogue de compositions :
+ *
+ *   · `wide`  — texte au-dessus, grande scène produit en dessous
+ *   · `split` — texte à gauche, scène produit à droite qui sort du cadre
+ *
+ * `quiet` est le cas des projets sans capture : la carte tient alors sur son
+ * texte et une bande de faits, sans jamais afficher un cadre vide.
+ */
+
+interface Props {
+  locale: Locale;
+  project: Project;
+  layout: 'wide' | 'split' | 'quiet';
+}
+
+const { locale, project, layout } = Astro.props;
+const dict = getDictionary(locale);
+
+const plates = (project.covers ?? []).map((image) => {
+  const asset = getProjectImage(image.key);
+  if (!asset) {
+    throw new Error(`ProjectCard : visuel « ${image.key} » absent de src/lib/images.ts.`);
+  }
+  return { image, asset };
+});
+
+const [primary, ...rest] = plates;
+
+/* Art direction mobile : quand un recadrage dédié existe, il est servi sous
+   46rem via <picture>. C'est le seul moyen de changer d'image et non de taille. */
+const mobileAsset = primary?.image.mobileKey ? getProjectImage(primary.image.mobileKey) : undefined;
+if (primary?.image.mobileKey && !mobileAsset) {
+  throw new Error(`ProjectCard : recadrage « ${primary.image.mobileKey} » absent du registre.`);
+}
+const mobileSet = mobileAsset
+  ? (
+      await Promise.all(
+        [420, 640, 900].map(async (w) => {
+          const img = await getImage({ src: mobileAsset, width: w, format: 'webp', quality: 84 });
+          return `${img.src} ${w}w`;
+        }),
+      )
+    ).join(', ')
+  : undefined;
+const hasCase = project.caseStudy !== undefined;
+const href = hasCase ? caseStudyPath(locale, project.slug) : undefined;
+
+/* La première phrase pose le problème, la suite l'explique. Composer les deux
+   à la même échelle produit un pavé ; les séparer produit une hiérarchie. */
+const positioning = project.positioning[locale];
+const splitAt = positioning.indexOf('. ');
+const lede = splitAt === -1 ? positioning : positioning.slice(0, splitAt + 1);
+const gloss = splitAt === -1 ? '' : positioning.slice(splitAt + 2);
+
+const chrome = `${project.slug} — ${project.stack.slice(0, 3).join(' · ').toLowerCase()}`;
+---
+
+<article class:list={['pc', `pc--${layout}`, 'card', 'card--lift']} data-reveal-plate>
+  <div class="pc__text">
+    <header class="pc__head">
+      <p class="eyebrow pc__kicker num">{project.year}</p>
+      <h3 class="pc__title title-lg">
+        {
+          href ? (
+            <a class="pc__anchor" href={href}>
+              {projectTitle(project, locale)}
+            </a>
+          ) : (
+            projectTitle(project, locale)
+          )
+        }
+      </h3>
+      <p class="pc__lede">{lede}</p>
+      {layout !== 'quiet' && gloss && <p class="pc__gloss">{gloss}</p>}
+    </header>
+
+    {layout === 'quiet' && gloss && <p class="pc__gloss">{gloss}</p>}
+
+    {
+      /* Sans capture, c'est le déroulé commercial qui tient la carte. Il montre
+        ce qu'aucune interface ne montre : le produit est allé jusqu'à un
+        acheteur, et il s'est heurté à ses objections. */
+    }
+    {
+      project.arc && (
+        <ol class="pc__arc">
+          {project.arc.map((step) => (
+            <li class="pc__step">
+              <p class="eyebrow pc__step-label">{step.label[locale]}</p>
+              <p class="pc__step-body">{step.body[locale]}</p>
+            </li>
+          ))}
+        </ol>
+      )
+    }
+
+    <footer class="pc__foot">
+      <p class="pc__role">{project.roleLabel[locale]}</p>
+
+      <ul class="pc__tags">
+        {project.stack.map((item) => <li class="tag">{item}</li>)}
+      </ul>
+      <p class="pc__state eyebrow">
+        <span>{stageLabel(project, locale)}</span>
+        <span class="pc__sep" aria-hidden="true">/</span>
+        <span>{codeLabel(project, locale)}</span>
+      </p>
+
+      {project.credit && <p class="pc__credit">{project.credit[locale]}</p>}
+      {
+        href && (
+          <a class="pc__cta" href={href}>
+            <span>{dict.selection.readCase}</span>
+            <span class="pc__cta-arrow" aria-hidden="true">
+              →
+            </span>
+          </a>
+        )
+      }
+      {!href && <p class="pc__ongoing">{dict.chapter.ongoing}</p>}
+    </footer>
+  </div>
+
+  {
+    primary && (
+      <div class="pc__stage">
+        <figure class="frame pc__window">
+          <figcaption class="frame__bar">
+            <span class="frame__dots" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </span>
+            <span class="frame__label">{chrome}</span>
+          </figcaption>
+          <picture class="frame__body pc__shot">
+            {mobileSet && <source media="(max-width: 46rem)" srcset={mobileSet} sizes="94vw" />}
+            <Image
+              src={primary.asset}
+              alt={primary.image.alt[locale]}
+              widths={[640, 1000, 1440, 1920]}
+              sizes={
+                layout === 'wide'
+                  ? '(min-width: 64rem) 60rem, 94vw'
+                  : '(min-width: 64rem) 34rem, 94vw'
+              }
+              loading="lazy"
+              decoding="async"
+              quality={84}
+            />
+          </picture>
+        </figure>
+
+        {rest.length > 0 && (
+          <div class="pc__aside">
+            {rest.map(({ image, asset }) => (
+              <figure class="pc__thumb">
+                <Image
+                  src={asset}
+                  alt={image.alt[locale]}
+                  widths={[360, 560, 900]}
+                  sizes="(min-width: 64rem) 22rem, 46vw"
+                  loading="lazy"
+                  decoding="async"
+                  quality={82}
+                />
+              </figure>
+            ))}
+          </div>
+        )}
+      </div>
+    )
+  }
+</article>
+
+<style>
+  .pc {
+    overflow: hidden;
+    border-radius: var(--r-xl);
+  }
+
+  /* Mobile : la scène produit passe avant le texte. Trois paragraphes avant la
+     première image, c'est demander à quelqu'un debout dans le métro de lire
+     avant de comprendre pourquoi il lirait. */
+  @media (max-width: 63.99rem) {
+    .pc {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pc__stage {
+      order: -1;
+    }
+
+    .pc--wide .pc__stage {
+      padding-top: clamp(1.25rem, 4vw, 2rem);
+      padding-bottom: clamp(1.25rem, 4vw, 2rem);
+      border-top: 0;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(to bottom, var(--canvas-sunk), var(--surface));
+    }
+
+    .pc--wide .pc__window {
+      margin-bottom: 0;
+      box-shadow: var(--shadow-md);
+    }
+
+    .pc--split .pc__stage {
+      padding: clamp(1.25rem, 4vw, 2rem);
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(to bottom, var(--canvas-sunk), var(--surface));
+    }
+
+    .pc__shot {
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+  }
+
+  .pc__text {
+    padding: clamp(1.5rem, 4vw, 2.75rem);
+  }
+
+  /* ── Tête ─────────────────────────────────────────────────────────── */
+
+  .pc__kicker {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5em;
+  }
+
+  .pc__sep {
+    color: var(--line-strong);
+  }
+
+  .pc__title {
+    margin-top: var(--space-4);
+  }
+
+  .pc__anchor::after {
+    /* Toute la carte est cliquable, mais seul le titre porte le lien : une
+       ancre étirée garde le clic accessible sans imbriquer d'interactifs. */
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .pc__lede {
+    max-width: 34ch;
+    margin-top: var(--space-4);
+    font-size: var(--step-2);
+    line-height: 1.4;
+    letter-spacing: -0.016em;
+    color: var(--ink);
+  }
+
+  .pc__gloss {
+    max-width: 46ch;
+    margin-top: var(--space-4);
+    font-size: var(--step--1);
+    line-height: 1.6;
+    color: var(--ink-3);
+  }
+
+  /* ── Pied ─────────────────────────────────────────────────────────── */
+
+  .pc__foot {
+    margin-top: clamp(1.5rem, 3vw, 2.25rem);
+  }
+
+  /* Le rôle est une information de fond : corps courant, pas de capitales. */
+  .pc__role {
+    max-width: 42ch;
+    margin-bottom: var(--space-4);
+    font-size: var(--step--1);
+    line-height: 1.5;
+    color: var(--ink-2);
+  }
+
+  .pc__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+
+  .tag {
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--line);
+    border-radius: var(--r-sm);
+    background: var(--canvas-sunk);
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    line-height: 1.4;
+    color: var(--ink-3);
+  }
+
+  .pc__state {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    margin-top: var(--space-4);
+  }
+
+  .pc__credit {
+    max-width: 46ch;
+    margin-top: var(--space-3);
+    font-size: var(--step--2);
+    line-height: 1.55;
+    color: var(--ink-4);
+  }
+
+  .pc__cta {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    margin-top: var(--space-5);
+    font-size: var(--step--1);
+    font-weight: 550;
+    color: var(--accent);
+  }
+
+  .pc__cta-arrow {
+    transition: transform var(--dur-move) var(--ease-out);
+  }
+
+  .pc__ongoing {
+    margin-top: var(--space-5);
+    font-size: var(--step--1);
+    color: var(--ink-4);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .pc:hover .pc__cta-arrow {
+      transform: translateX(4px);
+    }
+  }
+
+  /* ── Scène produit ────────────────────────────────────────────────── */
+
+  .pc__stage {
+    position: relative;
+  }
+
+  .pc__window {
+    border-radius: var(--r-md);
+  }
+
+  .pc__shot {
+    /* Le pied de la capture s'efface : l'écran continue au-delà du cadre. */
+    -webkit-mask-image: linear-gradient(to bottom, #000 88%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 88%, transparent 100%);
+  }
+
+  .pc__aside {
+    display: none;
+  }
+
+  .pc__thumb {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* ── Variante « wide » : la scène occupe toute la largeur ─────────── */
+
+  /* La scène est posée sur un fond légèrement plus froid et coupée en bas
+     par le pied de la carte : le produit sort de la page, il n'y est pas
+     rangé. Aucune marge latérale — la capture va d'un bord à l'autre de la
+     carte, c'est ce qui en fait la masse principale du chapitre. */
+  .pc--wide .pc__stage {
+    padding-top: clamp(1rem, 2.5vw, 2rem);
+    background: linear-gradient(to bottom, var(--surface), var(--canvas-sunk));
+    border-top: 1px solid var(--line);
+  }
+
+  .pc--wide .pc__window {
+    /* L'écran plonge sous le bord de la carte, mais son pied est déjà effacé
+       par le masque : on voit une interface qui continue, pas une image
+       tranchée. */
+    margin-bottom: calc(-1 * clamp(1rem, 3vw, 2.25rem));
+    margin-inline: clamp(1rem, 3vw, 2.25rem);
+    border-radius: var(--r-lg) var(--r-lg) 0 0;
+    box-shadow: var(--shadow-xl);
+  }
+
+  .pc--wide .pc__shot {
+    -webkit-mask-image: linear-gradient(to bottom, #000 74%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 74%, transparent 100%);
+  }
+
+  /* ── Le déroulé commercial ────────────────────────────────────────── */
+
+  .pc__arc {
+    display: grid;
+    gap: 1px;
+    margin-top: clamp(1.75rem, 4vw, 2.5rem);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    overflow: hidden;
+    background: var(--line);
+  }
+
+  .pc__step {
+    padding: var(--space-4) var(--space-5);
+    background: var(--surface-2);
+  }
+
+  .pc__step-label {
+    color: var(--accent);
+  }
+
+  .pc__step-body {
+    margin-top: var(--space-2);
+    font-size: var(--step--1);
+    line-height: 1.5;
+    color: var(--ink-2);
+  }
+
+  /* ── Variante « quiet » : aucune capture ──────────────────────────── */
+
+  /* Sans capture, c'est la phrase qui tient la carte. Elle passe donc à
+     l'échelle du titre — et le titre du produit redescend d'un cran pour que
+     les deux ne se confondent pas. */
+  .pc--quiet .pc__title {
+    font-size: var(--step-2);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--ink-3);
+  }
+
+  .pc--quiet .pc__lede {
+    max-width: 26ch;
+    margin-top: var(--space-3);
+    font-size: var(--step-4);
+    font-weight: 650;
+    line-height: 1.08;
+    letter-spacing: -0.032em;
+  }
+
+  .pc--quiet .pc__gloss {
+    max-width: 42ch;
+  }
+
+  @media (min-width: 64rem) {
+    /* Une carte sans capture reste en colonne unique : une grille à deux
+       colonnes y creuse un vide que rien ne vient remplir. Le pied redevient
+       une barre horizontale, tags à gauche, lien à droite. */
+    .pc--quiet .pc__text {
+      padding-block: clamp(2.25rem, 4vw, 3.25rem);
+    }
+
+    .pc--quiet .pc__gloss {
+      max-width: 52ch;
+      margin-top: var(--space-5);
+      font-size: var(--step-0);
+      color: var(--ink-2);
+    }
+
+    .pc__arc {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      align-items: stretch;
+    }
+
+    .pc--quiet .pc__foot {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      column-gap: var(--space-6);
+      margin-top: clamp(1.75rem, 3vw, 2.5rem);
+      padding-top: var(--space-5);
+      border-top: 1px solid var(--line);
+    }
+
+    .pc--quiet .pc__state {
+      margin-top: var(--space-3);
+    }
+
+    .pc--quiet .pc__cta {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      margin-top: 0;
+      justify-self: end;
+    }
+
+    /* ── Variante « split » : texte à gauche, écran à droite ─────────── */
+
+    /* Atlas : l'interface domine, le texte est une annotation. À 0,86 / 1,14
+       les deux se disputaient la carte ; à 0,68 / 1,32 la hiérarchie est
+       lisible d'un coup d'œil. */
+    .pc--split {
+      display: grid;
+      grid-template-columns: minmax(0, 0.68fr) minmax(0, 1.32fr);
+      align-items: center;
+      column-gap: clamp(2rem, 4vw, 3.5rem);
+    }
+
+    .pc--split .pc__stage {
+      padding-block: clamp(1.5rem, 3vw, 2.25rem);
+      /* L'écran sort par la droite de la carte : le produit est plus grand
+         que le cadre qui le présente. */
+      margin-right: calc(-1 * clamp(2rem, 6vw, 5rem));
+    }
+
+    .pc--split .pc__window {
+      box-shadow: var(--shadow-lg);
+      transform: perspective(2200px) rotateY(-1.6deg);
+      transform-origin: left center;
+      transition: transform var(--dur-enter) var(--ease-out);
+    }
+
+    .pc--split .pc__aside {
+      display: block;
+      position: absolute;
+      right: clamp(2rem, 6vw, 5rem);
+      bottom: clamp(0.5rem, 2vw, 1.25rem);
+      width: 42%;
+      max-width: 18rem;
+    }
+
+    .pc--wide .pc__text {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      column-gap: clamp(2.5rem, 6vw, 5rem);
+      align-items: end;
+      padding-bottom: clamp(1.75rem, 3vw, 2.5rem);
+    }
+
+    .pc--wide .pc__foot {
+      margin-top: 0;
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) and (min-width: 64rem) {
+    .pc--split:hover .pc__window {
+      transform: perspective(2200px) rotateY(-0.7deg) translateY(-4px);
+    }
+  }
+</style>

@@ -16,3 +16,13 @@ screenshots/
 .DS_Store
 .vscode/
 .idea/
+
+# Outillage d'agents installé localement (skills tiers) : utile en développement,
+# sans rapport avec le produit. Ne doit pas polluer le dépôt.
+.agents/
+.claude/
+skills-lock.json
+
+# Photos sources déposées à la racine pour arbitrage. La photo retenue est
+# versionnée dans `src/assets/portrait-mono.jpg` ; les originaux restent locaux.
+photos/

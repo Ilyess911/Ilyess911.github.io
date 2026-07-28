@@ -1,34 +1,31 @@
 ---
 interface Props {
   id?: string;
-  number: string;
-  label: string;
-  /** Fond légèrement enfoncé, pour rythmer la page sans introduire de cartes. */
+  /** Annotation discrète en tête de section. Facultative : une section peut n'en avoir aucune. */
+  label?: string;
+  /** Fond légèrement enfoncé, pour changer de registre sans ajouter de filet. */
   sunk?: boolean;
+  /** Filet de séparation. Réservé aux ruptures qui le méritent vraiment. */
+  rule?: boolean;
   labelledBy?: string;
 }
 
-const { id, number, label, sunk = false, labelledBy } = Astro.props;
+const { id, label, sunk = false, rule = false, labelledBy } = Astro.props;
 ---
 
-<section id={id} class:list={['section', sunk && 'section--sunk']} aria-labelledby={labelledBy}>
-  <div class="wrap section-grid">
-    <p class="section-marker">
-      <span class="section-marker__num num">{number}</span>
-      <span>{label}</span>
-    </p>
-    <div class="section-body">
-      <slot />
-    </div>
+<section
+  id={id}
+  class:list={['section', sunk && 'section--sunk', rule && 'section--rule']}
+  aria-labelledby={labelledBy}
+>
+  <div class="wrap">
+    {label && <p class="eyebrow section__label">{label}</p>}
+    <slot />
   </div>
 </section>
 
 <style>
-  .section--sunk {
-    background: var(--paper-sunk);
-  }
-
-  .section-body {
-    min-width: 0;
+  .section__label {
+    margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
   }
 </style>

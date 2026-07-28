@@ -21,11 +21,11 @@ const buildDate = new Date().toISOString().slice(0, 10);
       <div class="site-footer__identity">
         <p class="site-footer__name">{PROFILE.name}</p>
         <p class="site-footer__role">{PROFILE.role[locale]}</p>
-        <p class="site-footer__location meta">{CONTACT.location[locale]}</p>
+        <p class="site-footer__location eyebrow">{CONTACT.location[locale]}</p>
       </div>
 
       <nav class="site-footer__col" aria-label={dict.selection.title}>
-        <h2 class="site-footer__heading meta">{dict.selection.title}</h2>
+        <h2 class="site-footer__heading eyebrow">{dict.selection.title}</h2>
         <ul>
           {
             CASE_STUDY_PROJECTS.map((p) => (
@@ -43,7 +43,7 @@ const buildDate = new Date().toISOString().slice(0, 10);
       </nav>
 
       <nav class="site-footer__col" aria-label={dict.contact.title}>
-        <h2 class="site-footer__heading meta">{dict.contact.title}</h2>
+        <h2 class="site-footer__heading eyebrow">{dict.contact.title}</h2>
         <ul>
           <li>
             <a class="site-footer__link" href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
@@ -78,7 +78,7 @@ const buildDate = new Date().toISOString().slice(0, 10);
           target="_blank">{dict.footer.sourceCode}</a
         >.
       </p>
-      <p class="site-footer__legal meta">
+      <p class="site-footer__legal eyebrow">
         <span>© {year} {PROFILE.name}. {dict.footer.rights}</span>
         <span class="num">{dict.footer.lastUpdated} {buildDate}</span>
       </p>
@@ -88,9 +88,9 @@ const buildDate = new Date().toISOString().slice(0, 10);
 
 <style>
   .site-footer {
-    border-top: 1px solid var(--rule);
+    border-top: 1px solid var(--line);
     padding-block: var(--space-8) var(--space-6);
-    background: var(--paper-sunk);
+    background: var(--canvas-sunk);
   }
 
   .site-footer__grid {
@@ -135,8 +135,8 @@ const buildDate = new Date().toISOString().slice(0, 10);
     text-decoration-color: transparent;
     text-underline-offset: 0.22em;
     transition:
-      color var(--dur) var(--ease),
-      text-decoration-color var(--dur) var(--ease);
+      color var(--dur-hover) var(--ease-out),
+      text-decoration-color var(--dur-hover) var(--ease-out);
   }
 
   .site-footer__link:hover {
@@ -147,7 +147,7 @@ const buildDate = new Date().toISOString().slice(0, 10);
   .site-footer__base {
     margin-top: var(--space-8);
     padding-top: var(--space-5);
-    border-top: 1px solid var(--rule);
+    border-top: 1px solid var(--line);
     display: grid;
     gap: var(--space-4);
   }

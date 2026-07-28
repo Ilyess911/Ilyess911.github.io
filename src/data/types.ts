@@ -29,6 +29,12 @@ export interface ProjectLink {
 
 export interface ProjectImage {
   /**
+   * Recadrage servi sous 46rem. Une capture d'interface entière réduite à la
+   * largeur d'un téléphone n'est plus lisible : on montre alors un détail qui
+   * porte la même idée, pas la même image en plus petit.
+   */
+  readonly mobileKey?: string;
+  /**
    * Clé du registre `src/lib/images.ts`. Les dimensions sont dérivées du fichier
    * par Astro : impossible de déclarer une taille erronée, donc pas de saut de mise en page.
    */
@@ -72,12 +78,39 @@ export interface Project {
   readonly year: string;
   readonly stage: ProjectStage;
   readonly roleLabel: I18n;
+  /**
+   * Ce qui n'est pas de moi, dit sur la carte et non seulement dans l'étude de
+   * cas. Une capture impressionnante sans mention de la collaboration laisse
+   * croire à une contribution que je n'ai pas eue.
+   */
+  readonly credit?: I18n;
   readonly stack: readonly string[];
   readonly codeVisibility: CodeVisibility;
   readonly repo?: string;
   readonly links: readonly ProjectLink[];
+  /**
+   * Visuels du chapitre sur la page d'accueil, dans l'ordre de lecture.
+   * Facultatif : un projet sans capture réelle reçoit une composition
+   * typographique, jamais une image inventée.
+   *
+   * Le premier visuel porte le chapitre ; le second, quand il existe, est
+   * composé plus petit et décalé, en contrepoint du premier.
+   */
+  readonly covers?: readonly ProjectImage[];
+  /**
+   * Déroulé commercial, affiché sur la carte d'accueil quand le projet n'a pas
+   * de capture à montrer. Chaque étape est un fait vérifiable de l'étude de
+   * cas, jamais une reformulation valorisante.
+   */
+  readonly arc?: readonly { readonly label: I18n; readonly body: I18n }[];
   /** Mis en avant dans la sélection principale. */
   readonly featured: boolean;
+  /**
+   * Hors périmètre : le projet reste décrit dans ce fichier mais n'est rendu
+   * nulle part (ni accueil, ni pied de page, ni page dédiée, ni sitemap).
+   * Repasser à `false` suffit à le réintégrer intégralement.
+   */
+  readonly hidden?: boolean;
   /** Une étude de cas complète existe (page dédiée). */
   readonly caseStudy?: CaseStudy;
   /** Rattachement au studio. */

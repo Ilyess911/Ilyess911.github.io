@@ -1,7 +1,18 @@
 ---
+import { Image } from 'astro:assets';
+
+import portrait from '~/assets/portrait-mono.jpg';
 import { CONTACT, CV, withBase } from '~/config/site';
-import { PROFILE } from '~/data/profile';
+import { LANGUAGES, PROFILE } from '~/data/profile';
 import { getDictionary, type Locale } from '~/lib/i18n';
+
+/**
+ * Contact réduit à l'essentiel.
+ *
+ * Le texte personnel a rejoint l'introduction, en haut de page : ici il ne reste
+ * qu'une grande phrase et de quoi écrire. Une page de contact qui explique encore
+ * qui vous êtes arrive trop tard.
+ */
 
 interface Props {
   locale: Locale;
@@ -12,16 +23,30 @@ const { locale, headingId } = Astro.props;
 const dict = getDictionary(locale);
 ---
 
-<h2 id={headingId} class="section-title contact__title">{dict.contact.title}</h2>
-<p class="section-intro">{dict.contact.intro}</p>
+{
+  /* Le portrait n'apparaît qu'ici en grand : au moment où l'on décide
+    d'écrire, on voit à qui. Ailleurs il resterait décoratif. */
+}
+<div class="contact">
+  <div class="closing">
+    <Image
+      class="closing__portrait"
+      src={portrait}
+      alt={dict.hero.portraitAlt}
+      widths={[180, 280, 440]}
+      sizes="(min-width: 46rem) 148px, 104px"
+      loading="lazy"
+      decoding="async"
+      quality={86}
+    />
+    <h2 id={headingId} class="closing__title title-xl">{dict.contact.title}</h2>
+  </div>
 
-<p class="contact__about prose">{PROFILE.about[locale]}</p>
+  <div class="reach">
+    <p class="reach__intro">{dict.contact.intro}</p>
 
-<dl class="contact__list">
-  <div class="contact__row">
-    <dt class="meta">{dict.contact.emailLabel}</dt>
-    <dd class="contact__email-row">
-      <a class="contact__value link" href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+    <p class="reach__mail">
+      <a class="reach__mail-link" href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
       <button
         class="copy"
         type="button"
@@ -31,128 +56,209 @@ const dict = getDictionary(locale);
       >
         <span class="copy__label">{dict.contact.copyEmail}</span>
       </button>
-    </dd>
-  </div>
+    </p>
 
-  <div class="contact__row">
-    <dt class="meta">{dict.contact.linkedinLabel}</dt>
-    <dd>
-      <a
-        class="contact__value link"
-        href={CONTACT.linkedin}
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        linkedin.com/in/ilyess-assadi
-      </a>
-    </dd>
-  </div>
+    <ul class="reach__links">
+      <li>
+        <a class="btn btn--primary" href={`mailto:${CONTACT.email}`}>
+          <span>{dict.contact.cta}</span>
+          <span class="btn__arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+      <li>
+        <a class="btn" href={CONTACT.linkedin} rel="noopener noreferrer" target="_blank">
+          {dict.contact.linkedinLabel}
+          <span aria-hidden="true">↗</span>
+        </a>
+      </li>
+      <li>
+        <a class="btn" href={CONTACT.github} rel="noopener noreferrer" target="_blank">
+          {dict.contact.githubLabel}
+          <span aria-hidden="true">↗</span>
+        </a>
+      </li>
+      {
+        CV && (
+          <li>
+            <a class="reach__link" href={withBase(CV[locale])} download>
+              {dict.contact.cvDownload}
+            </a>
+          </li>
+        )
+      }
+    </ul>
 
-  <div class="contact__row">
-    <dt class="meta">{dict.contact.githubLabel}</dt>
-    <dd>
-      <a
-        class="contact__value link"
-        href={CONTACT.github}
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        github.com/Ilyess911
-      </a>
-      <p class="contact__note">{dict.contact.githubNote}</p>
-    </dd>
-  </div>
-
-  <div class="contact__row">
-    <dt class="meta">{dict.contact.locationLabel}</dt>
-    <dd><span class="contact__value">{CONTACT.location[locale]}</span></dd>
-  </div>
-
-  <div class="contact__row">
-    <dt class="meta">{dict.hero.availabilityLabel}</dt>
-    <dd><span class="contact__value">{PROFILE.availability[locale]}</span></dd>
-  </div>
-
-  {
-    /* Affiché uniquement si un CV est réellement déposé : voir CV dans src/config/site.ts. */
-    CV && (
-      <div class="contact__row">
-        <dt class="meta">{dict.contact.cvLabel}</dt>
-        <dd>
-          <a class="contact__value link" href={withBase(CV[locale])} download>
-            {dict.contact.cvDownload}
-          </a>
-        </dd>
+    {
+      /* Trois niveaux, pas trois blocs identiques : la disponibilité est ce
+        qu'un recruteur lit vraiment, la localisation situe, les langues sont
+        une note. Leur poids visuel suit cet ordre. */
+    }
+    <dl class="reach__facts">
+      <div class="fact fact--lead">
+        <dt class="eyebrow">{dict.hero.availabilityLabel}</dt>
+        <dd>{PROFILE.availability[locale]}</dd>
       </div>
-    )
-  }
-</dl>
+      <div class="fact fact--minor">
+        <dt class="eyebrow">{dict.contact.locationLabel}</dt>
+        <dd>{CONTACT.location[locale]}</dd>
+      </div>
+      <div class="fact fact--note">
+        <dt class="eyebrow">{dict.workshop.languages}</dt>
+        <dd>{LANGUAGES.map((l) => `${l.label[locale]} (${l.level[locale]})`).join(' · ')}</dd>
+      </div>
+    </dl>
+  </div>
+</div>
 
 <p class="copy-status visually-hidden" role="status" aria-live="polite"></p>
 
 <style>
-  .contact__title {
-    font-size: var(--step-4);
-    max-width: 14ch;
+  /* La section n'essaie plus de remplir la largeur avec un seul bloc étalé :
+     elle est faite de deux colonnes qui vont chacune jusqu'au bord. Le vide
+     de droite disparaît parce qu'il y a une colonne de droite, pas parce
+     qu'on a rétréci le conteneur. */
+  .contact {
+    display: grid;
+    gap: clamp(2.5rem, 6vw, 4rem);
   }
 
-  .contact__about {
-    margin-top: var(--space-6);
+  /* La colonne de gauche est une signature : le visage et la phrase, rien
+     d'autre. Un seul bord droit, une seule masse. Le paragraphe est parti
+     ouvrir la colonne de droite, où il mène à l'action au lieu de creuser
+     un coin vide sous le titre. */
+  .closing {
+    display: grid;
+    justify-items: start;
+  }
+
+  .closing__portrait {
+    width: 6.5rem;
+    height: 6.5rem;
+    border-radius: var(--r-lg);
+    object-fit: cover;
+    border: 1px solid var(--line-strong);
+    box-shadow: var(--shadow-md);
+  }
+
+  /* Resserré : la photo et le titre sont une seule unité d'identité. À
+     intervalle égal avec le reste, les trois éléments se lisaient comme une
+     liste plutôt que comme un bloc. */
+  .closing__title {
+    max-width: 11ch;
+    margin-top: clamp(0.875rem, 1.6vw, 1.25rem);
+    text-wrap: initial;
+  }
+
+  /* Premier niveau de la colonne de droite : c'est la phrase qui explique
+     pourquoi écrire, elle doit précéder l'adresse. */
+  .reach__intro {
+    max-width: 40ch;
+    margin-bottom: clamp(2rem, 4vw, 2.75rem);
+    font-size: var(--step-1);
+    line-height: 1.55;
     color: var(--ink-2);
   }
 
-  .contact__list {
-    margin-top: clamp(2.5rem, 6vw, 3.5rem);
-    border-top: 1px solid var(--rule);
-  }
-
-  .contact__row {
-    display: grid;
-    gap: var(--space-2);
-    padding-block: var(--space-5);
-    border-bottom: 1px solid var(--rule);
-  }
-
-  .contact__row dd {
-    margin: 0;
-  }
-
-  .contact__value {
-    font-size: var(--step-1);
-    color: var(--ink);
-    letter-spacing: -0.012em;
-  }
-
-  .contact__email-row {
+  .reach__mail {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: var(--space-4);
   }
 
-  .contact__note {
-    max-width: 48ch;
+  .reach__mail-link {
+    font-size: var(--step-2);
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    padding-bottom: 0.1em;
+    border-bottom: 1px solid var(--line-strong);
+    transition:
+      color var(--dur-hover) var(--ease-out),
+      border-color var(--dur-hover) var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .reach__mail-link:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+  }
+
+  .reach__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-5);
+  }
+
+  .reach__link {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.4em;
+    font-size: var(--step-1);
+    color: var(--ink);
+    transition: color var(--dur-hover) var(--ease-out);
+  }
+
+  .reach__link span {
+    font-size: 0.7em;
+    color: var(--line-strong);
+    transition: color var(--dur-hover) var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .reach__link:hover,
+    .reach__link:hover span {
+      color: var(--accent);
+    }
+  }
+
+  .reach__facts {
+    display: grid;
+    gap: var(--space-5);
+    margin-top: clamp(2rem, 4vw, 2.5rem);
+    padding-top: clamp(1.5rem, 3vw, 2rem);
+    border-top: 1px solid var(--line);
+  }
+
+  .reach__facts dd {
+    max-width: 38ch;
+    margin: 0;
     margin-top: var(--space-2);
     font-size: var(--step--1);
+    color: var(--ink-2);
+  }
+
+  /* Disponibilité : le fait qu'on lit. Corps du texte courant, encre pleine. */
+  .fact--lead dd {
+    font-size: var(--step-0);
+    line-height: 1.55;
+    color: var(--ink);
+  }
+
+  /* Localisation et langues : la note de bas de bloc. */
+  .fact--note dd {
+    font-size: var(--step--2);
+    line-height: 1.6;
     color: var(--ink-3);
   }
 
   .copy {
     padding: 0.3rem 0.6rem;
-    border: 1px solid var(--rule);
-    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
     font-family: var(--font-mono);
     font-size: var(--step--2);
     letter-spacing: 0.04em;
     color: var(--ink-3);
     transition:
-      color var(--dur) var(--ease),
-      border-color var(--dur) var(--ease);
+      color var(--dur-hover) ease,
+      border-color var(--dur-hover) ease,
+      transform var(--dur-press) var(--ease-out);
   }
 
-  .copy:hover {
-    color: var(--accent);
-    border-color: var(--accent);
+  .copy:active {
+    transform: scale(0.96);
   }
 
   .copy[data-state='copied'] {
@@ -160,18 +266,87 @@ const dict = getDictionary(locale);
     border-color: var(--accent);
   }
 
+  @media (hover: hover) and (pointer: fine) {
+    .copy:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+  }
+
+  /* Le libellé se floute très légèrement pendant la bascule : sans cela on
+     voit deux textes se croiser, ce qui trahit le changement. */
+  .copy__label {
+    display: inline-block;
+    transition:
+      filter var(--dur-press) ease,
+      opacity var(--dur-press) ease;
+  }
+
+  .copy[data-swapping] .copy__label {
+    filter: blur(2px);
+    opacity: 0.55;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .copy__label {
+      transition: none;
+    }
+
+    .copy[data-swapping] .copy__label {
+      filter: none;
+      opacity: 1;
+    }
+  }
+
   @media (min-width: 46rem) {
-    .contact__row {
-      grid-template-columns: 13rem minmax(0, 1fr);
-      gap: var(--space-5);
-      align-items: baseline;
+    .closing__portrait {
+      width: 8.5rem;
+      height: 8.5rem;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    /* Asymétrie franche : à 0,92 / 1 l'œil lisait deux colonnes presque
+       égales, donc une grille par défaut. À 0,72 / 1 il lit une décision. */
+    .contact {
+      grid-template-columns: minmax(0, 0.72fr) minmax(0, 1fr);
+      column-gap: clamp(3rem, 6vw, 5rem);
+      /* La signature est plus courte que le parcours de conversion : calée en
+         haut, elle laissait cent soixante pixels de vide sous elle et la
+         colonne paraissait s'être arrêtée en route. Centrée, le blanc se
+         répartit de part et d'autre et les deux blocs se lisent comme une
+         paire. */
+      align-items: center;
+    }
+
+    .closing__portrait {
+      width: 9.25rem;
+      height: 9.25rem;
+    }
+
+    .reach__facts {
+      row-gap: clamp(1.5rem, 2.5vw, 2rem);
+    }
+
+    /* Localisation et langues se partagent une ligne : la disponibilité
+       reste seule sur la sienne, ce qui la désigne sans la grossir. */
+    .reach__facts {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: clamp(2rem, 4vw, 3rem);
+    }
+
+    .fact--lead {
+      grid-column: 1 / -1;
+    }
+
+    .fact--lead dd {
+      max-width: 44ch;
     }
   }
 </style>
 
 <script>
-  /* Copie de l'adresse email. Le bouton n'est actif que si l'API est disponible :
-     à défaut, le lien mailto reste la voie normale. */
+  /* Copie de l'adresse. Le lien mailto reste la voie normale si l'API échoue. */
   const status = document.querySelector<HTMLElement>('.copy-status');
 
   document.querySelectorAll<HTMLButtonElement>('[data-copy-email]').forEach((button) => {
@@ -184,6 +359,10 @@ const dict = getDictionary(locale);
       const failed = button.dataset.failedLabel ?? 'Copy failed';
       if (!email || !label) return;
 
+      /* Flou bref avant l'échange du libellé, puis retour net. */
+      button.dataset.swapping = '';
+      await new Promise((r) => window.setTimeout(r, 120));
+
       try {
         await navigator.clipboard.writeText(email);
         label.textContent = copied;
@@ -193,6 +372,8 @@ const dict = getDictionary(locale);
         label.textContent = failed;
         if (status) status.textContent = failed;
       }
+
+      delete button.dataset.swapping;
 
       window.setTimeout(() => {
         label.textContent = initial;

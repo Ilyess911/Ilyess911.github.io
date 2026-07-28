@@ -1,8 +1,22 @@
 ---
+import { Image } from 'astro:assets';
+
+import portrait from '~/assets/portrait-mono.jpg';
 import { PROFILE } from '~/data/profile';
-import { EXPERIENCE } from '~/data/experience';
 import { CONTACT } from '~/config/site';
+import { getProjectImage } from '~/lib/images';
 import { ANCHORS, getDictionary, type Locale } from '~/lib/i18n';
+
+/**
+ * Hero.
+ *
+ * Composition asymétrique : à gauche l'identité traitée comme un en-tête de
+ * produit (portrait, nom, discipline, statut), à droite une vraie surface
+ * logicielle encadrée dans un chrome de fenêtre.
+ *
+ * C'est le geste central des deux landing pages : le premier écran ne décrit
+ * pas le produit, il le montre. Ici le « produit » est le travail lui-même.
+ */
 
 interface Props {
   locale: Locale;
@@ -11,211 +25,317 @@ interface Props {
 const { locale } = Astro.props;
 const dict = getDictionary(locale);
 
-/* Bandeau d'affiliations : du texte, jamais de logos, jamais de défilement infini. */
-const affiliations = [
-  {
-    org: 'Air France Industries',
-    detail: locale === 'fr' ? 'Alternance depuis 2024' : 'Apprenticeship since 2024',
-  },
-  {
-    org: 'ESILV',
-    detail: locale === 'fr' ? 'Industrie 4.0 et Robotique' : 'Industry 4.0 and Robotics',
-  },
-  {
-    org: 'Nexya Agency',
-    detail:
-      locale === 'fr' ? 'Studio produit, co-fondé en 2025' : 'Product studio, co-founded 2025',
-  },
-] as const;
-
-/* Vérifie que le bandeau reste aligné sur les expériences réelles. */
-const knownOrgs = new Set(EXPERIENCE.map((e) => e.org));
-const affiliationsAreConsistent = affiliations.every(
-  (a) => knownOrgs.has(a.org) || a.org === 'ESILV',
-);
-if (!affiliationsAreConsistent) {
-  throw new Error('Hero: une affiliation ne correspond à aucune expérience déclarée.');
-}
+const preview = getProjectImage('atlas-detail');
+if (!preview) throw new Error('Hero : fragment produit introuvable dans src/lib/images.ts.');
 ---
 
 <section class="hero">
-  <div class="wrap">
-    <p class="hero__eyebrow meta">
-      {PROFILE.name}<span class="hero__sep" aria-hidden="true">/</span>{CONTACT.location[locale]}
-    </p>
+  <div class="hero__field" aria-hidden="true"></div>
 
-    <h1 class="hero__headline">
-      {
-        PROFILE.headline[locale].map((line, i) => (
-          <span class="hero__line" style={`--i:${i}`}>
-            {line}
-          </span>
-        ))
-      }
-    </h1>
+  <div class="wrap hero__grid">
+    <div class="hero__id">
+      <div class="hero__badge" data-reveal>
+        <Image
+          class="hero__portrait"
+          src={portrait}
+          alt={dict.hero.portraitAlt}
+          widths={[72, 144, 216]}
+          sizes="72px"
+          loading="eager"
+          fetchpriority="high"
+          quality={88}
+        />
+        <div>
+          <h1 class="hero__name">{PROFILE.name}</h1>
+          <p class="hero__discipline">{dict.hero.discipline}</p>
+          <p class="hero__where">{PROFILE.subline[locale]}</p>
+        </div>
+      </div>
 
-    <p class="hero__subline">{PROFILE.subline[locale]}</p>
+      <p class="hero__line" data-reveal>{PROFILE.headline[locale]}</p>
 
-    <div class="hero__actions">
-      <a class="btn btn--primary" href={`#${ANCHORS.selection}`}>
-        {dict.hero.primaryCta}
-        <span class="btn__arrow" aria-hidden="true">→</span>
-      </a>
-      <a class="btn" href={CONTACT.github} rel="noopener noreferrer" target="_blank">
-        {dict.hero.secondaryCta}
-        <span class="btn__arrow" aria-hidden="true">↗</span>
-      </a>
-      <a class="btn" href={`#${ANCHORS.contact}`}>{dict.hero.tertiaryCta}</a>
+      <div class="hero__actions" data-reveal>
+        <a class="btn btn--primary" href={`#${ANCHORS.selection}`}>
+          <span>{dict.hero.primaryCta}</span>
+          <span class="btn__arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="btn" href={CONTACT.github} rel="noopener noreferrer" target="_blank">
+          <span>{dict.hero.secondaryCta}</span>
+          <span class="btn__arrow" aria-hidden="true">↗</span>
+        </a>
+        <a class="btn" href={CONTACT.linkedin} rel="noopener noreferrer" target="_blank">
+          <span>{dict.hero.tertiaryCta}</span>
+          <span class="btn__arrow" aria-hidden="true">↗</span>
+        </a>
+      </div>
+
+      <dl class="hero__facts card" data-reveal>
+        <div class="hero__fact hero__fact--target">
+          <dt class="eyebrow">{dict.hero.targetLabel}</dt>
+          <dd>
+            <span class="hero__target">{dict.hero.targetRole}</span>
+            <span class="hero__terms">
+              <span class="pill__dot" aria-hidden="true"></span>
+              {dict.hero.targetTerms}
+            </span>
+          </dd>
+        </div>
+        <div class="hero__fact">
+          <dt class="eyebrow">{dict.hero.nowLabel}</dt>
+          <dd>{dict.hero.nowValue}</dd>
+        </div>
+      </dl>
     </div>
 
-    <p class="hero__availability">
-      <span class="hero__dot" aria-hidden="true"></span>
-      <span class="visually-hidden">{dict.hero.availabilityLabel} : </span>
-      {PROFILE.availability[locale]}
-    </p>
-  </div>
-
-  <div class="wrap">
-    <ul class="hero__affiliations">
-      {
-        affiliations.map((a) => (
-          <li class="hero__affiliation">
-            <span class="hero__affiliation-org">{a.org}</span>
-            <span class="hero__affiliation-detail meta">{a.detail}</span>
-          </li>
-        ))
-      }
-    </ul>
+    <div class="hero__stage" data-reveal-plate>
+      <figure class="frame hero__window">
+        <figcaption class="frame__bar">
+          <span class="frame__dots" aria-hidden="true"><span></span><span></span><span></span></span
+          >
+          <span class="frame__label">{dict.hero.previewLabel}</span>
+          <span class="frame__tag">{dict.hero.previewStage}</span>
+        </figcaption>
+        <span class="frame__body hero__shot">
+          <Image
+            src={preview}
+            alt={dict.hero.fragmentAlt}
+            widths={[420, 620, 900, 1000]}
+            sizes="(min-width: 64rem) 34rem, (min-width: 46rem) 46vw, 92vw"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            quality={84}
+          />
+        </span>
+      </figure>
+    </div>
   </div>
 </section>
 
 <style>
   .hero {
-    padding-top: clamp(3rem, 9vh, 6rem);
-    padding-bottom: clamp(2rem, 5vh, 3.5rem);
+    position: relative;
+    padding-top: clamp(2.5rem, 6vh, 4.25rem);
+    padding-bottom: clamp(3rem, 7vh, 5rem);
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
   }
 
-  .hero__eyebrow {
+  /* Grille très pâle plus un halo unique, tous deux quasi invisibles. C'est ce
+     que fait Médical'IA avec ses aurores : donner une matière au fond sans
+     jamais que l'œil identifie un effet. */
+  .hero__field {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(62rem 34rem at 78% -8%, rgba(29, 47, 150, 0.055), rgba(29, 47, 150, 0) 62%),
+      linear-gradient(to bottom, rgba(247, 248, 250, 0) 55%, var(--canvas) 100%),
+      repeating-linear-gradient(to right, var(--line) 0 1px, transparent 1px 5.5rem),
+      repeating-linear-gradient(to bottom, var(--line) 0 1px, transparent 1px 5.5rem);
+    -webkit-mask-image: radial-gradient(58rem 40rem at 60% 0%, #000, transparent 78%);
+    mask-image: radial-gradient(58rem 40rem at 60% 0%, #000, transparent 78%);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  .hero__grid {
+    position: relative;
+    display: grid;
+    gap: clamp(2.5rem, 6vw, 4rem);
+    align-items: center;
+  }
+
+  .hero__stage {
+    position: relative;
+    min-width: 0;
+  }
+
+  /* ── Identité ─────────────────────────────────────────────────────── */
+
+  .hero__badge {
     display: flex;
     align-items: center;
-    gap: var(--space-3);
-    margin-bottom: clamp(1.75rem, 4vw, 2.75rem);
+    gap: var(--space-4);
   }
 
-  .hero__sep {
-    color: var(--rule-strong);
+  /* Le nom, la discipline et les trois repères forment un seul bloc
+     d'identité, à la manière d'un en-tête de compte dans une application. */
+
+  .hero__portrait {
+    width: 3.25rem;
+    height: 3.25rem;
+    flex: none;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--line-strong);
+    box-shadow: var(--shadow-sm);
   }
 
-  .hero__headline {
-    display: flex;
-    flex-direction: column;
-    font-size: var(--step-display);
-    font-weight: 500;
-    letter-spacing: -0.035em;
-    line-height: 1.02;
-    max-width: 18ch;
+  .hero__name {
+    font-size: var(--step-3);
+    font-weight: 650;
+    letter-spacing: -0.028em;
+    line-height: 1.1;
   }
 
-  .hero__line {
-    display: block;
-    animation: hero-in 700ms var(--ease) backwards;
-    animation-delay: calc(var(--i) * 90ms + 60ms);
-  }
-
-  /* La dernière ligne porte l'unique accent de couleur de la page d'accueil. */
-  .hero__line:last-child {
-    color: var(--accent);
-  }
-
-  @keyframes hero-in {
-    from {
-      opacity: 0;
-      transform: translateY(0.4em);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
-  .hero__subline {
-    max-width: 56ch;
-    margin-top: clamp(1.5rem, 3.5vw, 2.25rem);
-    font-size: var(--step-1);
-    color: var(--ink-2);
-  }
-
-  .hero__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-3);
-    margin-top: clamp(1.75rem, 4vw, 2.5rem);
-  }
-
-  .hero__availability {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    margin-top: var(--space-5);
+  .hero__where {
+    margin-top: 0.3rem;
     font-size: var(--step--1);
     color: var(--ink-3);
   }
 
-  .hero__dot {
-    width: 0.4rem;
-    height: 0.4rem;
-    flex-shrink: 0;
-    border-radius: 50%;
-    background: var(--accent);
+  .hero__discipline {
+    margin-top: 0.3rem;
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
   }
 
-  .hero__affiliations {
-    display: grid;
-    gap: 0;
-    margin-top: clamp(2.5rem, 6vw, 4rem);
-    border-top: 1px solid var(--rule);
-  }
-
-  .hero__affiliation {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-    padding-block: var(--space-4);
-    border-bottom: 1px solid var(--rule);
-  }
-
-  .hero__affiliation-org {
+  .hero__line {
+    max-width: 22ch;
+    margin-top: clamp(1.5rem, 3.5vw, 2.25rem);
+    font-size: var(--step-5);
+    font-weight: 700;
+    line-height: 1.06;
+    letter-spacing: -0.036em;
     color: var(--ink);
-    font-size: var(--step--1);
-    font-weight: 600;
-    letter-spacing: -0.01em;
+    text-wrap: balance;
   }
 
-  .hero__affiliation-detail {
-    text-transform: none;
-    letter-spacing: 0.01em;
+  /* Mobile : l'action principale occupe sa ligne, les deux liens externes se
+     partagent la suivante. Trois boutons qui se replient 2 + 1 donnent une
+     composition bancale. */
+  .hero__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+    margin-top: clamp(1.75rem, 4vw, 2.5rem);
+  }
+
+  .hero__actions > :first-child {
+    grid-column: 1 / -1;
+  }
+
+  /* Le bloc de statut : deux faits, dans une carte. C'est le module
+     d'information de base du système, réutilisé partout ensuite. */
+  .hero__facts {
+    display: grid;
+    gap: var(--space-5);
+    margin-top: clamp(2rem, 4vw, 2.75rem);
+    padding: var(--space-5);
+    background: var(--surface-2);
+  }
+
+  .hero__fact dd {
+    margin-top: var(--space-3);
+    font-size: var(--step--1);
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+
+  /* Le métier visé est la seule ligne du hero composée à l'échelle d'un
+     titre en dehors de la phrase : c'est la réponse à « dans quelle case je
+     le mets ». Elle doit se lire en dix secondes, sans être lue. */
+  .hero__target {
+    display: block;
+    font-size: var(--step-2);
+    font-weight: 650;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+
+  .hero__terms {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5em;
+    margin-top: var(--space-3);
+    font-size: var(--step--1);
+    color: var(--ink-3);
+  }
+
+  .hero__terms .pill__dot {
+    position: relative;
+    top: -0.15em;
+  }
+
+  /* ── Scène produit ────────────────────────────────────────────────── */
+
+  /* La capture est coupée en bas dans le cadre : l'écran continue hors champ,
+     ce qui suggère un produit plus grand que ce qu'on en montre. */
+  .hero__shot {
+    max-height: 26rem;
+    -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
   }
 
   @media (min-width: 46rem) {
-    .hero__affiliations {
-      grid-template-columns: repeat(3, 1fr);
-      border-bottom: 1px solid var(--rule);
+    .hero__grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
     }
 
-    .hero__affiliation {
-      border-bottom: 0;
-      padding-inline-end: var(--space-5);
+    .hero__facts {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--space-6);
     }
 
-    .hero__affiliation + .hero__affiliation {
-      padding-inline-start: var(--space-5);
-      border-inline-start: 1px solid var(--rule);
+    .hero__fact--target {
+      padding-right: var(--space-6);
+      border-right: 1px solid var(--line);
+    }
+
+    .hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .hero__actions > :first-child {
+      grid-column: auto;
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .hero__line {
-      animation: none;
+  @media (min-width: 64rem) {
+    /* Asymétrie franche : le texte est compact, le produit domine. À largeurs
+       quasi égales, les deux colonnes se lisaient comme une division du
+       viewport plutôt que comme une composition. */
+    .hero__grid {
+      /* Deux colonnes bornées, dimensionnées par ce qu'elles contiennent : à
+         gauche le titre en quatre lignes et la carte de statut, à droite la
+         fenêtre produit. Aucune ne déborde du conteneur défini par la barre de
+         navigation ; l'espace restant devient la gouttière, pas du débordement.
+
+         La gauche porte l'identité et le positionnement, la droite la preuve :
+         c'est la gauche qui doit rester la plus lourde, l'écran n'est pas le
+         sujet du portfolio. */
+      grid-template-columns: minmax(0, 30rem) minmax(0, 1fr);
+      column-gap: clamp(2.5rem, 5vw, 6rem);
+      /* Calées en haut : centrée, la fenêtre flottait et laissait cent trente
+         pixels morts sous elle dans le quadrant bas-droit. */
+      align-items: start;
+    }
+
+    /* La fenêtre est bornée en largeur et ferrée à droite : son bord droit
+       coïncide exactement avec celui du conteneur de la navigation. */
+    .hero__window {
+      max-width: 34rem;
+      margin-left: auto;
+    }
+
+    .hero__shot {
+      /* La fenêtre ne montre pas tout le produit : elle cadre le bloc
+         « réponse attendue » — client, brouillon IA, action — et laisse la
+         suite s'effacer. Un écran qui essaie de tout montrer ne montre rien. */
+      max-height: 36rem;
+    }
+
+    /* La fenêtre pivote d'un degré et demi : assez pour qu'elle se lise comme
+       un objet posé dans l'espace, pas assez pour qu'on voie une rotation. */
+    .hero__window {
+      transform: perspective(2000px) rotateY(-1.4deg) rotateX(0.6deg);
+      transform-origin: left center;
     }
   }
 </style>

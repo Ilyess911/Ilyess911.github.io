@@ -2,9 +2,14 @@ import { describe, expect, it } from 'vitest';
 
 import { fr } from '~/data/translations/fr';
 import { en } from '~/data/translations/en';
-import { PROJECTS, CASE_STUDY_PROJECTS, FEATURED_PROJECTS } from '~/data/projects';
+import {
+  PROJECTS,
+  VISIBLE_PROJECTS,
+  CASE_STUDY_PROJECTS,
+  FEATURED_PROJECTS,
+} from '~/data/projects';
 import { EDUCATION, EXPERIENCE } from '~/data/experience';
-import { AXES, LANGUAGES, PRINCIPLES, PROFILE, SKILLS } from '~/data/profile';
+import { CREDO, LANGUAGES, METHOD, PROFILE } from '~/data/profile';
 import { LOCALES, type Locale } from '~/data/types';
 import { CONTACT, SITE_URL, absoluteUrl, withBase } from '~/config/site';
 
@@ -35,9 +40,8 @@ const EVERY_STRING = [
   ...allStrings(EXPERIENCE),
   ...allStrings(EDUCATION),
   ...allStrings(PROFILE),
-  ...allStrings(PRINCIPLES),
-  ...allStrings(AXES),
-  ...allStrings(SKILLS),
+  ...allStrings(CREDO),
+  ...allStrings(METHOD),
 ];
 
 /* ---------------------------------------------------------------------------
@@ -61,16 +65,16 @@ describe('internationalisation', () => {
     /* Certaines valeurs sont identiques par nature (noms propres, codes). */
     const identicalByDesign = new Set([
       fr.notFound.code,
-      fr.positioning.title,
-      fr.studio.name,
-      fr.sections.positioning.number,
-      fr.sections.selection.number,
-      fr.sections.approach.number,
-      fr.sections.experience.number,
-      fr.sections.toolbox.number,
-      fr.sections.contact.number,
-      fr.sections.positioning.label,
+      ...Object.values(fr.sections).map((s) => s.number),
       fr.sections.contact.label,
+      fr.chapter.code,
+      fr.contact.linkedinLabel,
+      fr.contact.githubLabel,
+      /* La discipline et l'intitulé de poste sont écrits en anglais dans les
+         deux langues : c'est le vocabulaire du métier, pas une phrase rédigée.
+         Un recruteur français cherche « Sales Engineering », pas sa traduction. */
+      fr.hero.discipline,
+      fr.hero.targetRole,
     ]);
 
     const frLong = allStrings(fr).filter((s) => s.length > 24 && !identicalByDesign.has(s));
@@ -201,10 +205,17 @@ describe('projets', () => {
     }
   });
 
-  it('met en avant au moins trois projets, tous dotés d’une étude de cas', () => {
+  it('ne met en avant que des chapitres ayant quelque chose à montrer', () => {
+    /* Un chapitre doit apporter soit de la profondeur (une étude de cas), soit une
+       preuve visuelle réelle (une capture). Les deux à la fois n'est pas exigé :
+       Resum'EYE n'a pas de capture, Atlas n'a pas encore d'étude de cas, et ces
+       deux manques sont assumés à l'écran plutôt que comblés artificiellement. */
     expect(FEATURED_PROJECTS.length).toBeGreaterThanOrEqual(3);
     for (const project of FEATURED_PROJECTS) {
-      expect(project.caseStudy, `${project.slug} est mis en avant sans étude de cas`).toBeDefined();
+      const hasSubstance = project.caseStudy !== undefined || (project.covers?.length ?? 0) > 0;
+      expect(hasSubstance, `${project.slug} est mis en avant sans étude de cas ni capture`).toBe(
+        true,
+      );
     }
   });
 
@@ -222,23 +233,14 @@ describe('projets', () => {
 });
 
 describe('parcours', () => {
-  it('place les postes en cours avant les postes passés, puis du plus récent au plus ancien', () => {
-    const work = EXPERIENCE.filter((e) => e.kind === 'work');
-    const firstPast = work.findIndex((e) => e.end !== null);
-
-    /* Aucun poste en cours ne doit apparaître après un poste terminé. */
-    if (firstPast !== -1) {
-      expect(work.slice(firstPast).every((e) => e.end !== null)).toBe(true);
-    }
-
-    const pastStarts = work.filter((e) => e.end !== null).map((e) => e.start);
-    expect([...pastStarts].sort().reverse()).toEqual(pastStarts);
-  });
-
-  it('renvoie les expériences hors poste salarié en fin de liste', () => {
-    const kinds = EXPERIENCE.map((e) => e.kind);
-    const lastWork = kinds.lastIndexOf('work');
-    expect(kinds.slice(0, lastWork + 1).every((k) => k === 'work')).toBe(true);
+  it('place les postes en cours avant les postes passés, puis décroissant', () => {
+    /* Le parcours est présenté en grille de modules, pas en frise : ce qui est
+       en cours vient d'abord, le passé suit du plus récent au plus ancien. */
+    const ongoing = EXPERIENCE.filter((e) => e.end === null);
+    const past = EXPERIENCE.filter((e) => e.end !== null);
+    expect(EXPERIENCE.slice(0, ongoing.length).every((e) => e.end === null)).toBe(true);
+    const starts = past.map((e) => e.start);
+    expect([...starts].sort().reverse()).toEqual(starts);
   });
 
   it('utilise des dates au format AAAA-MM et cohérentes', () => {
@@ -282,13 +284,53 @@ describe('configuration du site', () => {
   });
 
   it('déclare un profil complet et des axes rattachés à de vrais projets', () => {
-    const slugs = new Set(PROJECTS.map((p) => p.slug));
-    for (const axis of AXES) {
-      expect(slugs.has(axis.project), `axe ${axis.key} pointe vers un projet inconnu`).toBe(true);
+    const slugs = new Set(VISIBLE_PROJECTS.map((p) => p.slug));
+    for (const step of METHOD) {
+      if (step.project === undefined) continue;
+      expect(
+        slugs.has(step.project),
+        `l'étape ${step.step} pointe vers un projet hors périmètre ou inconnu`,
+      ).toBe(true);
     }
-    expect(PRINCIPLES.length).toBeGreaterThanOrEqual(3);
-    expect(SKILLS.length).toBeGreaterThanOrEqual(3);
+    expect(METHOD.length).toBe(5);
     expect(LANGUAGES.length).toBeGreaterThanOrEqual(2);
-    expect(PROFILE.headline.fr.length).toBe(PROFILE.headline.en.length);
+    expect(PROFILE.about.fr.length).toBe(PROFILE.about.en.length);
+    expect(PROFILE.headline.fr.length).toBeGreaterThan(20);
+  });
+});
+
+/* ---------------------------------------------------------------------------
+   Périmètre — un projet masqué ne doit apparaître nulle part
+   --------------------------------------------------------------------------- */
+
+describe('périmètre des projets', () => {
+  it('exclut les projets masqués de tout ce qui est rendu', () => {
+    const hidden = PROJECTS.filter((p) => p.hidden);
+    const rendered = new Set([
+      ...VISIBLE_PROJECTS.map((p) => p.slug),
+      ...FEATURED_PROJECTS.map((p) => p.slug),
+      ...CASE_STUDY_PROJECTS.map((p) => p.slug),
+    ]);
+    for (const project of hidden) {
+      expect(rendered.has(project.slug), `${project.slug} est masqué mais rendu`).toBe(false);
+    }
+  });
+
+  it('donne une composition explicite à chaque chapitre mis en avant', () => {
+    /* Le nombre de chapitres doit rester petit : la page d'accueil met en scène,
+       elle ne catalogue pas. */
+    expect(FEATURED_PROJECTS.length).toBeGreaterThanOrEqual(2);
+    expect(FEATURED_PROJECTS.length).toBeLessThanOrEqual(4);
+  });
+
+  it("n'affiche un visuel de chapitre que s'il décrit une capture réelle", () => {
+    for (const project of VISIBLE_PROJECTS) {
+      for (const cover of project.covers ?? []) {
+        expect(cover.key).toMatch(/^[a-z0-9-]+$/);
+        for (const locale of LOCALES) {
+          expect(cover.alt[locale as Locale].length).toBeGreaterThan(40);
+        }
+      }
+    }
   });
 });

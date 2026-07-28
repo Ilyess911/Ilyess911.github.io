@@ -1,5 +1,5 @@
 ---
-import '@fontsource-variable/instrument-sans/wght.css';
+import '@fontsource-variable/inter/wght.css';
 import '@fontsource-variable/jetbrains-mono/wght.css';
 import '~/styles/global.css';
 
@@ -130,7 +130,7 @@ const siteSchema = {
     <script>
       /* Révélation au défilement. Une seule observation, aucune dépendance.
          Si prefers-reduced-motion est actif, tout est affiché immédiatement. */
-      const targets = document.querySelectorAll<HTMLElement>('[data-reveal]');
+      const targets = document.querySelectorAll<HTMLElement>('[data-reveal], [data-reveal-plate]');
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       const revealAll = () => targets.forEach((el) => el.classList.add('is-visible'));

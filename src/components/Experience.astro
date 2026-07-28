@@ -2,6 +2,17 @@
 import { EDUCATION, EXPERIENCE } from '~/data/experience';
 import { getDictionary, type Locale } from '~/lib/i18n';
 
+/**
+ * Parcours, en modules d'information.
+ *
+ * Ni timeline scolaire ni tableau : une grille de cartes compactes, plus
+ * denses que les cartes projet parce qu'elles portent moins d'enjeu. Chacune
+ * tient sur un fait fort ; le détail reste dépliable.
+ *
+ * L'organisation est identifiée par un monogramme plutôt que par un logo :
+ * je n'ai pas le droit d'afficher les marques de ces entreprises.
+ */
+
 interface Props {
   locale: Locale;
   headingId: string;
@@ -9,154 +20,368 @@ interface Props {
 
 const { locale, headingId } = Astro.props;
 const dict = getDictionary(locale);
+
+function period(start: string, end: string | null): string {
+  const from = start.slice(0, 4);
+  if (end === null) return `${from} →`;
+  const to = end.slice(0, 4);
+  return from === to ? from : `${from}–${to}`;
+}
+
+/** Monogramme : deux initiales au maximum, jamais plus. */
+function monogram(org: string): string {
+  return org
+    .split(/[\s'’]+/)
+    .filter((w) => /^[A-Za-zÀ-ÿ0-9]/.test(w))
+    .slice(0, 2)
+    .map((w) => w[0]?.toUpperCase() ?? '')
+    .join('');
+}
+
+/** La première ligne des faits saillants sert de phrase forte. */
+function lead(item: (typeof EXPERIENCE)[number]): string {
+  return item.highlights[0]?.[locale] ?? item.summary[locale];
+}
 ---
 
-<h2 id={headingId} class="section-title">{dict.experience.title}</h2>
-<p class="section-intro">{dict.experience.intro}</p>
+<h2 id={headingId} class="visually-hidden">{dict.experience.title}</h2>
 
-<ol class="timeline">
+<ol class="stints">
   {
     EXPERIENCE.map((item) => (
-      <li class="entry" data-reveal>
-        <p class="entry__period meta num">{item.period[locale]}</p>
+      <li class="stint card card--lift" data-reveal>
+        <div class="stint__top">
+          <span class="stint__mark" aria-hidden="true">
+            {monogram(item.org)}
+          </span>
+          <div class="stint__who">
+            <h3 class="stint__org">{item.org}</h3>
+            <p class="stint__role">{item.role[locale]}</p>
+          </div>
+        </div>
 
-        <div class="entry__body">
-          <h3 class="entry__org">
-            {item.org}
-            <span class="entry__location meta">{item.location}</span>
-          </h3>
-          <p class="entry__role">{item.role[locale]}</p>
-          {item.summary[locale] && <p class="entry__summary">{item.summary[locale]}</p>}
-          {item.highlights.length > 0 && (
-            <ul class="entry__highlights">
-              {item.highlights.map((h) => (
-                <li>{h[locale]}</li>
+        <p class="stint__when eyebrow num">
+          <span aria-hidden="true">{period(item.start, item.end)}</span>
+          <span class="visually-hidden">{item.period[locale]}</span>
+          <span class="stint__sep" aria-hidden="true">
+            /
+          </span>
+          <span>{item.location}</span>
+        </p>
+
+        <p class="stint__lead">{lead(item)}</p>
+
+        {(item.summary[locale] || item.highlights.length > 1) && (
+          <details class="stint__more">
+            <summary>
+              <span class="stint__more-open">{dict.experience.more}</span>
+              <span class="stint__more-close">{dict.experience.less}</span>
+            </summary>
+            <div class="stint__detail">
+              {item.summary[locale] && <p>{item.summary[locale]}</p>}
+              {item.highlights.slice(1).map((h) => (
+                <p>{h[locale]}</p>
               ))}
-            </ul>
-          )}
-        </div>
+            </div>
+          </details>
+        )}
       </li>
     ))
   }
 </ol>
 
-<p class="confidentiality">{dict.experience.confidentialityNote}</p>
-
-<h3 class="education__title meta">{dict.experience.educationTitle}</h3>
-<ol class="timeline timeline--compact">
-  {
-    EDUCATION.map((item) => (
-      <li class="entry" data-reveal>
-        <p class="entry__period meta num">{item.period[locale]}</p>
-        <div class="entry__body">
-          <h4 class="entry__org">
-            {item.org}
-            <span class="entry__location meta">{item.location}</span>
-          </h4>
-          <p class="entry__role">{item.role[locale]}</p>
-          {item.summary[locale] && <p class="entry__summary">{item.summary[locale]}</p>}
-        </div>
-      </li>
-    ))
-  }
-</ol>
+<div class="schooling card" data-reveal>
+  <p class="eyebrow">{dict.experience.educationTitle}</p>
+  <ul class="schooling__list">
+    {
+      EDUCATION.map((item) => (
+        <li class="schooling__item">
+          <span class="schooling__year eyebrow num">{period(item.start, item.end)}</span>
+          <span class="schooling__org">{item.org}</span>
+          <span class="schooling__what">{item.role[locale]}</span>
+        </li>
+      ))
+    }
+  </ul>
+  <p class="schooling__note">{dict.experience.confidentialityNote}</p>
+</div>
 
 <style>
-  .timeline {
-    margin-top: clamp(2.5rem, 6vw, 3.5rem);
-    border-top: 1px solid var(--rule);
-  }
-
-  .timeline--compact {
-    margin-top: var(--space-5);
-  }
-
-  .entry {
+  .stints {
     display: grid;
-    gap: var(--space-3);
-    padding-block: clamp(1.5rem, 3.5vw, 2.25rem);
-    border-bottom: 1px solid var(--rule);
+    gap: var(--space-4);
   }
 
-  .entry__period {
-    text-transform: none;
-    letter-spacing: 0.02em;
-    padding-top: 0.15em;
-    white-space: nowrap;
-  }
-
-  .entry__org {
+  .stint {
     display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: var(--space-3);
-    font-size: var(--step-1);
-    font-weight: 600;
-    letter-spacing: -0.018em;
+    flex-direction: column;
+    padding: clamp(1.25rem, 3vw, 1.75rem);
   }
 
-  .entry__location {
-    text-transform: none;
-    letter-spacing: 0.02em;
-    font-weight: 400;
+  .stint__top {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: var(--space-4);
   }
 
-  .entry__role {
-    margin-top: var(--space-1);
+  /* Le monogramme : une pastille sobre, la seule zone teintée de la carte. */
+  .stint__mark {
+    display: grid;
+    place-items: center;
+    width: 2.375rem;
+    height: 2.375rem;
+    flex: none;
+    border: 1px solid var(--accent-line);
+    border-radius: var(--r-md);
+    background: var(--accent-soft);
+    font-family: var(--font-mono);
     font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.02em;
     color: var(--accent);
   }
 
-  .entry__summary {
-    max-width: 62ch;
-    margin-top: var(--space-3);
-    color: var(--ink-2);
+  .stint__org {
+    font-size: var(--step-1);
+    font-weight: 600;
+    letter-spacing: -0.02em;
   }
 
-  .entry__highlights {
-    max-width: 62ch;
-    margin-top: var(--space-4);
-    border-top: 1px solid var(--rule);
-  }
-
-  .entry__highlights li {
-    position: relative;
-    padding-left: var(--space-5);
-    padding-block: var(--space-3);
-    border-bottom: 1px solid var(--rule);
+  .stint__role {
+    margin-top: 0.15rem;
     font-size: var(--step--1);
-    color: var(--ink-2);
-  }
-
-  .entry__highlights li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 1.35em;
-    width: 0.75rem;
-    height: 1px;
-    background: var(--rule-strong);
-  }
-
-  .entry__highlights li:last-child {
-    border-bottom: 0;
-  }
-
-  .confidentiality {
-    margin-top: var(--space-5);
-    max-width: 60ch;
-    font-size: var(--step--1);
+    line-height: 1.45;
     color: var(--ink-3);
   }
 
-  .education__title {
-    margin-top: clamp(3rem, 7vw, 4.5rem);
+  /* Période et lieu sur une seule ligne de méta : deux blocs séparés, dont un
+     épinglé en pied de carte, creusaient un vide dans les cartes courtes. */
+  .stint__when {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5em;
+    margin-top: var(--space-4);
+    color: var(--ink-4);
   }
 
-  @media (min-width: 46rem) {
-    .entry {
-      grid-template-columns: 11rem minmax(0, 1fr);
+  .stint__sep {
+    color: var(--line-strong);
+  }
+
+  .stint__lead {
+    margin-top: var(--space-3);
+    font-size: var(--step--1);
+    line-height: 1.6;
+    color: var(--ink-2);
+  }
+
+  /* ── Dépliage ─────────────────────────────────────────────────────── */
+
+  .stint__more {
+    margin-top: auto;
+    padding-top: var(--space-4);
+  }
+
+  .stint__more > summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    font-size: var(--step--1);
+    font-weight: 550;
+    color: var(--accent);
+    cursor: pointer;
+    list-style: none;
+    transition: color var(--dur-hover) ease;
+  }
+
+  .stint__more > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .stint__more > summary::after {
+    content: '+';
+    line-height: 1;
+  }
+
+  .stint__more[open] > summary::after {
+    content: '−';
+  }
+
+  .stint__more-close {
+    display: none;
+  }
+
+  .stint__more[open] .stint__more-open {
+    display: none;
+  }
+
+  .stint__more[open] .stint__more-close {
+    display: inline;
+  }
+
+  .stint__detail {
+    display: grid;
+    gap: var(--space-3);
+    padding-top: var(--space-4);
+    font-size: var(--step--1);
+    line-height: 1.6;
+    color: var(--ink-3);
+  }
+
+  /* ── Formation : un module unique, plus dense ─────────────────────── */
+
+  .schooling {
+    margin-top: var(--space-4);
+    padding: clamp(1.125rem, 2.5vw, 1.5rem);
+    background: var(--surface-2);
+    box-shadow: none;
+  }
+
+  .schooling__list {
+    display: grid;
+    gap: var(--space-4);
+    margin-top: var(--space-4);
+  }
+
+  .schooling__item {
+    display: grid;
+    gap: 0.15rem;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--line);
+  }
+
+  .schooling__year {
+    color: var(--ink-4);
+  }
+
+  .schooling__org {
+    font-size: var(--step-0);
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .schooling__what {
+    font-size: var(--step--1);
+    line-height: 1.5;
+    color: var(--ink-3);
+  }
+
+  .schooling__note {
+    margin-top: var(--space-4);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--line);
+    font-size: var(--step--2);
+    line-height: 1.6;
+    color: var(--ink-4);
+  }
+
+  @media (min-width: 44rem) {
+    .stints {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: start;
+    }
+
+    /* La hiérarchie commence dès deux colonnes : sans cette règle, entre 44 et
+       68rem les cinq cartes redevenaient identiques. */
+    .stint:first-child {
+      grid-column: 1 / -1;
+    }
+
+    .stint:first-child .stint__org {
+      font-size: var(--step-2);
+    }
+
+    .stint:first-child .stint__lead {
+      max-width: 52ch;
+      font-size: var(--step-0);
+      color: var(--ink);
+    }
+
+    .schooling__list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: var(--space-5);
+    }
+
+    .schooling__item {
+      grid-template-columns: auto minmax(0, 1fr);
+      column-gap: var(--space-5);
+      align-items: baseline;
+    }
+
+    .schooling__year {
+      grid-row: 1 / span 2;
+    }
+  }
+
+  @media (min-width: 68rem) {
+    .stints {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      align-items: start;
+    }
+
+    /* Trois régimes, pas cinq cartes identiques. Une grille parfaitement
+       régulière est propre et ne dit rien : ici l'échelle du nom, la taille du
+       monogramme et la densité disent l'importance relative. */
+
+    /* Air France Industries : poste en cours et expérience structurante. */
+    .stint:first-child {
+      grid-column: span 2;
+      padding: clamp(1.75rem, 3.5vw, 2.5rem);
+    }
+
+    .stint:first-child .stint__mark {
+      width: 3rem;
+      height: 3rem;
+      font-size: var(--step-0);
+    }
+
+    .stint:first-child .stint__org {
+      font-size: var(--step-3);
+      letter-spacing: -0.026em;
+    }
+
+    .stint:first-child .stint__role {
+      font-size: var(--step-0);
+    }
+
+    .stint:first-child .stint__lead {
+      max-width: 46ch;
+      margin-top: var(--space-5);
+      font-size: var(--step-1);
+      line-height: 1.5;
+      color: var(--ink);
+    }
+
+    /* Nexya Agency : second poste en cours, régime intermédiaire. */
+    .stint:nth-child(2) .stint__org {
+      font-size: var(--step-2);
+    }
+
+    /* Paris 2024, Airbus, Amundi : le passé. Compact, jamais effacé. */
+    .stint:nth-child(n + 3) {
+      padding: clamp(1rem, 2.5vw, 1.375rem);
+    }
+
+    .stint:nth-child(n + 3) .stint__mark {
+      width: 2rem;
+      height: 2rem;
+      font-size: var(--step--2);
+    }
+
+    .stint:nth-child(n + 3) .stint__org {
+      font-size: var(--step-0);
+    }
+
+    .stint:nth-child(n + 3) .stint__role,
+    .stint:nth-child(n + 3) .stint__lead {
+      font-size: var(--step--2);
+      line-height: 1.55;
+    }
+
+    .stint:nth-child(n + 3) .stint__more > summary {
+      font-size: var(--step--2);
     }
   }
 </style>

@@ -8,16 +8,17 @@ export const en: Dictionary = {
   meta: {
     title: 'Ilyess Assadi — Engineering, product and business',
     description:
-      'Engineering student at ESILV and apprentice at Air France Industries. I build decision instruments for people who decide without one: driving schools, local authorities, HR teams, aviation maintenance.',
+      'Engineering student at ESILV and apprentice at Air France Industries. I build decision instruments for people who decide without one: driving schools, HR teams, sales teams, aviation maintenance.',
     langLabel: 'English',
     localeTag: 'en-US',
   },
 
   nav: {
+    contactCta: 'Get in touch',
     skipToContent: 'Skip to main content',
     home: 'Home',
-    selection: 'Selected work',
-    approach: 'Approach',
+    selection: 'Work',
+    approach: 'Method',
     experience: 'Background',
     contact: 'Contact',
     menu: 'Menu',
@@ -27,49 +28,57 @@ export const en: Dictionary = {
   },
 
   hero: {
+    previewStage: 'Prototype',
+    targetLabel: 'Looking for',
+    targetRole: 'Sales Engineering · Solutions Engineering',
+    targetTerms: '3-month internship · from February 2027',
+    discipline: 'Engineering × Product × Business',
+    portraitAlt: 'Portrait of Ilyess Assadi.',
+    statusLabel: 'Looking for',
+    nowLabel: 'Right now',
+    nowValue: 'Methods engineering apprentice at Air France Industries, final year at ESILV.',
+    stackLabel: 'Ground',
+    previewLabel: 'atlas — today screen',
+    projectsLabel: 'Products',
     availabilityLabel: 'Availability',
-    primaryCta: 'See selected work',
+    primaryCta: 'See my work',
     secondaryCta: 'GitHub',
-    tertiaryCta: 'Get in touch',
+    tertiaryCta: 'LinkedIn',
+    fragmentAlt:
+      'Detail of the Atlas Today screen: a list of actions ranked by impact, including a reply draft flagged as machine-generated.',
+    fragmentCaption: 'Atlas — Today screen, detail.',
   },
 
   sections: {
-    positioning: { number: '01', label: 'Positioning' },
+    intro: { number: '01', label: 'About' },
     selection: { number: '02', label: 'Work' },
-    approach: { number: '03', label: 'Method' },
-    experience: { number: '04', label: 'Background' },
-    toolbox: { number: '05', label: 'Tools' },
+    experience: { number: '03', label: 'Background' },
+    approach: { number: '04', label: 'Method' },
+    workshop: { number: '05', label: 'Workshop' },
     contact: { number: '06', label: 'Contact' },
   },
 
-  positioning: {
-    title: 'Engineering × Product × Business',
-    intro:
-      'Not three skills side by side, but three steps of the same move: find the data, turn it into a decision, defend what it is worth. Each step is anchored to a real project, and it is the same chain every time.',
-    proofLabel: 'Evidence',
+  intro: {
+    title: 'About',
   },
 
   studio: {
-    label: 'Studio',
-    name: 'Nexya Agency',
     description:
-      'An independent product studio, co-founded in July 2025. It is the frame in which three of these products were designed, built and taken to real counterparts. Three unrelated markets, one shared blind spot: the daily decision is made blind.',
-    futureLabel: 'Products to come',
+      "Time2Drive and Resum'EYE were designed, built and taken to real counterparts under Nexya Agency, a product studio co-founded in July 2025.",
   },
 
   selection: {
-    title: 'Selected work',
-    intro:
-      'A driving school, a local authority, an HR team. Three lines of work with nothing in common, except this: the decision is made every day, on information that already exists but that nobody has made readable. Each project is the same move applied to different ground, and told in full: decisions and limits included.',
-    columns: {
-      project: 'Project',
-      year: 'Year',
-      role: 'Role',
-      status: 'Status',
-    },
+    exitTitle: 'Does one of these problems look like yours?',
+    exitCta: 'Let’s talk',
+    title: 'Three fields, one blind spot.',
     readCase: 'Read the case study',
-    noCase: 'No dedicated case study',
-    otherWork: 'Other work',
+  },
+
+  chapter: {
+    role: 'Role',
+    builtWith: 'Built with',
+    code: 'Code',
+    ongoing: 'Still under construction, no case study yet.',
   },
 
   stage: {
@@ -87,7 +96,7 @@ export const en: Dictionary = {
   },
 
   caseStudy: {
-    backToSelection: 'Back to selected work',
+    backToSelection: 'Back to work',
     overview: 'At a glance',
     problem: 'The problem',
     audience: 'Who it is for',
@@ -110,10 +119,8 @@ export const en: Dictionary = {
       'Product screenshots to come. No interface image is published unless it is a real capture of the product.',
   },
 
-  approach: {
-    title: 'How I work',
-    intro:
-      'Four rules that follow from the rest. When you build the instrument someone else decides with, they are not preferences. Each one can be checked against the case studies above.',
+  method: {
+    credoLabel: 'The rule that holds the rest together',
   },
 
   experience: {
@@ -121,23 +128,29 @@ export const en: Dictionary = {
     intro:
       'The shop floor is where I first saw the problem: technical data sitting right there, and a decision made without it. Everything I have built since comes from that.',
     educationTitle: 'Education',
+    more: 'Detail',
+    less: 'Collapse',
     confidentialityNote:
       'No confidential information, internal data or company document appears on this site.',
   },
 
-  toolbox: {
-    title: 'What I work with',
+  workshop: {
+    title: 'Also on the bench',
     intro:
-      'The tools I actually use, grouped by purpose: find the data, turn it into a screen, defend what it is worth. No skill levels, because a percentage next to a technology means nothing.',
-    languagesTitle: 'Languages',
+      'What is actually being built, with its exact status. Where the code is open, the link is verifiable; where it is not, it says so.',
+    thisSite: 'This site',
+    livePublic: 'Live · Public code',
+    languages: 'Languages',
+    githubCta: 'See the GitHub profile',
   },
 
   contact: {
-    title: 'Let us talk',
+    cta: 'Email me',
+    title: 'Let us build something useful.',
     intro:
       'I am looking for the role where this work is done for real, somewhere it is the actual job: pre-sales, sales engineering, product or technical business development.',
     emailLabel: 'Email',
-    copyEmail: 'Copy address',
+    copyEmail: 'Copy',
     emailCopied: 'Address copied',
     copyFailed: 'Copy failed — please select the address manually',
     cvLabel: 'Résumé',
@@ -145,8 +158,6 @@ export const en: Dictionary = {
     locationLabel: 'Location',
     linkedinLabel: 'LinkedIn',
     githubLabel: 'GitHub',
-    githubNote:
-      'Most of my recent repositories are private. What you can open is flagged project by project.',
   },
 
   footer: {
@@ -162,5 +173,19 @@ export const en: Dictionary = {
     title: 'This page does not exist',
     body: 'The link may be old, or the address may contain a typo. Here are the pages that do exist.',
     backHome: 'Back to home',
+  },
+
+  proof: {
+    label: 'In the field',
+    title: 'Two products, two real sales cycles.',
+    f1Label: 'Demo',
+    f1: 'Resum’EYE presented live to industry decision makers at Syntec-Ingénierie’s “Café IA”.',
+    f2Label: 'B2B cycle',
+    f2: 'A months-long relationship with a French engineering group: API integration, GDPR compliance, volume-based pricing.',
+    f3Label: 'Outbound',
+    f3: 'A calling and emailing campaign to driving schools across the Paris region for Time2Drive.',
+    outcome: 'No contract signed to date.',
+    lesson: 'A HR buyer’s first objection is not model performance, it is legal liability.',
+    lessonSource: 'Resum’EYE — what I took from it',
   },
 };
