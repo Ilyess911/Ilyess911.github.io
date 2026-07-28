@@ -660,12 +660,12 @@ export const PROJECTS: readonly Project[] = [
     },
     stack: ['Python', 'scikit-learn', 'Jupyter'],
     codeVisibility: 'public',
-    repo: 'ML-PROJECT-Anomaly-Detection-in-Industrial-Robot-Executions',
+    repo: 'robot-anomaly-detection',
     links: [
       {
         kind: 'code',
         label: { fr: 'Code sur GitHub', en: 'Code on GitHub' },
-        href: 'https://github.com/Ilyess911/ML-PROJECT-Anomaly-Detection-in-Industrial-Robot-Executions',
+        href: 'https://github.com/Ilyess911/robot-anomaly-detection',
       },
     ],
   },

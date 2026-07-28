@@ -2,8 +2,8 @@
   "fetchedAt": "2026-07-27",
   "repositories": [
     {
-      "name": "ML-PROJECT-Anomaly-Detection-in-Industrial-Robot-Executions",
-      "url": "https://github.com/Ilyess911/ML-PROJECT-Anomaly-Detection-in-Industrial-Robot-Executions",
+      "name": "robot-anomaly-detection",
+      "url": "https://github.com/Ilyess911/robot-anomaly-detection",
       "description": "This project focuses on detecting anomalies in industrial robot executions using machine learning techniques. The goal is to identify abnormal robot behaviors (collisions, obstructions, tool issues, etc.) based on force and torque sensor measurements.",
       "language": "Jupyter Notebook",
       "stars": 0,
