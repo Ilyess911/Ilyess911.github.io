@@ -136,6 +136,44 @@ Traité comme un entonnoir distinct, pas comme un desktop réduit.
 - citation de la preuve business séparée du titre de section, qui sinon se
   lisaient comme une seule phrase
 
+### 9. Passe de composition sur tout le site
+
+Le défaut récurrent, corrigé section par section : du contenu tassé dans une
+moitié d'écran et une zone morte en face. La règle appliquée partout est qu'une
+grille a **deux colonnes aux fonctions distinctes**, jamais deux `1fr` posées
+côte à côte.
+
+Sur les études de cas, tous les blocs faisaient 587 px dans un conteneur de
+1 072 : la moitié droite de la page était vide sur cinq sections d'affilée.
+Chacune a désormais sa propre composition — titre étroit et exposé large pour
+les entrées, titre plus attribution contre responsabilités pour « Mon rôle »,
+encart de statut contre enseignements pour les résultats, avertissement contre
+liste pour les limites, et les décisions en grille de deux. **L'étude de cas
+Time2Drive est passée de 6 758 à 5 356 px pour le même contenu.**
+
+Un cas mérite d'être retenu : le bloc « Collaboration » était posé sous la liste
+des responsabilités comme une note de bas de page. Il forme maintenant la
+colonne de gauche avec le titre. **L'attribution participe à la composition au
+lieu de la subir** — c'est cohérent avec la règle d'honnêteté, une mention qu'on
+relègue en petit finit par se lire comme une précaution.
+
+Le hero a été recalibré après un vrai bug : une marge négative de 184 px faisait
+sortir la fenêtre produit de 164 px hors du conteneur de la navigation. Corrigé,
+et Atlas ramené de 720 à 520 px de large. **Atlas est une preuve, pas le sujet
+du portfolio.**
+
+### 10. Aperçu de lien
+
+L'ancienne image reprenait le manifeste sur trois lignes plus les affiliations :
+illisible à la taille où elle est réellement vue, une centaine de pixels dans un
+fil LinkedIn. Remplacée par le portrait monochrome et « Portfolio / Ilyess
+ASSADI », centrés, sur le canvas et l'encre du système. Rendue à 2400 × 1260
+puis réduite à 1200 × 630 pour correspondre exactement aux dimensions déclarées
+dans les balises.
+
+À savoir : **LinkedIn, Slack et X gardent les aperçus en cache** plusieurs jours.
+Le Post Inspector de LinkedIn force le rafraîchissement.
+
 ---
 
 ## Décisions permanentes
@@ -181,4 +219,28 @@ desktop et 99 mobile, 0 fichier JavaScript.
 - **Une démo essayable.** C'est la dernière grosse objection : aucun des trois
   produits ne peut être ouvert. Un lien de démo publique ferait plus, désormais,
   que n'importe quelle retouche visuelle.
-- **Le champ « website » du profil GitHub** est toujours vide.
+- **Épingler les dépôts publics.** `Ilyess911.github.io` et
+  `robot-anomaly-detection` ; dépingler `Ilyess911`, qui pointe vers le README
+  de la page où le visiteur se trouve déjà. Action impossible par API, GitHub la
+  réserve à son interface.
+
+---
+
+## Ce qui vit à côté de ce dépôt
+
+**Le profil GitHub** (`Ilyess911/Ilyess911`) est une interface dessinée en 24
+SVG, générés par `scripts/build-assets.py` depuis une source unique et deux
+palettes. Registre Gotham / WayneTech, avec une règle : le clin d'œil est dans
+le décor, jamais dans les faits. Il prolonge ce portfolio sans le concurrencer —
+GitHub porte la preuve technique, le portfolio porte le récit.
+
+Deux contraintes découvertes en le construisant, vérifiées et non supposées :
+GitHub **supprime `style` et `bgcolor`** de tout HTML de README, y compris sur
+`<tr>` et `<td>`, donc une vraie composition doit être dessinée ; et un lien
+placé **à l'intérieur** d'un SVG servi en `<img>` est mort, il faut envelopper
+l'image dans un `<a>`.
+
+Le dépôt public de détection d'anomalies a été renommé
+`robot-anomaly-detection` — l'ancien nom était tronqué sur une carte épinglée.
+GitHub redirige, mais les références ont été suivies ici aussi : un lien vers un
+nom mort finit toujours par en devenir un.
