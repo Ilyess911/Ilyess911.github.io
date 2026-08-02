@@ -36,7 +36,8 @@ export const en: Dictionary = {
     portraitAlt: 'Portrait of Ilyess Assadi.',
     statusLabel: 'Looking for',
     nowLabel: 'Right now',
-    nowValue: 'Methods engineering apprentice at Air France Industries, final year at ESILV.',
+    nowValue:
+      'Methods engineering apprentice at Air France Industries, final year at ESILV, on the Business engineering track with EMLV from the 2026 intake.',
     stackLabel: 'Ground',
     previewLabel: 'atlas — today screen',
     projectsLabel: 'Products',

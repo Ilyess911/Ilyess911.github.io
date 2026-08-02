@@ -36,7 +36,7 @@ export const fr = {
     statusLabel: 'Recherche',
     nowLabel: 'En ce moment',
     nowValue:
-      "Apprenti ingénieur méthodes chez Air France Industries, en dernière année à l'ESILV.",
+      "Apprenti ingénieur méthodes chez Air France Industries, en dernière année à l'ESILV, parcours Business engineering avec l'EMLV à partir de la rentrée 2026.",
     stackLabel: 'Terrain',
     previewLabel: 'atlas — écran today',
     projectsLabel: 'Produits',
