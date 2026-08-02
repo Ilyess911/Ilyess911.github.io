@@ -176,6 +176,48 @@ Le Post Inspector de LinkedIn force le rafraîchissement.
 
 ---
 
+## 2 août 2026 — Le parcours Business engineering
+
+### 1. Une information vraie mais invisible
+
+Le double cursus avec l'EMLV était déjà écrit dans les données, dans le champ
+`summary` de l'entrée ESILV. Il n'était affiché nulle part : le bloc Formation
+de `Experience.astro` ne rend que trois choses, la période, l'école et
+l'intitulé. **Un champ rempli n'est pas une information publiée.** Vérifier le
+rendu, pas la donnée.
+
+Corrigé en remontant le parcours dans l'intitulé du diplôme, seul champ visible :
+
+```
+2024–2027 · ESILV · Diplôme d'ingénieur — Industrie 4.0 et Robotique,
+parcours Business engineering avec l'EMLV à partir de la rentrée 2026
+```
+
+Repris aussi dans « En ce moment » du hero, en français et en anglais, parce que
+c'est là que se lit le présent.
+
+### 2. Le nom exact vient de la source, pas du souvenir
+
+Première rédaction : « double diplôme Ingénieur d'Affaires ». La page de l'ESILV
+dit autre chose. Le parcours s'appelle **Business engineering**, il se suit en
+**dernière année**, il est enseigné avec l'EMLV, et ce n'est **pas un second
+diplôme**. Les trois formulations ont été corrigées avant publication.
+
+Un portfolio qui interdit les métriques inventées ne peut pas se permettre un
+intitulé de formation approximatif. La règle vaut aussi pour ce qui flatte.
+
+### 3. Une école, un bloc
+
+Le parcours avait d'abord sa propre entrée, sous `ESILV × EMLV`. Le bloc
+Formation affichait alors deux lignes pour une seule école et deux périodes qui
+se chevauchaient, ce qui se lit comme deux cursus. Fusionné dans l'entrée ESILV.
+**Le bloc Formation compte les écoles, pas les parcours.**
+
+Contrôlé après coup : `npm run shots` ne relève aucun débordement de 320 à
+1440 px, l'intitulé plus long se replie.
+
+---
+
 ## Décisions permanentes
 
 **Honnêteté.** Aucune métrique, aucun client, aucun utilisateur, aucun résultat
