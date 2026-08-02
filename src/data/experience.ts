@@ -137,36 +137,19 @@ export const EXPERIENCE: readonly ExperienceItem[] = [
 
 export const EDUCATION: readonly ExperienceItem[] = [
   {
-    org: 'ESILV × EMLV',
-    kind: 'education',
-    role: {
-      fr: 'Parcours Business engineering — dernière année, à partir de la rentrée 2026',
-      en: 'Business engineering track — final year, from the 2026 intake',
-    },
-    period: { fr: '2026 — 2027', en: '2026 — 2027' },
-    start: '2026-09',
-    end: '2027-08',
-    location: 'Courbevoie',
-    summary: {
-      fr: "Parcours d'ingénieur d'affaires de l'ESILV, enseigné avec l'EMLV : cycles de vente, développement commercial, négociation et gestion de compte.",
-      en: 'The ESILV business engineering track, taught with EMLV: sales cycles, business development, negotiation and account management.',
-    },
-    highlights: [],
-  },
-  {
     org: 'ESILV',
     kind: 'education',
     role: {
-      fr: 'Diplôme d’ingénieur — Industrie 4.0 et Robotique',
-      en: 'Engineering degree — Industry 4.0 and Robotics',
+      fr: 'Diplôme d’ingénieur — Industrie 4.0 et Robotique, parcours Business engineering avec l’EMLV à partir de la rentrée 2026',
+      en: 'Engineering degree — Industry 4.0 and Robotics, Business engineering track with EMLV from the 2026 intake',
     },
     period: { fr: '2024 — 2027', en: '2024 — 2027' },
     start: '2024-09',
     end: '2027-08',
     location: 'Courbevoie',
     summary: {
-      fr: "Dernière année en parcours Business engineering, le parcours d'ingénieur d'affaires enseigné avec l'EMLV.",
-      en: 'Final year on the Business engineering track, the business engineering path taught with EMLV.',
+      fr: "Le parcours d'ingénieur d'affaires de dernière année, enseigné avec l'EMLV : cycles de vente, développement commercial, négociation et gestion de compte.",
+      en: 'The final-year business engineering track, taught with EMLV: sales cycles, business development, negotiation and account management.',
     },
     highlights: [],
   },
