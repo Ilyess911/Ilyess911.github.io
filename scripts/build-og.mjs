@@ -13,6 +13,9 @@ import { mkdtemp, writeFile, readdir, copyFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+/* `sharp` n'est pas une dépendance ajoutée : le pipeline images d'Astro
+   l'installe déjà, et il n'est utilisé ici que pour réduire le rendu. */
+import sharp from 'sharp';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const CHROME =
@@ -69,9 +72,16 @@ async function main() {
 
   await writeFile(join(work, 'og.html'), html, 'utf8');
 
-  await runChrome(1200, 630, join(root, 'public', 'og.png'), join(work, 'og.html'));
+  /* Rendu au double puis réduit : à 1200 px de large directement, Chrome
+     crénèle les diagonales du titrage. Le suréchantillonnage les lisse. */
+  const large = join(work, 'og@2x.png');
+  await runChrome(1200, 630, large, join(work, 'og.html'), 2);
+  await sharp(large)
+    .resize(1200, 630)
+    .png()
+    .toFile(join(root, 'public', 'og.png'));
 
-  console.log(`✓ public/og.png (1200 × 630)`);
+  console.log(`✓ public/og.png (1200 × 630, rendu en 2400 × 1260)`);
 
   /* Icône pour l'écran d'accueil iOS : même marque que le favicon SVG,
      mais en PNG, seul format accepté par Safari. */
@@ -94,8 +104,11 @@ async function main() {
   console.log('✓ public/apple-touch-icon.png (180 × 180)');
 }
 
-/** Rend un fichier HTML local en PNG, à la taille exacte demandée. */
-function runChrome(width, height, out, file) {
+/**
+ * Rend un fichier HTML local en PNG. `scale` multiplie la densité de pixels :
+ * la capture sort alors en `width × scale` par `height × scale`.
+ */
+function runChrome(width, height, out, file, scale = 1) {
   return new Promise((resolve, reject) => {
     const child = spawn(
       CHROME,
@@ -103,7 +116,7 @@ function runChrome(width, height, out, file) {
         '--headless=new',
         '--disable-gpu',
         '--hide-scrollbars',
-        '--force-device-scale-factor=1',
+        `--force-device-scale-factor=${scale}`,
         `--window-size=${width},${height}`,
         `--screenshot=${out}`,
         `file://${file}`,
