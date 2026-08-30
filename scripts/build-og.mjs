@@ -18,15 +18,14 @@ const root = fileURLToPath(new URL('..', import.meta.url));
 const CHROME =
   process.env.CHROME_PATH ?? '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 
-/* Doit rester identique à PROFILE.headline.fr dans src/data/profile.ts. */
-const HEADLINE = [
-  "L'information existe.",
-  "Elle n'est pas lisible.",
-  'Je construis ce qui manque.',
-];
-const NAME = 'Ilyess Assadi';
-const SUB = 'Ingénierie, produit et business · Paris';
-const FOOT = 'Air France Industries · ESILV · Nexya Agency';
+/* L'aperçu de lien est réduit au portrait et au titre : dans un fil LinkedIn
+   la vignette fait deux cents pixels de large, où une accroche de trois
+   lignes devient illisible. Un visage et un nom restent lisibles. */
+const TITLE = ['Portfolio', 'Ilyess ASSADI'];
+
+/* Le portrait de l'aperçu est celui du site : une seule source, donc pas de
+   dérive possible entre la page et sa vignette de partage. */
+const PORTRAIT = join('src', 'assets', 'portrait-mono.jpg');
 
 /** Retrouve un fichier de police woff2 dans le paquet fontsource installé. */
 async function findFont(pkg, match) {
@@ -39,47 +38,33 @@ async function findFont(pkg, match) {
 
 async function main() {
   const work = await mkdtemp(join(tmpdir(), 'og-'));
-  const sans = await findFont('@fontsource-variable/instrument-sans', 'latin-wght-normal');
-  const mono = await findFont('@fontsource-variable/jetbrains-mono', 'latin-wght-normal');
+  const sans = await findFont('@fontsource-variable/inter', 'latin-wght-normal');
 
   await copyFile(sans, join(work, 'sans.woff2'));
-  await copyFile(mono, join(work, 'mono.woff2'));
+  await copyFile(join(root, PORTRAIT), join(work, 'portrait.jpg'));
 
   const html = `<!doctype html>
 <html lang="fr"><head><meta charset="utf-8"><style>
   @font-face { font-family: 'Sans'; src: url('sans.woff2') format('woff2'); font-weight: 100 900; }
-  @font-face { font-family: 'Mono'; src: url('mono.woff2') format('woff2'); font-weight: 100 900; }
   * { margin: 0; box-sizing: border-box; }
   body {
-    width: 1200px; height: 630px; background: #fbfbf9; color: #14161a;
-    font-family: 'Sans', sans-serif; display: flex; flex-direction: column;
-    justify-content: space-between; padding: 68px 72px;
+    width: 1200px; height: 630px; background: #f7f8fa; color: #000;
+    font-family: 'Sans', sans-serif; display: flex; align-items: center;
+    gap: 64px; padding-left: 174px;
     -webkit-font-smoothing: antialiased;
   }
-  .eyebrow {
-    font-family: 'Mono', monospace; font-size: 17px; font-weight: 500;
-    letter-spacing: 0.1em; text-transform: uppercase; color: #61666e;
-    display: flex; gap: 14px; align-items: center;
+  .portrait {
+    width: 300px; height: 300px; flex: none; border-radius: 40px;
+    object-fit: cover; box-shadow: 0 18px 34px rgb(20 22 26 / 0.14);
   }
-  .eyebrow .slash { color: #cfcfc6; }
-  h1 { font-size: 74px; font-weight: 500; line-height: 1.03; letter-spacing: -0.035em; }
+  h1 {
+    font-size: 76px; font-weight: 700; line-height: 1.07;
+    letter-spacing: -0.035em;
+  }
   h1 span { display: block; }
-  h1 span:last-child { color: #2c36c9; }
-  .foot {
-    display: flex; justify-content: space-between; align-items: flex-end;
-    padding-top: 26px; border-top: 1px solid #e4e4dd;
-    font-family: 'Mono', monospace; font-size: 16px; letter-spacing: 0.04em;
-    text-transform: uppercase; color: #61666e;
-  }
-  .mark { display: flex; gap: 5px; flex-direction: column; }
-  .mark i { display: block; height: 4px; border-radius: 2px; background: #14161a; }
-  .mark i:nth-child(1) { width: 34px; }
-  .mark i:nth-child(2) { width: 25px; }
-  .mark i:nth-child(3) { width: 17px; background: #2c36c9; }
 </style></head><body>
-  <div class="eyebrow"><span>${NAME}</span><span class="slash">/</span><span>${SUB}</span></div>
-  <h1>${HEADLINE.map((l) => `<span>${l}</span>`).join('')}</h1>
-  <div class="foot"><span>${FOOT}</span><span class="mark"><i></i><i></i><i></i></span></div>
+  <img class="portrait" src="portrait.jpg" alt="">
+  <h1>${TITLE.map((l) => `<span>${l}</span>`).join('')}</h1>
 </body></html>`;
 
   await writeFile(join(work, 'og.html'), html, 'utf8');
