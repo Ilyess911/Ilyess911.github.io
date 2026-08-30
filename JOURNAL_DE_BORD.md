@@ -124,6 +124,9 @@ nuit**, dont le bleu entre en conflit direct avec `--accent`.
 Deux emplacements seulement : l'avatar du hero, et le bloc contact à 130 px —
 au moment où l'on décide d'écrire, on voit à qui.
 
+> Le portrait a été remplacé le 30 août 2026, voir l'entrée de cette date. Le
+> raisonnement ci-dessus tient toujours : monochrome, deux emplacements.
+
 ### 8. Mobile
 
 Traité comme un entonnoir distinct, pas comme un desktop réduit.
@@ -174,6 +177,10 @@ dans les balises.
 À savoir : **LinkedIn, Slack et X gardent les aperçus en cache** plusieurs jours.
 Le Post Inspector de LinkedIn force le rafraîchissement.
 
+> Cette image avait été fabriquée à la main : `scripts/build-og.mjs` ne savait
+> pas la produire, et la divergence est restée invisible jusqu'au 30 août 2026.
+> Voir l'entrée de cette date.
+
 ---
 
 ## 2 août 2026 — Le parcours Business engineering
@@ -218,6 +225,101 @@ Contrôlé après coup : `npm run shots` ne relève aucun débordement de 320 à
 
 ---
 
+## 30 août 2026 — Nouveau portrait, et la dérive qu'il a révélée
+
+Demande d'une ligne, changer la photo. Le fichier a été remplacé en dix minutes.
+Le reste de la session a servi à réparer ce que ce remplacement a mis au jour.
+
+### 1. Le recadrage n'est pas un détail esthétique
+
+La photo fournie est cadrée large : buste, baie vitrée, plante. L'ancienne était
+un buste serré sur fond studio. Posée telle quelle, la tête occupait 28 % de la
+hauteur du cadre contre 41 % avant, donc **une quinzaine de pixels de visage
+dans l'avatar de 52 px du hero**.
+
+Recadrée pour retrouver le rapport d'origine : côté de 854 px pris dans la source
+de 1254, centre de tête à 31 % du haut, puis ramenée à 886 × 886 en niveaux de
+gris, 79 ko. Même nom de fichier, donc `Hero.astro` et `Contact.astro` n'ont pas
+bougé d'une ligne.
+
+**La règle à retenir : un portrait se cadre pour sa plus petite occurrence.**
+Ici c'est un avatar de 52 px, pas le bloc contact de 148 px.
+
+Le noir et blanc a été conservé pour les raisons déjà écrites au 28 juillet. La
+variante couleur existe en local, hors dépôt.
+
+### 2. Trois fois « c'est encore l'ancienne » avant de trouver la vraie
+
+Le fichier était bien remplacé sur le disque, le serveur servait bien la
+nouvelle image, et l'écran affichait toujours l'ancienne. Deux causes distinctes
+se superposaient, et la première a masqué la seconde.
+
+**Cache navigateur.** Le `dist` avait été servi sur le port 4321 juste avant que
+le serveur de développement ne prenne le même port : mêmes URL, en-têtes de
+cache longs. Prouvé en tirant l'image directement par `curl`, puis en rendant la
+page avec un profil Chrome neuf.
+
+**Divergence réelle.** `public/og.png` contenait toujours l'ancien portrait.
+Elle n'a rien à voir avec le cache, et sans l'insistance elle serait passée.
+
+À retenir : **vérifier une image par une capture d'écran de la page ne suffit
+pas.** Ce qui tranche, c'est le contenu servi, récupéré hors du navigateur.
+
+### 3. Un script qui ne pouvait plus tourner
+
+`scripts/build-og.mjs` avait divergé deux fois du fichier qu'il est censé
+produire, et rien ne le signalait.
+
+- La mise en page rendue par le script était l'ancienne version typographique,
+  **sans photo**. Le fichier publié, lui, était le portrait plus le titre,
+  fabriqué à la main.
+- Le script chargeait **Instrument Sans**, retirée du projet au passage à Inter.
+  `npm run assets:og` échouait sur `ENOENT` avant même de rendre quoi que ce
+  soit. Il était donc injouable depuis la refonte de direction artistique.
+
+Corrigé : le script produit la mise en page réellement publiée et lit
+`src/assets/portrait-mono.jpg`. **Une seule source pour la page et pour sa
+vignette**, la dérive ne peut plus revenir.
+
+Calé sur l'ancien fichier avant de remplacer : portrait à la même position et
+aux mêmes dimensions, bloc de texte de 544 à 1022 px. Preuve que le rendu est
+fidèle : `apple-touch-icon.png`, régénéré au passage, ressort **identique à
+l'octet près** et n'apparaît même pas dans le `git status`.
+
+### 4. Le journal a rattrapé une régression que les tests laissaient passer
+
+L'entrée du 28 juillet précise que l'aperçu était rendu en 2400 × 1260 puis
+réduit. Mon script rendait directement à la taille finale et perdait ce lissage.
+Aucun test ne le voyait, aucune capture ne le montrait à taille réelle : il a
+fallu agrandir les glyphes pour constater les diagonales crénelées.
+
+Rétabli. La réduction passe par `sharp`, **déjà installé par le pipeline images
+d'Astro**, donc toujours aucune dépendance ajoutée au projet.
+
+**C'est la justification de ce document.** Une décision de qualité qui n'est ni
+testée ni écrite disparaît à la première réécriture.
+
+### 5. Ce qui a été publié
+
+Trois passes, chacune sur sa branche, fusionnées en `--no-ff`, chacune précédée
+d'un `npm run verify` complet et suivie d'une vérification sur la production.
+
+| Passe              | `main`    | Déploiement        |
+| ------------------ | --------- | ------------------ |
+| Portrait           | `f23bf42` | 42 s + 9 s         |
+| Aperçu de lien     | `855dc22` | 31 s + 10 s        |
+| Suréchantillonnage | `dd33a12` | vérifié après coup |
+
+Contrôle final : l'image de partage téléchargée depuis `ilyess911.github.io` a
+le **même hash** que le fichier local, et l'asset du portrait servi en
+production est bien le nouveau.
+
+Relevé au passage, sans conséquence aujourd'hui : GitHub annonce la fin de
+Node 20 sur ses exécuteurs, les actions de `deploy.yml` sont déjà forcées sur
+Node 24.
+
+---
+
 ## Décisions permanentes
 
 **Honnêteté.** Aucune métrique, aucun client, aucun utilisateur, aucun résultat
@@ -243,6 +345,18 @@ CSS vanille avec tokens (le refus de Tailwind est documenté dans le README).
 ```bash
 npm run verify   # types, format, tests de contenu, build
 npm run shots    # débordement horizontal de 320 à 1440 px + tokens morts
+```
+
+**Après toute modification du portrait**, relancer aussi `npm run assets:og` :
+l'aperçu de lien contient la photo, et rien dans `verify` ne le vérifie. C'est
+exactement l'oubli du 30 août 2026.
+
+Pour contrôler qu'une image est bien celle publiée, ne pas se fier au navigateur
+ni à une capture : télécharger le fichier servi et comparer son empreinte.
+
+```bash
+curl -s -o /tmp/og.png https://ilyess911.github.io/og.png
+shasum /tmp/og.png public/og.png   # les deux lignes doivent concorder
 ```
 
 État à la fin de cette session : 23 tests, 0 erreur TypeScript, aucun
