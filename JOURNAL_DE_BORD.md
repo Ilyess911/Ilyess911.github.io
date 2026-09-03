@@ -320,6 +320,69 @@ Node 24.
 
 ---
 
+## 3 septembre 2026 : retrait du parcours Business engineering
+
+Le portfolio annonçait un parcours d'ingénieur d'affaires en dernière année,
+enseigné avec l'EMLV à partir de la rentrée 2026. Ilyess ne l'a jamais intégré.
+La mention est donc fausse, et sur un site dont la règle fondatrice est de ne
+rien affirmer qui ne soit vérifiable, une formation non suivie est exactement le
+genre de détail qui coûte le plus cher quand un recruteur le vérifie.
+
+Cinq occurrences, trois fichiers, tous dans `src/data/` :
+
+- `experience.ts`, fiche ESILV : le titre redevient « Diplôme d'ingénieur,
+  Industrie 4.0 et Robotique » dans les deux langues.
+- `experience.ts`, résumé de cette même fiche : il décrivait le contenu du
+  parcours EMLV (cycles de vente, développement commercial, négociation). Une
+  suppression sèche laissait la carte vide, il a donc été réécrit sur le contenu
+  réel du diplôme : robotique, systèmes industriels et données.
+- `translations/fr.ts` et `translations/en.ts`, bloc « En ce moment » du hero :
+  la phrase s'arrête maintenant à « en dernière année à l'ESILV ».
+
+Rien d'autre à corriger : le CV n'existe toujours pas et les données
+structurées `schema.org` ne citaient que l'établissement, pas le parcours.
+
+### La CI a refusé, et elle avait raison
+
+Le premier push est passé au rouge sur l'étape de qualité :
+
+    [warn] src/data/experience.ts
+    [warn] src/data/translations/en.ts
+    Code style issues found in 2 files.
+
+Aucun rapport avec le contenu. En raccourcissant deux chaînes, elles tenaient
+désormais sur une seule ligne, et l'une d'elles n'avait plus d'apostrophe donc
+Prettier voulait des guillemets simples. `npm run build` passe en local sans
+rien voir de tout ça : **c'est `npm run lint` qui garde le format, et lui seul.**
+Lancer `npm run verify` avant de pousser, pas seulement le build.
+
+### Le site paraissait cassé, c'était le réseau
+
+Une fois le correctif déployé, le site ne chargeait plus, ni dans le navigateur
+ni en ligne de commande. Diagnostic, tenu à distance de la panique :
+
+    185.199.108.153 injoignable (ports 443 et 80)
+    curl https://github.com        http=200
+    curl https://pages.github.com  timeout
+
+Le CDN qui sert GitHub Pages, le bloc `185.199.108-111.153`, était injoignable
+en entier, alors que `github.com` répondait. `pages.github.com`, qui est un site
+de GitHub lui-même, expirait pareil : la panne ne pouvait donc pas venir de ce
+dépôt. Le réseau du moment, passerelle `10.163.32.1`, filtrait `*.github.io`.
+Bascule en 4G, `http=200`, tout revient.
+
+**Méthode à réutiliser** : avant de soupçonner son propre déploiement, tester un
+autre site hébergé sur la même infrastructure. Si les deux tombent, le problème
+n'est pas le vôtre. Et pendant que le réseau bloquait, la vérification a pu se
+faire malgré tout en téléchargeant l'artefact publié par l'action de
+déploiement, ce qui donne le HTML exact servi par Pages sans passer par le web.
+
+Vérifié en fin de session sur le site en ligne, versions française et anglaise :
+plus aucune occurrence de « Business engineering », « ingénieur d'affaires » ni
+« EMLV ».
+
+---
+
 ## Décisions permanentes
 
 **Honnêteté.** Aucune métrique, aucun client, aucun utilisateur, aucun résultat
