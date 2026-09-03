@@ -37,7 +37,7 @@ export const en: Dictionary = {
     statusLabel: 'Looking for',
     nowLabel: 'Right now',
     nowValue:
-      'Methods engineering apprentice at Air France Industries, final year at ESILV, on the Business engineering track with EMLV from the 2026 intake.',
+      'Methods engineering apprentice at Air France Industries, final year at ESILV.',
     stackLabel: 'Ground',
     previewLabel: 'atlas — today screen',
     projectsLabel: 'Products',
