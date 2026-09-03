@@ -148,7 +148,7 @@ export const EDUCATION: readonly ExperienceItem[] = [
     end: '2027-08',
     location: 'Courbevoie',
     summary: {
-      fr: "Robotique, systèmes industriels et données : concevoir, instrumenter et piloter des lignes de production automatisées.",
+      fr: 'Robotique, systèmes industriels et données : concevoir, instrumenter et piloter des lignes de production automatisées.',
       en: 'Robotics, industrial systems and data: designing, instrumenting and running automated production lines.',
     },
     highlights: [],
