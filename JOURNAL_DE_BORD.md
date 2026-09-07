@@ -383,6 +383,92 @@ plus aucune occurrence de « Business engineering », « ingénieur d'affaires �
 
 ---
 
+## 7 septembre 2026 : score TOEIC, et l'arithmétique de la grille du parcours
+
+### Le score n'était pas à ajouter, il était à corriger
+
+Le premier réflexe devant « mets que j'ai eu 945 au TOEIC » est de chercher où
+créer la ligne. Elle existait déjà : `LANGUAGES` dans `src/data/profile.ts`
+annonçait 845, et c'est le bloc « Langues » de la section contact qui la rend.
+
+Une seule occurrence dans tout le dépôt, vérifiée avant de toucher quoi que ce
+soit :
+
+    grep -rn "845" src tests scripts README.md
+    src/data/profile.ts:167:    level: { fr: 'TOEIC 845', en: 'TOEIC 845' },
+
+Le libellé est identique en français et en anglais, donc la même chaîne sert les
+deux versions du site. Une ligne modifiée, rien d'autre. `npm run verify` au
+vert (0 erreur TypeScript, Prettier et ESLint propres, 23 tests, build des 7
+pages), puis contrôle sur le HTML construit dans `dist/index.html` et
+`dist/en/index.html` avant de pousser, et sur le site en ligne après
+déploiement.
+
+**La leçon tient en une phrase** : sur un site dont tout le contenu est
+centralisé et typé, une demande d'ajout est plus souvent une mise à jour. Le
+`grep` avant l'édition coûte cinq secondes et évite une donnée en double, qui
+finit toujours par diverger.
+
+### La chaîne de déploiement prévient sa propre obsolescence
+
+Le run a réussi, avec un avertissement qui n'existait pas au 3 septembre :
+
+    Node.js 20 is deprecated. The following actions target Node.js 20 but are
+    being forced to run on Node.js 24: actions/checkout@v4,
+    actions/configure-pages@v5, actions/setup-node@v4, actions/upload-artifact@v4
+
+Rien de cassé aujourd'hui, GitHub applique un repli automatique. Le jour où il
+le retire, le déploiement s'arrête sans que rien n'ait changé dans ce dépôt.
+Monter ces quatre actions d'un cran majeur est une tâche de maintenance, pas une
+urgence, mais elle est datée : elle est notée dans « Reste à faire ».
+
+### L'engagement associatif : la place est trouvée, le contenu manque
+
+Une nouvelle expérience associative doit rejoindre le site. L'analyse a été
+faite avant toute modification, et elle a sorti trois contraintes que le contenu
+seul ne laissait pas deviner.
+
+**Le CSS de `Experience.astro` est positionnel.** `.stint:first-child` occupe
+deux colonnes avec le plus gros titrage, `.stint:nth-child(2)` tient un régime
+intermédiaire, `.stint:nth-child(n+3)` passe en compact. Insérer une carte au
+mauvais rang ne décale pas seulement l'ordre, il fait basculer Nexya dans le
+régime du passé.
+
+**Un test contraint déjà l'ordre.** `tests/content.test.ts` exige que tous les
+postes `end: null` viennent en tête, puis le passé par `start` décroissant. Un
+engagement en cours depuis septembre 2026 ne peut donc se placer qu'en
+troisième position, après Air France Industries et Nexya. Ce qui tombe bien :
+c'est le premier rang du régime compact, aucune règle à réécrire.
+
+**L'arithmétique de la grille interdit la carte anodine.** Cinq cartes dont la
+première en occupe deux font six cellules, un compte exact sur deux comme sur
+trois colonnes. Une sixième carte normale en fait sept : une carte seule sur sa
+dernière ligne, aux deux points de rupture. C'est précisément le vide que la
+session du 28 juillet avait passé une passe entière à supprimer.
+
+**Décision** : l'engagement entre dans `EXPERIENCE` en troisième position, avec
+une variante `stint--engagement` en pleine largeur. Ce n'est pas une mise en
+avant, c'est ce qui rétablit le compte : deux cellules pour Air France, une pour
+Nexya, la bande pleine largeur, puis les trois cartes du passé, soit huit
+cellules sur deux colonnes et neuf sur trois. Exact des deux côtés. Et comme
+elle est en troisième position, elle hérite du régime compact sans y toucher :
+large, mais typographiquement mineure, posée sur `--surface-2` comme le module
+formation pour marquer qu'elle relève d'un autre registre que l'emploi.
+
+**Pas de section « Engagements ».** Une section entière pour un seul élément
+commencé il y a quinze jours annonce exactement ce qu'on cherche à éviter. Le
+site tient sur une doctrine de non-gonflage, section « Limites » obligatoire et
+« aucun contrat signé » composé comme les autres faits ; une section à un
+élément la contredit. Le champ `kind` accueille donc une valeur `'engagement'`,
+à côté du `'other'` que porte déjà Paris 2024.
+
+**Rien n'a été écrit.** Le nom de l'association, le rôle et les missions
+n'étaient pas renseignés, et ce portfolio n'affiche que des faits vérifiables :
+inventer la copie aurait été la seule faute vraiment grave possible ici. Le
+travail est en attente de ces informations, l'analyse reste valable.
+
+---
+
 ## Décisions permanentes
 
 **Honnêteté.** Aucune métrique, aucun client, aucun utilisateur, aucun résultat
@@ -438,6 +524,14 @@ desktop et 99 mobile, 0 fichier JavaScript.
 - **Une démo essayable.** C'est la dernière grosse objection : aucun des trois
   produits ne peut être ouvert. Un lien de démo publique ferait plus, désormais,
   que n'importe quelle retouche visuelle.
+- **L'engagement associatif.** Emplacement, variante de carte et arithmétique
+  de grille arrêtés le 7 septembre 2026, voir l'entrée de cette date. En attente
+  du nom de l'association, du rôle exact et des missions réelles. Rien ne sera
+  rédigé sans ces informations.
+- **Monter les actions du workflow de déploiement.** `actions/checkout`,
+  `configure-pages`, `setup-node` et `upload-artifact` ciblent Node 20, déprécié
+  depuis septembre 2025 et aujourd'hui replié sur Node 24 par GitHub. Le
+  déploiement s'arrêtera le jour où le repli disparaîtra.
 - **Épingler les dépôts publics.** `Ilyess911.github.io` et
   `robot-anomaly-detection` ; dépingler `Ilyess911`, qui pointe vers le README
   de la page où le visiteur se trouve déjà. Action impossible par API, GitHub la
