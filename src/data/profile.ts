@@ -164,7 +164,7 @@ export const LANGUAGES: readonly { readonly label: I18n; readonly level: I18n }[
   },
   {
     label: { fr: 'Anglais', en: 'English' },
-    level: { fr: 'TOEIC 845', en: 'TOEIC 845' },
+    level: { fr: 'TOEIC 945', en: 'TOEIC 945' },
   },
   {
     label: { fr: 'Espagnol', en: 'Spanish' },
