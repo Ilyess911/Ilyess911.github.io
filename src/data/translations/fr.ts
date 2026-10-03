@@ -26,6 +26,39 @@ export const fr = {
     switchLanguageShort: 'EN',
   },
 
+  credentials: {
+    label: 'Profil',
+    title: 'Ingénieur, entrepreneur, commercial.',
+    cells: [
+      {
+        kicker: 'Ingénierie',
+        figure: '2024 →',
+        body: 'Apprenti ingénieur méthodes chez Air France Industries. Diplôme ESILV Industrie 4.0 et Robotique en 2027.',
+      },
+      {
+        kicker: 'Entrepreneuriat',
+        figure: '3 produits',
+        body: 'Co-fondateur de Nexya Agency : conçus, construits et présentés à des interlocuteurs réels.',
+      },
+      {
+        kicker: 'Vente',
+        figure: '2 cycles',
+        body: 'Deux produits menés jusqu’à un acheteur, de la démonstration à la tarification.',
+      },
+      {
+        kicker: 'Leadership',
+        figure: 'Vinc’IA',
+        body: 'Responsable Conférences et partenariats : masterclass inaugurale avec le fondateur de HandyCatch.',
+      },
+      {
+        kicker: 'International',
+        figure: '945',
+        body: 'Au TOEIC. Anglais de travail, espagnol de niveau académique.',
+      },
+    ],
+    marqueeLabel: 'Terrains',
+  },
+
   hero: {
     previewStage: 'Prototype',
     targetLabel: 'Poste recherché',
@@ -41,7 +74,7 @@ export const fr = {
     previewLabel: 'atlas · écran today',
     projectsLabel: 'Produits',
     availabilityLabel: 'Disponibilité',
-    primaryCta: 'Voir mes projets',
+    primaryCta: 'Voir les démos',
     secondaryCta: 'GitHub',
     tertiaryCta: 'LinkedIn',
     fragmentAlt:

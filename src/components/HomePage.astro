@@ -4,6 +4,7 @@ import Hero from '~/components/Hero.astro';
 import Section from '~/components/Section.astro';
 import Intro from '~/components/Intro.astro';
 import FieldProof from '~/components/FieldProof.astro';
+import Credentials from '~/components/Credentials.astro';
 import ProjectCard from '~/components/ProjectCard.astro';
 import Experience from '~/components/Experience.astro';
 import Contact from '~/components/Contact.astro';
@@ -48,6 +49,8 @@ const coda = VISIBLE_PROJECTS.filter((p) => !p.featured).map((p) => ({
   isHome
 >
   <Hero locale={locale} />
+
+  <Credentials locale={locale} headingId="creds-title" />
 
   <FieldProof locale={locale} headingId="proof-title" />
 

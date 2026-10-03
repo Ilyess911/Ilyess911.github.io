@@ -27,6 +27,39 @@ export const en: Dictionary = {
     switchLanguageShort: 'FR',
   },
 
+  credentials: {
+    label: 'Profile',
+    title: 'Engineer, founder, seller.',
+    cells: [
+      {
+        kicker: 'Engineering',
+        figure: '2024 →',
+        body: 'Methods engineering apprentice at Air France Industries. ESILV degree in Industry 4.0 and Robotics in 2027.',
+      },
+      {
+        kicker: 'Entrepreneurship',
+        figure: '3 products',
+        body: 'Co-founder of Nexya Agency: designed, built and taken to real counterparts.',
+      },
+      {
+        kicker: 'Sales',
+        figure: '2 cycles',
+        body: 'Two products taken all the way to a buyer, from the demo to the pricing talk.',
+      },
+      {
+        kicker: 'Leadership',
+        figure: 'Vinc’IA',
+        body: 'Head of Conferences and Partnerships: inaugural masterclass with the founder of HandyCatch.',
+      },
+      {
+        kicker: 'International',
+        figure: '945',
+        body: 'On the TOEIC. Working English, academic Spanish.',
+      },
+    ],
+    marqueeLabel: 'Grounds',
+  },
+
   hero: {
     previewStage: 'Prototype',
     targetLabel: 'Looking for',
@@ -41,7 +74,7 @@ export const en: Dictionary = {
     previewLabel: 'atlas · today screen',
     projectsLabel: 'Products',
     availabilityLabel: 'Availability',
-    primaryCta: 'See my work',
+    primaryCta: 'Watch the demos',
     secondaryCta: 'GitHub',
     tertiaryCta: 'LinkedIn',
     fragmentAlt:

@@ -21,8 +21,8 @@ export const PROFILE = {
 
   /** Les trois repères, sous la phrase. Rien d'autre. */
   subline: {
-    fr: 'ESILV · Air France Industries · Nexya Agency',
-    en: 'ESILV · Air France Industries · Nexya Agency',
+    fr: 'ESILV · Air France Industries · Nexya Agency · Vinc’IA',
+    en: 'ESILV · Air France Industries · Nexya Agency · Vinc’IA',
   } satisfies I18n,
 
   /** Affiliations affichées en filet sous le hero. Texte, pas de logos. */
