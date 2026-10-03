@@ -34,7 +34,7 @@ const LAYOUTS: Record<string, 'wide' | 'split' | 'quiet'> = {
 const coda = VISIBLE_PROJECTS.filter((p) => !p.featured).map((p) => ({
   name: projectTitle(p, locale),
   href: p.links.find((l) => l.kind === 'code')?.href,
-  film: p.video?.src,
+  film: p.video?.src[locale],
   seconds: p.video?.seconds,
 }));
 ---

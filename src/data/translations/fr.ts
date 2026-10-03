@@ -46,7 +46,7 @@ export const fr = {
     tertiaryCta: 'LinkedIn',
     fragmentAlt:
       "Détail de l'écran Today d'Atlas : une liste d'actions classées par impact, dont un brouillon de réponse marqué comme généré par une machine.",
-    fragmentCaption: 'Atlas — écran Today, détail.',
+    fragmentCaption: 'Atlas, écran Today, détail.',
   },
 
   /* Le libellé de l'épine dorsale ne répète jamais le titre de la section :
@@ -96,7 +96,7 @@ export const fr = {
     public: 'Code public',
     private: 'Code privé',
     none: 'Pas de dépôt public',
-    privateNote: 'Dépôt privé — accès possible sur demande.',
+    privateNote: 'Dépôt privé, accès possible sur demande.',
   },
 
   caseStudy: {
@@ -156,7 +156,7 @@ export const fr = {
     emailLabel: 'Email',
     copyEmail: 'Copier',
     emailCopied: 'Adresse copiée',
-    copyFailed: 'Copie impossible — sélectionnez l’adresse manuellement',
+    copyFailed: 'Copie impossible : sélectionnez l’adresse manuellement',
     cvLabel: 'CV',
     cvDownload: 'Télécharger le CV (PDF)',
     locationLabel: 'Localisation',
@@ -193,7 +193,7 @@ export const fr = {
     outcome: 'Aucun contrat signé à ce jour.',
     lesson:
       'La première objection d’un acheteur RH n’est pas la performance du modèle, c’est la responsabilité juridique.',
-    lessonSource: 'Resum’EYE — ce que j’en retiens',
+    lessonSource: 'Resum’EYE : ce que j’en retiens',
   },
 };
 

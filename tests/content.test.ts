@@ -1,3 +1,6 @@
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+
 import { describe, expect, it } from 'vitest';
 
 import { fr } from '~/data/translations/fr';
@@ -228,6 +231,19 @@ describe('projets', () => {
           expect(image.alt[locale as Locale].length).toBeGreaterThan(40);
         }
       }
+    }
+  });
+
+  it('sert une démo et son aperçu réels dans chaque langue', () => {
+    for (const project of VISIBLE_PROJECTS) {
+      if (!project.video) continue;
+      for (const locale of LOCALES) {
+        /* Une vidéo absente dans une langue, c'est un lecteur vide en production. */
+        for (const path of [project.video.src[locale], project.video.poster[locale]]) {
+          expect(existsSync(join('public', path)), `${project.slug} : ${path}`).toBe(true);
+        }
+      }
+      expect(project.video.src.fr).not.toBe(project.video.src.en);
     }
   });
 });

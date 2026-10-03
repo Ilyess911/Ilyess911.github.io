@@ -74,8 +74,8 @@ export const PROJECTS: readonly Project[] = [
       },
     ],
     video: {
-      src: '/videos/time2drive.mp4',
-      poster: '/videos/time2drive.jpg',
+      src: { fr: '/videos/time2drive.mp4', en: '/videos/time2drive.en.mp4' },
+      poster: { fr: '/videos/time2drive.jpg', en: '/videos/time2drive.en.jpg' },
       seconds: 20,
       label: {
         fr: 'Time2Drive en vingt secondes, données de démonstration',
@@ -513,8 +513,8 @@ export const PROJECTS: readonly Project[] = [
     codeVisibility: 'private',
     links: [],
     video: {
-      src: '/videos/resum-eye.mp4',
-      poster: '/videos/resum-eye.jpg',
+      src: { fr: '/videos/resum-eye.mp4', en: '/videos/resum-eye.en.mp4' },
+      poster: { fr: '/videos/resum-eye.jpg', en: '/videos/resum-eye.en.jpg' },
       seconds: 22,
       label: {
         fr: 'Resum’EYE en vingt secondes, candidats fictifs',
@@ -642,8 +642,8 @@ export const PROJECTS: readonly Project[] = [
     codeVisibility: 'private',
     links: [],
     video: {
-      src: '/videos/atlas.mp4',
-      poster: '/videos/atlas.jpg',
+      src: { fr: '/videos/atlas.mp4', en: '/videos/atlas.en.mp4' },
+      poster: { fr: '/videos/atlas.jpg', en: '/videos/atlas.en.jpg' },
       seconds: 22,
       label: {
         fr: 'Atlas en vingt secondes, données fictives',
@@ -689,8 +689,8 @@ export const PROJECTS: readonly Project[] = [
     codeVisibility: 'public',
     repo: 'robot-anomaly-detection',
     video: {
-      src: '/videos/anomaly-detection.mp4',
-      poster: '/videos/anomaly-detection.jpg',
+      src: { fr: '/videos/anomaly-detection.mp4', en: '/videos/anomaly-detection.en.mp4' },
+      poster: { fr: '/videos/anomaly-detection.jpg', en: '/videos/anomaly-detection.en.jpg' },
       seconds: 20,
       label: {
         fr: 'Le projet en vingt secondes, chiffres du dépôt',

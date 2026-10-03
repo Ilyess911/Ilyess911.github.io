@@ -184,8 +184,8 @@ const chrome = `${project.slug} — ${project.stack.slice(0, 3).join(' · ').toL
           {video ? (
             <video
               class="frame__body pc__video"
-              src={video.src}
-              poster={video.poster}
+              src={video.src[locale]}
+              poster={video.poster[locale]}
               width="1920"
               height="1080"
               controls

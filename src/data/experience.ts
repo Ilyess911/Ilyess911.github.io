@@ -12,8 +12,8 @@ export const EXPERIENCE: readonly ExperienceItem[] = [
     org: 'Air France Industries',
     kind: 'work',
     role: {
-      fr: 'Apprenti ingénieur méthodes — Direction Ingénierie des Équipements',
-      en: 'Methods engineering apprentice — Equipment Engineering Department',
+      fr: 'Apprenti ingénieur méthodes, Direction Ingénierie des Équipements',
+      en: 'Methods engineering apprentice, Equipment Engineering Department',
     },
     period: { fr: 'Sept. 2024 — aujourd’hui', en: 'Sept. 2024 — present' },
     start: '2024-09',
@@ -120,8 +120,8 @@ export const EXPERIENCE: readonly ExperienceItem[] = [
     org: 'Amundi Asset Management',
     kind: 'work',
     role: {
-      fr: 'Assistant d’été — Private Equity, Distribution France et Monaco',
-      en: 'Summer assistant — Private Equity, France and Monaco Distribution',
+      fr: 'Assistant d’été, Private Equity, Distribution France et Monaco',
+      en: 'Summer assistant, Private Equity, France and Monaco Distribution',
     },
     period: { fr: 'Juil. — août 2023', en: 'July — Aug. 2023' },
     start: '2023-07',
@@ -140,8 +140,8 @@ export const EDUCATION: readonly ExperienceItem[] = [
     org: 'ESILV',
     kind: 'education',
     role: {
-      fr: 'Diplôme d’ingénieur — Industrie 4.0 et Robotique',
-      en: 'Engineering degree — Industry 4.0 and Robotics',
+      fr: 'Diplôme d’ingénieur, Industrie 4.0 et Robotique',
+      en: 'Engineering degree, Industry 4.0 and Robotics',
     },
     period: { fr: '2024 — 2027', en: '2024 — 2027' },
     start: '2024-09',
@@ -157,8 +157,8 @@ export const EDUCATION: readonly ExperienceItem[] = [
     org: 'Université Paris-Saclay',
     kind: 'education',
     role: {
-      fr: 'BUT Génie Industriel et Maintenance — parcours Management, Méthodes, Maintenance Innovante',
-      en: 'Industrial Engineering and Maintenance degree — Management, Methods, Innovative Maintenance track',
+      fr: 'BUT Génie Industriel et Maintenance, parcours Management, Méthodes, Maintenance Innovante',
+      en: 'Industrial Engineering and Maintenance degree, Management, Methods, Innovative Maintenance track',
     },
     period: { fr: '2022 — 2024', en: '2022 — 2024' },
     start: '2022-09',

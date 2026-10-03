@@ -103,8 +103,9 @@ export interface Project {
    * Le libellé dit ce qu'on regarde, comme l'étiquette d'une capture.
    */
   readonly video?: {
-    readonly src: string;
-    readonly poster: string;
+    /** Une version par langue : le texte à l'écran suit la langue du site. */
+    readonly src: I18n;
+    readonly poster: I18n;
     /** Durée réelle, en secondes entières, affichée avant la lecture. */
     readonly seconds: number;
     readonly label: I18n;

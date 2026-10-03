@@ -46,7 +46,7 @@ export const en: Dictionary = {
     tertiaryCta: 'LinkedIn',
     fragmentAlt:
       'Detail of the Atlas Today screen: a list of actions ranked by impact, including a reply draft flagged as machine-generated.',
-    fragmentCaption: 'Atlas — Today screen, detail.',
+    fragmentCaption: 'Atlas, Today screen, detail.',
   },
 
   sections: {
@@ -94,7 +94,7 @@ export const en: Dictionary = {
     public: 'Public code',
     private: 'Private code',
     none: 'No public repository',
-    privateNote: 'Private repository — access available on request.',
+    privateNote: 'Private repository, access available on request.',
   },
 
   caseStudy: {
@@ -154,7 +154,7 @@ export const en: Dictionary = {
     emailLabel: 'Email',
     copyEmail: 'Copy',
     emailCopied: 'Address copied',
-    copyFailed: 'Copy failed — please select the address manually',
+    copyFailed: 'Copy failed: please select the address manually',
     cvLabel: 'Résumé',
     cvDownload: 'Download résumé (PDF)',
     locationLabel: 'Location',
@@ -190,6 +190,6 @@ export const en: Dictionary = {
     f3: 'A calling and emailing campaign to driving schools across the Paris region for Time2Drive.',
     outcome: 'No contract signed to date.',
     lesson: 'A HR buyer’s first objection is not model performance, it is legal liability.',
-    lessonSource: 'Resum’EYE — what I took from it',
+    lessonSource: 'Resum’EYE: what I took from it',
   },
 };
