@@ -20,12 +20,12 @@ export const EXPERIENCE: readonly ExperienceItem[] = [
     end: null,
     location: 'Tremblay-en-France',
     summary: {
-      fr: "Ingénierie des équipements avioniques dans un environnement de maintenance aéronautique. Le travail consiste à comprendre un système contraint par la réglementation, la documentation et la réalité de l'atelier, puis à en fiabiliser les processus. C'est ici que j'ai rencontré pour la première fois le problème que je retrouve dans chacun de mes projets : la donnée technique est disponible, et la décision se prend quand même sans elle.",
+      fr: "Ingénierie des équipements avioniques dans un environnement de maintenance aéronautique. Le travail consiste à comprendre un système contraint par la réglementation, la documentation et la réalité de l'atelier, puis à en fiabiliser les processus. C'est ici que j'ai rencontré pour la première fois le problème que je retrouve dans chacun de mes projets : la donnée technique est disponible, et la décision se prend quand même sans elle.",
       en: 'Avionics equipment engineering in an aviation maintenance environment. The work consists of understanding a system constrained by regulation, documentation and shop-floor reality, then making its processes more reliable. This is where I first met the problem I now find in every one of my projects: the technical data is available, and the decision still gets made without it.',
     },
     highlights: [
       {
-        fr: 'Comprendre avant de proposer : documentation technique, contraintes de navigabilité, contraintes opérationnelles.',
+        fr: 'Comprendre avant de proposer : documentation technique, contraintes de navigabilité, contraintes opérationnelles.',
         en: 'Understand before proposing: technical documentation, airworthiness constraints, operational constraints.',
       },
       {
@@ -52,16 +52,16 @@ export const EXPERIENCE: readonly ExperienceItem[] = [
     end: null,
     location: 'Courbevoie',
     summary: {
-      fr: "Studio produit indépendant. C'est le cadre dans lequel Time2Drive, Resum'EYE et Médical'IA ont été conçus, construits et présentés à des interlocuteurs réels. Trois secteurs différents, un même constat : une décision quotidienne s'y prend sans l'information qui existe déjà.",
+      fr: "Studio produit indépendant. C'est le cadre dans lequel Time2Drive, Resum'EYE et Médical'IA ont été conçus, construits et présentés à des interlocuteurs réels. Trois secteurs différents, un même constat : une décision quotidienne s'y prend sans l'information qui existe déjà.",
       en: "An independent product studio. It is the frame in which Time2Drive, Resum'EYE and Médical'IA were designed, built and taken to real counterparts. Three different sectors, one shared observation: a daily decision is made there without information that already exists.",
     },
     highlights: [
       {
-        fr: 'Choisir le problème avant la technologie : chaque produit part d’un métier observé.',
+        fr: 'Choisir le problème avant la technologie : chaque produit part d’un métier observé.',
         en: 'Choose the problem before the technology: every product starts from an observed line of work.',
       },
       {
-        fr: 'Aller au contact : appels, démonstrations, discussions de tarification et de conformité.',
+        fr: 'Aller au contact : appels, démonstrations, discussions de tarification et de conformité.',
         en: 'Get in front of people: calls, demos, pricing and compliance conversations.',
       },
       {
@@ -85,7 +85,7 @@ export const EXPERIENCE: readonly ExperienceItem[] = [
     },
     highlights: [
       {
-        fr: 'Accueil événementiel chez City One Events depuis décembre 2022 : brief, flux de public, décisions rapides.',
+        fr: 'Accueil événementiel chez City One Events depuis décembre 2022 : brief, flux de public, décisions rapides.',
         en: 'Event hosting with City One Events since December 2022: briefings, crowd flow, fast decisions.',
       },
     ],
@@ -105,7 +105,7 @@ export const EXPERIENCE: readonly ExperienceItem[] = [
     },
     highlights: [
       {
-        fr: "Inventaire et codification : remettre de l'ordre dans un référentiel avant de vouloir l'optimiser.",
+        fr: "Inventaire et codification : remettre de l'ordre dans un référentiel avant de vouloir l'optimiser.",
         en: 'Inventory and coding: put a reference system back in order before trying to optimise it.',
       },
       { fr: 'Démarche 5S sur les postes de travail.', en: '5S approach applied to workstations.' },
@@ -148,7 +148,7 @@ export const EDUCATION: readonly ExperienceItem[] = [
     end: '2027-08',
     location: 'Courbevoie',
     summary: {
-      fr: 'Robotique, systèmes industriels et données : concevoir, instrumenter et piloter des lignes de production automatisées.',
+      fr: 'Robotique, systèmes industriels et données : concevoir, instrumenter et piloter des lignes de production automatisées.',
       en: 'Robotics, industrial systems and data: designing, instrumenting and running automated production lines.',
     },
     highlights: [],

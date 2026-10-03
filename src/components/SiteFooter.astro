@@ -79,9 +79,12 @@ const buildDate = new Date().toISOString().slice(0, 10);
         >.
       </p>
       <p class="site-footer__colophon">
-        <a class="link" href="https://ende.app/en" rel="noopener noreferrer" target="_blank"
-          >{dict.footer.filmMusic}</a
-        >
+        {dict.footer.filmMusic.split('ende.app')[0]}<a
+          class="link"
+          href="https://ende.app/en"
+          rel="noopener noreferrer"
+          target="_blank">ende.app</a
+        >{dict.footer.filmMusic.split('ende.app')[1]}
       </p>
       <p class="site-footer__legal eyebrow">
         <span>© {year} {PROFILE.name}. {dict.footer.rights}</span>

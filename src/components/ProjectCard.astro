@@ -76,7 +76,7 @@ const filmTag = video
   ? `▶ ${dict.selection.film} · 0:${String(video.seconds).padStart(2, '0')}`
   : '';
 
-const chrome = `${project.slug} — ${project.stack.slice(0, 3).join(' · ').toLowerCase()}`;
+const chrome = `${project.slug} · ${project.stack.slice(0, 3).join(' · ').toLowerCase()}`;
 ---
 
 <article
@@ -136,23 +136,23 @@ const chrome = `${project.slug} — ${project.stack.slice(0, 3).join(' · ').toL
       {project.credit && <p class="pc__credit">{project.credit[locale]}</p>}
       {
         href && (
-          <a class="pc__cta" href={href}>
-            <span>{dict.selection.readCase}</span>
-            <span class="pc__cta-arrow" aria-hidden="true">
-              →
-            </span>
-          </a>
-        )
-      }
-      {
-        video && !primary && href && (
-          <a class="pc__film" href={`${href}#demo`}>
-            <span class="pc__film-play" aria-hidden="true">
-              ▶
-            </span>
-            <span>{dict.selection.watchFilm}</span>
-            <span class="pc__film-len num">0:{String(video.seconds).padStart(2, '0')}</span>
-          </a>
+          <div class="pc__actions">
+            <a class="pc__cta" href={href}>
+              <span>{dict.selection.readCase}</span>
+              <span class="pc__cta-arrow" aria-hidden="true">
+                →
+              </span>
+            </a>
+            {video && !primary && (
+              <a class="pc__film" href={`${href}#demo`}>
+                <span class="pc__film-play" aria-hidden="true">
+                  ▶
+                </span>
+                <span>{dict.selection.watchFilm}</span>
+                <span class="pc__film-len num">{`0:${String(video.seconds).padStart(2, '0')}`}</span>
+              </a>
+            )}
+          </div>
         )
       }
       {!href && <p class="pc__ongoing">{dict.chapter.ongoing}</p>}
@@ -254,7 +254,6 @@ const chrome = `${project.slug} — ${project.stack.slice(0, 3).join(' · ').toL
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
-    align-self: flex-start;
     padding: 0.4375rem 0.875rem 0.4375rem 0.5rem;
     border: 1px solid var(--line-strong);
     border-radius: 999px;
@@ -432,6 +431,20 @@ const chrome = `${project.slug} — ${project.stack.slice(0, 3).join(' · ').toL
     color: var(--ink-4);
   }
 
+  /* Les actions de la carte forment une seule rangée : l'étude de cas en
+     premier, la démo en second, alignées sur la même ligne de base. */
+  .pc__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3) var(--space-5);
+    margin-top: var(--space-5);
+  }
+
+  .pc__actions .pc__cta {
+    margin-top: 0;
+  }
+
   .pc__cta {
     position: relative;
     z-index: 2;
@@ -602,9 +615,9 @@ const chrome = `${project.slug} — ${project.stack.slice(0, 3).join(' · ').toL
       margin-top: var(--space-3);
     }
 
-    .pc--quiet .pc__cta {
+    .pc--quiet .pc__actions {
       grid-column: 2;
-      grid-row: 1 / span 2;
+      grid-row: 1 / span 3;
       margin-top: 0;
       justify-self: end;
     }

@@ -49,8 +49,8 @@ export const PROFILE = {
   about: {
     fr: [
       "Je viens de l'industrie.",
-      "Maintenance aéronautique, méthodes, opérations. C'est en atelier que j'ai vu pour la première fois le problème que je retrouve partout depuis : la donnée est là, tout le monde la voit passer, et la décision se prend quand même sans elle, parce que personne n'a le temps de la rendre lisible.",
-      "Depuis, je construis cet instrument manquant. Je passe autant de temps à expliquer ce qu'il vaut qu'à l'écrire, et j'écris toujours ce qu'il ne sait pas encore faire. C'est vers ce métier que je vais : celui où une contrainte technique se transforme en argument devant quelqu'un qui décide.",
+      "Maintenance aéronautique, méthodes, opérations. C'est en atelier que j'ai vu pour la première fois le problème que je retrouve partout depuis : la donnée est là, tout le monde la voit passer, et la décision se prend quand même sans elle, parce que personne n'a le temps de la rendre lisible.",
+      "Depuis, je construis cet instrument manquant. Je passe autant de temps à expliquer ce qu'il vaut qu'à l'écrire, et j'écris toujours ce qu'il ne sait pas encore faire. C'est vers ce métier que je vais : celui où une contrainte technique se transforme en argument devant quelqu'un qui décide.",
     ],
     en: [
       'I come from industry.',
@@ -79,7 +79,7 @@ export const METHOD: readonly {
     step: '01',
     label: { fr: 'Comprendre', en: 'Understand' },
     body: {
-      fr: "Lire le système avant de vouloir le changer : la réglementation, la documentation, et ce qui se passe réellement à l'atelier.",
+      fr: "Lire le système avant de vouloir le changer : la réglementation, la documentation, et ce qui se passe réellement à l'atelier.",
       en: 'Read the system before trying to change it: the regulation, the documentation, and what actually happens on the floor.',
     },
     proof: {
@@ -96,7 +96,7 @@ export const METHOD: readonly {
       en: 'Choose the unit of account of the work, not the one of the software. It decides the shape of everything else.',
     },
     proof: {
-      fr: "Le crédit d'heures plutôt que la réservation : chaque écran répond à « combien d'heures sont dues, consommées, disponibles ».",
+      fr: "Le crédit d'heures plutôt que la réservation : chaque écran répond à « combien d'heures sont dues, consommées, disponibles ».",
       en: 'The hour credit rather than the booking: every screen answers "how many hours are owed, used, available".',
     },
     source: { fr: 'Time2Drive', en: 'Time2Drive' },
@@ -124,7 +124,7 @@ export const METHOD: readonly {
       en: 'A number you can argue with beats a promise you have to believe.',
     },
     proof: {
-      fr: 'Le calcul de valeur vit dans le produit, hypothèses affichées : taux horaire, occupation cible, heures facturables.',
+      fr: 'Le calcul de valeur vit dans le produit, hypothèses affichées : taux horaire, occupation cible, heures facturables.',
       en: 'The value calculation lives inside the product, assumptions on screen: hourly rate, target occupancy, billable hours.',
     },
     source: { fr: 'Time2Drive', en: 'Time2Drive' },

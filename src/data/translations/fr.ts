@@ -7,7 +7,7 @@ export const fr = {
   meta: {
     title: 'Ilyess Assadi — Ingénierie, produit et business',
     description:
-      "Étudiant ingénieur à l'ESILV et apprenti chez Air France Industries. Je construis des instruments de décision pour des métiers qui décident sans instrument : auto-écoles, équipes RH, forces de vente, maintenance aéronautique.",
+      "Étudiant ingénieur à l'ESILV et apprenti chez Air France Industries. Je construis des instruments de décision pour des métiers qui décident sans instrument : auto-écoles, équipes RH, forces de vente, maintenance aéronautique.",
     langLabel: 'Français',
     localeTag: 'fr-FR',
   },
@@ -38,14 +38,14 @@ export const fr = {
     nowValue:
       "Apprenti ingénieur méthodes chez Air France Industries, en dernière année à l'ESILV.",
     stackLabel: 'Terrain',
-    previewLabel: 'atlas — écran today',
+    previewLabel: 'atlas · écran today',
     projectsLabel: 'Produits',
     availabilityLabel: 'Disponibilité',
     primaryCta: 'Voir mes projets',
     secondaryCta: 'GitHub',
     tertiaryCta: 'LinkedIn',
     fragmentAlt:
-      "Détail de l'écran Today d'Atlas : une liste d'actions classées par impact, dont un brouillon de réponse marqué comme généré par une machine.",
+      "Détail de l'écran Today d'Atlas : une liste d'actions classées par impact, dont un brouillon de réponse marqué comme généré par une machine.",
     fragmentCaption: 'Atlas, écran Today, détail.',
   },
 
@@ -70,7 +70,7 @@ export const fr = {
   },
 
   selection: {
-    exitTitle: 'Un de ces problèmes ressemble au vôtre ?',
+    exitTitle: 'Un de ces problèmes ressemble au vôtre ?',
     exitCta: 'Parlons-en',
     title: 'Trois chantiers, un même angle mort.',
     readCase: 'Lire l’étude de cas',
@@ -130,7 +130,7 @@ export const fr = {
   experience: {
     title: 'De l’atelier au produit',
     intro:
-      "C'est en atelier que j'ai vu le problème pour la première fois : une donnée technique disponible, et une décision prise sans elle. Tout ce que je construis depuis vient de là.",
+      "C'est en atelier que j'ai vu le problème pour la première fois : une donnée technique disponible, et une décision prise sans elle. Tout ce que je construis depuis vient de là.",
     educationTitle: 'Formation',
     more: 'Détail',
     less: 'Replier',
@@ -141,7 +141,7 @@ export const fr = {
   workshop: {
     title: 'Aussi en chantier',
     intro:
-      'Ce qui est réellement en chantier, avec son statut exact. Quand le code est ouvert, le lien est vérifiable ; quand il ne l’est pas, c’est écrit.',
+      'Ce qui est réellement en chantier, avec son statut exact. Quand le code est ouvert, le lien est vérifiable ; quand il ne l’est pas, c’est écrit.',
     thisSite: 'Ce site',
     livePublic: 'En ligne · Code public',
     languages: 'Langues',
@@ -152,11 +152,11 @@ export const fr = {
     cta: 'M’écrire',
     title: 'Construisons quelque chose d’utile.',
     intro:
-      'Je cherche le poste où ce travail se fait pour de vrai, chez quelqu’un dont c’est le métier : avant-vente, sales engineering, produit ou développement commercial technique.',
+      'Je cherche le poste où ce travail se fait pour de vrai, chez quelqu’un dont c’est le métier : avant-vente, sales engineering, produit ou développement commercial technique.',
     emailLabel: 'Email',
     copyEmail: 'Copier',
     emailCopied: 'Adresse copiée',
-    copyFailed: 'Copie impossible : sélectionnez l’adresse manuellement',
+    copyFailed: 'Copie impossible : sélectionnez l’adresse manuellement',
     cvLabel: 'CV',
     cvDownload: 'Télécharger le CV (PDF)',
     locationLabel: 'Localisation',
@@ -169,7 +169,7 @@ export const fr = {
       'Construit avec Astro, sans framework côté client. Déployé via GitHub Actions sur GitHub Pages.',
     sourceCode: 'Code source de ce site',
     filmMusic:
-      'Musique des démos : « Happy Beats » par ende.app, sous licence CC BY 4.0. Bruitages : Kenney, CC0.',
+      'Musique des démos : « Happy Beats » par ende.app, sous licence CC BY 4.0. Bruitages : Kenney, CC0.',
     rights: 'Tous droits réservés.',
     lastUpdated: 'Dernière mise à jour',
   },
@@ -185,15 +185,15 @@ export const fr = {
     label: 'Sur le terrain',
     title: 'Deux produits, deux cycles de vente réels.',
     f1Label: 'Démonstration',
-    f1: 'Resum’EYE présenté en direct devant des décideurs du secteur lors du « Café IA » de Syntec-Ingénierie.',
+    f1: 'Resum’EYE présenté en direct devant des décideurs du secteur lors du « Café IA » de Syntec-Ingénierie.',
     f2Label: 'Cycle B2B',
-    f2: 'Relation de plusieurs mois avec un groupe d’ingénierie français : intégration par API, conformité RGPD, tarification au volume.',
+    f2: 'Relation de plusieurs mois avec un groupe d’ingénierie français : intégration par API, conformité RGPD, tarification au volume.',
     f3Label: 'Prospection',
     f3: 'Campagne d’appels et d’emails auprès d’auto-écoles d’Île-de-France pour Time2Drive.',
     outcome: 'Aucun contrat signé à ce jour.',
     lesson:
       'La première objection d’un acheteur RH n’est pas la performance du modèle, c’est la responsabilité juridique.',
-    lessonSource: 'Resum’EYE : ce que j’en retiens',
+    lessonSource: 'Resum’EYE : ce que j’en retiens',
   },
 };
 
