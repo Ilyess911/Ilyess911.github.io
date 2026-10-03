@@ -116,6 +116,33 @@ const images = study.images.map((image) => {
             </div>
           </dl>
         </div>
+
+        {
+          project.video && (
+            <figure class="case__film frame">
+              <figcaption class="frame__bar">
+                <span class="frame__dots" aria-hidden="true">
+                  <span />
+                  <span />
+                  <span />
+                </span>
+                <span class="frame__label">{project.video.label[locale]}</span>
+                <span class="frame__tag">{stageLabel(project, locale)}</span>
+              </figcaption>
+              <video
+                class="case__film-video"
+                src={project.video.src}
+                poster={project.video.poster}
+                width="1920"
+                height="1080"
+                controls
+                playsinline
+                preload="none"
+                aria-label={project.video.label[locale]}
+              />
+            </figure>
+          )
+        }
       </div>
     </header>
 
@@ -272,6 +299,20 @@ const images = study.images.map((image) => {
 </Base>
 
 <style>
+  /* Le film reprend le chrome des captures : c'est un objet produit, pas un
+     décor. Ratio fixé par les attributs, donc aucun saut de mise en page. */
+  .case__film {
+    margin-top: clamp(2rem, 4vw, 3rem);
+  }
+
+  .case__film-video {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    background: var(--surface-2);
+  }
+
   .case__header {
     padding-top: clamp(2.5rem, 7vh, 4.5rem);
     padding-bottom: clamp(2.5rem, 6vw, 4rem);

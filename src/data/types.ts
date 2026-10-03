@@ -98,6 +98,16 @@ export interface Project {
    */
   readonly covers?: readonly ProjectImage[];
   /**
+   * Film de présentation (une vingtaine de secondes), servi depuis `public/`.
+   * Lu seulement à la demande : pas de lecture automatique, pas de son imposé.
+   * Le libellé dit ce qu'on regarde, comme l'étiquette d'une capture.
+   */
+  readonly video?: {
+    readonly src: string;
+    readonly poster: string;
+    readonly label: I18n;
+  };
+  /**
    * Déroulé commercial, affiché sur la carte d'accueil quand le projet n'a pas
    * de capture à montrer. Chaque étape est un fait vérifiable de l'étude de
    * cas, jamais une reformulation valorisante.

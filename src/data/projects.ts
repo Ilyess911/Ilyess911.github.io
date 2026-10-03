@@ -73,6 +73,14 @@ export const PROJECTS: readonly Project[] = [
         },
       },
     ],
+    video: {
+      src: '/videos/time2drive.mp4',
+      poster: '/videos/time2drive.jpg',
+      label: {
+        fr: 'Time2Drive en 20 secondes, données de démonstration',
+        en: 'Time2Drive in 20 seconds, demo data',
+      },
+    },
     caseStudy: {
       problem: {
         fr: "Dans une auto-école indépendante, une heure de conduite se négocie au téléphone, se note sur un tableur et finit dans l'agenda personnel du moniteur. Résultat : personne ne sait, à un instant donné, combien d'heures sont réellement vendues, combien de créneaux restent vides, ni quel moniteur est sous-chargé. Le manque à gagner est invisible parce qu'il n'est écrit nulle part.",
@@ -503,6 +511,14 @@ export const PROJECTS: readonly Project[] = [
     stack: ['React', 'Vite', 'TailwindCSS', 'Framer Motion', 'jsPDF'],
     codeVisibility: 'private',
     links: [],
+    video: {
+      src: '/videos/resum-eye.mp4',
+      poster: '/videos/resum-eye.jpg',
+      label: {
+        fr: 'Resum’EYE en 20 secondes, candidats fictifs',
+        en: 'Resum’EYE in 20 seconds, fictional candidates',
+      },
+    },
     caseStudy: {
       problem: {
         fr: "Une équipe RH qui reçoit plusieurs centaines de candidatures pour un poste passe l'essentiel de son temps à écarter, pas à choisir. Ce premier tri est peu qualifié, peu traçable, et rarement homogène d'un recruteur à l'autre. Il concentre pourtant le risque : c'est là qu'on perd un bon profil sans jamais le savoir.",
@@ -651,8 +667,8 @@ export const PROJECTS: readonly Project[] = [
       en: 'Identifying abnormal robot executions from force and torque measurements.',
     },
     positioning: {
-      fr: "Détection de collisions, d'obstructions et de défauts d'outil sur un jeu de 463 exécutions décrites par six capteurs. Le même angle mort que les autres projets, à l'échelle du capteur : la mesure contient déjà l'anomalie, encore faut-il savoir la lire.",
-      en: 'Detecting collisions, obstructions and tool faults across 463 executions described by six sensors. The same blind spot as the other projects, at sensor scale: the measurement already contains the anomaly, the point is being able to read it.',
+      fr: "Détection de collisions, d'obstructions et de défauts d'outil sur 463 exécutions décrites par six capteurs, qui ne contiennent que 251 traces distinctes. Le même angle mort que les autres projets, à l'échelle du capteur : la mesure contient déjà l'anomalie, encore faut-il savoir la lire.",
+      en: 'Detecting collisions, obstructions and tool faults across 463 executions described by six sensors, which hold only 251 distinct traces. The same blind spot as the other projects, at sensor scale: the measurement already contains the anomaly, the point is being able to read it.',
     },
     roleLabel: {
       fr: 'Analyse de données, en binôme avec Adel Bousri',
