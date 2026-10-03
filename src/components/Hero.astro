@@ -56,8 +56,8 @@ if (!preview) throw new Error('Hero : fragment produit introuvable dans src/lib/
 
       <div class="hero__actions" data-reveal>
         <a class="btn btn--primary" href={`#${ANCHORS.selection}`}>
+          <span class="btn__play" aria-hidden="true">▶</span>
           <span>{dict.hero.primaryCta}</span>
-          <span class="btn__arrow" aria-hidden="true">→</span>
         </a>
         <a class="btn" href={CONTACT.github} rel="noopener noreferrer" target="_blank">
           <span>{dict.hero.secondaryCta}</span>
@@ -113,6 +113,20 @@ if (!preview) throw new Error('Hero : fragment produit introuvable dans src/lib/
 </section>
 
 <style>
+  /* Le bouton principal ouvre les démos : un signe de lecture plutôt qu'une
+     flèche, pour dire ce qu'on va voir avant de cliquer. */
+  .btn__play {
+    display: grid;
+    place-items: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 0.5rem;
+    padding-left: 0.1em;
+  }
+
   .hero {
     position: relative;
     padding-top: clamp(2.5rem, 6vh, 4.25rem);

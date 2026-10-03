@@ -98,6 +98,19 @@ export interface Project {
    */
   readonly covers?: readonly ProjectImage[];
   /**
+   * Film de présentation (une vingtaine de secondes), servi depuis `public/`.
+   * Lu seulement à la demande : pas de lecture automatique, pas de son imposé.
+   * Le libellé dit ce qu'on regarde, comme l'étiquette d'une capture.
+   */
+  readonly video?: {
+    /** Une version par langue : le texte à l'écran suit la langue du site. */
+    readonly src: I18n;
+    readonly poster: I18n;
+    /** Durée réelle, en secondes entières, affichée avant la lecture. */
+    readonly seconds: number;
+    readonly label: I18n;
+  };
+  /**
    * Déroulé commercial, affiché sur la carte d'accueil quand le projet n'a pas
    * de capture à montrer. Chaque étape est un fait vérifiable de l'étude de
    * cas, jamais une reformulation valorisante.
@@ -128,7 +141,10 @@ export interface ExperienceItem {
   readonly location: string;
   readonly summary: I18n;
   readonly highlights: readonly I18n[];
-  readonly kind: 'work' | 'education' | 'other';
+  /** `engagement` : associatif, composé en bande pleine largeur, registre mineur. */
+  readonly kind: 'work' | 'education' | 'other' | 'engagement';
+  /** Preuve publique vérifiable (page d'événement, article), jamais un lien décoratif. */
+  readonly link?: { readonly label: I18n; readonly href: string };
 }
 
 export interface SkillGroup {

@@ -49,7 +49,15 @@ function lead(item: (typeof EXPERIENCE)[number]): string {
 <ol class="stints">
   {
     EXPERIENCE.map((item) => (
-      <li class="stint card card--lift" data-reveal>
+      <li
+        class:list={[
+          'stint',
+          'card',
+          'card--lift',
+          item.kind === 'engagement' && 'stint--engagement',
+        ]}
+        data-reveal
+      >
         <div class="stint__top">
           <span class="stint__mark" aria-hidden="true">
             {monogram(item.org)}
@@ -70,6 +78,17 @@ function lead(item: (typeof EXPERIENCE)[number]): string {
         </p>
 
         <p class="stint__lead">{lead(item)}</p>
+
+        {item.link && (
+          <a
+            class="stint__link link"
+            href={item.link.href}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            {item.link.label[locale]} <span aria-hidden="true">↗</span>
+          </a>
+        )}
 
         {(item.summary[locale] || item.highlights.length > 1) && (
           <details class="stint__more">
@@ -277,7 +296,25 @@ function lead(item: (typeof EXPERIENCE)[number]): string {
     color: var(--ink-4);
   }
 
+  /* Engagement associatif : une bande pleine largeur, posée sur la surface
+     secondaire comme le module formation. Elle rétablit le compte de la
+     grille (8 cellules sur deux colonnes, 9 sur trois) sans se mettre en
+     avant : typographiquement, elle reste dans le régime compact. */
+  .stint--engagement {
+    background: var(--surface-2);
+  }
+
+  .stint__link {
+    align-self: flex-start;
+    margin-top: var(--space-3);
+    font-size: var(--step--1);
+  }
+
   @media (min-width: 44rem) {
+    .stint--engagement {
+      grid-column: 1 / -1;
+    }
+
     .stints {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       align-items: start;

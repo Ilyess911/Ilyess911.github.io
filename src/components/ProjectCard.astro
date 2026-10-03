@@ -69,10 +69,20 @@ const splitAt = positioning.indexOf('. ');
 const lede = splitAt === -1 ? positioning : positioning.slice(0, splitAt + 1);
 const gloss = splitAt === -1 ? '' : positioning.slice(splitAt + 2);
 
-const chrome = `${project.slug} — ${project.stack.slice(0, 3).join(' · ').toLowerCase()}`;
+/* Un film se signale avant d'être lu : durée affichée dans le chrome, comme
+   une étiquette d'état. Sans capture, la carte renvoie au film de l'étude. */
+const video = project.video;
+const filmTag = video
+  ? `▶ ${dict.selection.film} · 0:${String(video.seconds).padStart(2, '0')}`
+  : '';
+
+const chrome = `${project.slug} · ${project.stack.slice(0, 3).join(' · ').toLowerCase()}`;
 ---
 
-<article class:list={['pc', `pc--${layout}`, 'card', 'card--lift']} data-reveal-plate>
+<article
+  class:list={['pc', `pc--${layout}`, video && primary && 'pc--film', 'card', 'card--lift']}
+  data-reveal-plate
+>
   <div class="pc__text">
     <header class="pc__head">
       <p class="eyebrow pc__kicker num">{project.year}</p>
@@ -126,12 +136,23 @@ const chrome = `${project.slug} — ${project.stack.slice(0, 3).join(' · ').toL
       {project.credit && <p class="pc__credit">{project.credit[locale]}</p>}
       {
         href && (
-          <a class="pc__cta" href={href}>
-            <span>{dict.selection.readCase}</span>
-            <span class="pc__cta-arrow" aria-hidden="true">
-              →
-            </span>
-          </a>
+          <div class="pc__actions">
+            <a class="pc__cta" href={href}>
+              <span>{dict.selection.readCase}</span>
+              <span class="pc__cta-arrow" aria-hidden="true">
+                →
+              </span>
+            </a>
+            {video && !primary && (
+              <a class="pc__film" href={`${href}#demo`}>
+                <span class="pc__film-play" aria-hidden="true">
+                  ▶
+                </span>
+                <span>{dict.selection.watchFilm}</span>
+                <span class="pc__film-len num">{`0:${String(video.seconds).padStart(2, '0')}`}</span>
+              </a>
+            )}
+          </div>
         )
       }
       {!href && <p class="pc__ongoing">{dict.chapter.ongoing}</p>}
@@ -148,24 +169,48 @@ const chrome = `${project.slug} — ${project.stack.slice(0, 3).join(' · ').toL
               <span />
               <span />
             </span>
-            <span class="frame__label">{chrome}</span>
+            <span class="frame__label">
+              {video ? (
+                <>
+                  <span class="frame__label-long">{video.label[locale]}</span>
+                  <span class="frame__label-short">{project.name}</span>
+                </>
+              ) : (
+                chrome
+              )}
+            </span>
+            {video && <span class="frame__tag pc__film-tag">{filmTag}</span>}
           </figcaption>
-          <picture class="frame__body pc__shot">
-            {mobileSet && <source media="(max-width: 46rem)" srcset={mobileSet} sizes="94vw" />}
-            <Image
-              src={primary.asset}
-              alt={primary.image.alt[locale]}
-              widths={[640, 1000, 1440, 1920]}
-              sizes={
-                layout === 'wide'
-                  ? '(min-width: 64rem) 60rem, 94vw'
-                  : '(min-width: 64rem) 34rem, 94vw'
-              }
-              loading="lazy"
-              decoding="async"
-              quality={84}
+          {video ? (
+            <video
+              class="frame__body pc__video"
+              src={video.src[locale]}
+              poster={video.poster[locale]}
+              width="1920"
+              height="1080"
+              controls
+              playsinline
+              preload="none"
+              aria-label={video.label[locale]}
             />
-          </picture>
+          ) : (
+            <picture class="frame__body pc__shot">
+              {mobileSet && <source media="(max-width: 46rem)" srcset={mobileSet} sizes="94vw" />}
+              <Image
+                src={primary.asset}
+                alt={primary.image.alt[locale]}
+                widths={[640, 1000, 1440, 1920]}
+                sizes={
+                  layout === 'wide'
+                    ? '(min-width: 64rem) 60rem, 94vw'
+                    : '(min-width: 64rem) 34rem, 94vw'
+                }
+                loading="lazy"
+                decoding="async"
+                quality={84}
+              />
+            </picture>
+          )}
         </figure>
 
         {rest.length > 0 && (
@@ -191,6 +236,64 @@ const chrome = `${project.slug} — ${project.stack.slice(0, 3).join(' · ').toL
 </article>
 
 <style>
+  .pc__video {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    background: var(--surface-2);
+  }
+
+  .pc__film-tag {
+    color: var(--accent);
+    border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+  }
+
+  /* Le renvoi au film d'une carte sans capture : un bouton secondaire, pour
+     qu'il ne concurrence pas l'appel principal vers l'étude de cas. */
+  .pc__film {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0.4375rem 0.875rem 0.4375rem 0.5rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--ink);
+    font-size: var(--step--1);
+    font-weight: 500;
+    text-decoration: none;
+    transition:
+      border-color 0.2s ease,
+      background 0.2s ease;
+  }
+
+  .pc__film:hover {
+    border-color: var(--accent);
+  }
+
+  .pc__film:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .pc__film-play {
+    display: grid;
+    place-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--surface);
+    font-size: 0.625rem;
+    padding-left: 0.1em;
+  }
+
+  .pc__film-len {
+    color: var(--ink-4);
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+  }
+
   .pc {
     overflow: hidden;
     border-radius: var(--r-xl);
@@ -326,6 +429,20 @@ const chrome = `${project.slug} — ${project.stack.slice(0, 3).join(' · ').toL
     font-size: var(--step--2);
     line-height: 1.55;
     color: var(--ink-4);
+  }
+
+  /* Les actions de la carte forment une seule rangée : l'étude de cas en
+     premier, la démo en second, alignées sur la même ligne de base. */
+  .pc__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3) var(--space-5);
+    margin-top: var(--space-5);
+  }
+
+  .pc__actions .pc__cta {
+    margin-top: 0;
   }
 
   .pc__cta {
@@ -498,9 +615,9 @@ const chrome = `${project.slug} — ${project.stack.slice(0, 3).join(' · ').toL
       margin-top: var(--space-3);
     }
 
-    .pc--quiet .pc__cta {
+    .pc--quiet .pc__actions {
       grid-column: 2;
-      grid-row: 1 / span 2;
+      grid-row: 1 / span 3;
       margin-top: 0;
       justify-self: end;
     }
@@ -554,8 +671,36 @@ const chrome = `${project.slug} — ${project.stack.slice(0, 3).join(' · ').toL
   }
 
   @media (hover: hover) and (pointer: fine) and (min-width: 64rem) {
-    .pc--split:hover .pc__window {
+    .pc--split:not(.pc--film):hover .pc__window {
       transform: perspective(2200px) rotateY(-0.7deg) translateY(-4px);
+    }
+  }
+
+  /* ── Film à la place de la capture ─────────────────────────────────
+     Une capture peut plonger sous le bord ou sortir par la droite : on y lit
+     une interface qui continue. Un lecteur ne le peut pas, ses contrôles et
+     sa durée doivent rester entiers. Le film tient donc dans la carte, à plat. */
+  .pc--film.pc--wide .pc__stage {
+    padding-bottom: clamp(1rem, 3vw, 2.25rem);
+  }
+
+  .pc--film.pc--wide .pc__window {
+    margin-bottom: 0;
+    border-radius: var(--r-lg);
+  }
+
+  @media (min-width: 64rem) {
+    .pc--film.pc--split .pc__stage {
+      margin-right: 0;
+      padding-right: clamp(1.5rem, 3vw, 2.25rem);
+    }
+
+    .pc--film.pc--split .pc__window {
+      transform: none;
+    }
+
+    .pc--film .pc__aside {
+      display: none;
     }
   }
 </style>

@@ -7,7 +7,7 @@ export const fr = {
   meta: {
     title: 'Ilyess Assadi — Ingénierie, produit et business',
     description:
-      "Étudiant ingénieur à l'ESILV et apprenti chez Air France Industries. Je construis des instruments de décision pour des métiers qui décident sans instrument : auto-écoles, équipes RH, forces de vente, maintenance aéronautique.",
+      "Étudiant ingénieur à l'ESILV et apprenti chez Air France Industries. Je construis des instruments de décision pour des métiers qui décident sans instrument : auto-écoles, équipes RH, forces de vente, maintenance aéronautique.",
     langLabel: 'Français',
     localeTag: 'fr-FR',
   },
@@ -26,6 +26,39 @@ export const fr = {
     switchLanguageShort: 'EN',
   },
 
+  credentials: {
+    label: 'Profil',
+    title: 'Ingénieur, entrepreneur, commercial.',
+    cells: [
+      {
+        kicker: 'Ingénierie',
+        figure: '2024 →',
+        body: 'Apprenti ingénieur méthodes chez Air France Industries. Diplôme ESILV Industrie 4.0 et Robotique en 2027.',
+      },
+      {
+        kicker: 'Entrepreneuriat',
+        figure: '3 produits',
+        body: 'Co-fondateur de Nexya Agency : conçus, construits et présentés à des interlocuteurs réels.',
+      },
+      {
+        kicker: 'Vente',
+        figure: '2 cycles',
+        body: 'Deux produits menés jusqu’à un acheteur, de la démonstration à la tarification.',
+      },
+      {
+        kicker: 'Leadership',
+        figure: 'Vinc’IA',
+        body: 'Responsable Conférences et partenariats : masterclass inaugurale avec le fondateur de HandyCatch.',
+      },
+      {
+        kicker: 'International',
+        figure: '945',
+        body: 'Au TOEIC. Anglais de travail, espagnol de niveau académique.',
+      },
+    ],
+    marqueeLabel: 'Terrains',
+  },
+
   hero: {
     previewStage: 'Prototype',
     targetLabel: 'Poste recherché',
@@ -38,15 +71,15 @@ export const fr = {
     nowValue:
       "Apprenti ingénieur méthodes chez Air France Industries, en dernière année à l'ESILV.",
     stackLabel: 'Terrain',
-    previewLabel: 'atlas — écran today',
+    previewLabel: 'atlas · écran today',
     projectsLabel: 'Produits',
     availabilityLabel: 'Disponibilité',
-    primaryCta: 'Voir mes projets',
+    primaryCta: 'Voir les démos',
     secondaryCta: 'GitHub',
     tertiaryCta: 'LinkedIn',
     fragmentAlt:
-      "Détail de l'écran Today d'Atlas : une liste d'actions classées par impact, dont un brouillon de réponse marqué comme généré par une machine.",
-    fragmentCaption: 'Atlas — écran Today, détail.',
+      "Détail de l'écran Today d'Atlas : une liste d'actions classées par impact, dont un brouillon de réponse marqué comme généré par une machine.",
+    fragmentCaption: 'Atlas, écran Today, détail.',
   },
 
   /* Le libellé de l'épine dorsale ne répète jamais le titre de la section :
@@ -70,10 +103,12 @@ export const fr = {
   },
 
   selection: {
-    exitTitle: 'Un de ces problèmes ressemble au vôtre ?',
+    exitTitle: 'Un de ces problèmes ressemble au vôtre ?',
     exitCta: 'Parlons-en',
     title: 'Trois chantiers, un même angle mort.',
     readCase: 'Lire l’étude de cas',
+    watchFilm: 'Voir la démo',
+    film: 'Démo',
   },
 
   chapter: {
@@ -94,7 +129,7 @@ export const fr = {
     public: 'Code public',
     private: 'Code privé',
     none: 'Pas de dépôt public',
-    privateNote: 'Dépôt privé — accès possible sur demande.',
+    privateNote: 'Dépôt privé, accès possible sur demande.',
   },
 
   caseStudy: {
@@ -128,7 +163,7 @@ export const fr = {
   experience: {
     title: 'De l’atelier au produit',
     intro:
-      "C'est en atelier que j'ai vu le problème pour la première fois : une donnée technique disponible, et une décision prise sans elle. Tout ce que je construis depuis vient de là.",
+      "C'est en atelier que j'ai vu le problème pour la première fois : une donnée technique disponible, et une décision prise sans elle. Tout ce que je construis depuis vient de là.",
     educationTitle: 'Formation',
     more: 'Détail',
     less: 'Replier',
@@ -139,7 +174,7 @@ export const fr = {
   workshop: {
     title: 'Aussi en chantier',
     intro:
-      'Ce qui est réellement en chantier, avec son statut exact. Quand le code est ouvert, le lien est vérifiable ; quand il ne l’est pas, c’est écrit.',
+      'Ce qui est réellement en chantier, avec son statut exact. Quand le code est ouvert, le lien est vérifiable ; quand il ne l’est pas, c’est écrit.',
     thisSite: 'Ce site',
     livePublic: 'En ligne · Code public',
     languages: 'Langues',
@@ -150,11 +185,11 @@ export const fr = {
     cta: 'M’écrire',
     title: 'Construisons quelque chose d’utile.',
     intro:
-      'Je cherche le poste où ce travail se fait pour de vrai, chez quelqu’un dont c’est le métier : avant-vente, sales engineering, produit ou développement commercial technique.',
+      'Je cherche le poste où ce travail se fait pour de vrai, chez quelqu’un dont c’est le métier : avant-vente, sales engineering, produit ou développement commercial technique.',
     emailLabel: 'Email',
     copyEmail: 'Copier',
     emailCopied: 'Adresse copiée',
-    copyFailed: 'Copie impossible — sélectionnez l’adresse manuellement',
+    copyFailed: 'Copie impossible : sélectionnez l’adresse manuellement',
     cvLabel: 'CV',
     cvDownload: 'Télécharger le CV (PDF)',
     locationLabel: 'Localisation',
@@ -166,6 +201,8 @@ export const fr = {
     builtWith:
       'Construit avec Astro, sans framework côté client. Déployé via GitHub Actions sur GitHub Pages.',
     sourceCode: 'Code source de ce site',
+    filmMusic:
+      'Musique des démos : « Happy Beats » par ende.app, sous licence CC BY 4.0. Bruitages : Kenney, CC0.',
     rights: 'Tous droits réservés.',
     lastUpdated: 'Dernière mise à jour',
   },
@@ -181,15 +218,15 @@ export const fr = {
     label: 'Sur le terrain',
     title: 'Deux produits, deux cycles de vente réels.',
     f1Label: 'Démonstration',
-    f1: 'Resum’EYE présenté en direct devant des décideurs du secteur lors du « Café IA » de Syntec-Ingénierie.',
+    f1: 'Resum’EYE présenté en direct devant des décideurs du secteur lors du « Café IA » de Syntec-Ingénierie.',
     f2Label: 'Cycle B2B',
-    f2: 'Relation de plusieurs mois avec un groupe d’ingénierie français : intégration par API, conformité RGPD, tarification au volume.',
+    f2: 'Relation de plusieurs mois avec un groupe d’ingénierie français : intégration par API, conformité RGPD, tarification au volume.',
     f3Label: 'Prospection',
     f3: 'Campagne d’appels et d’emails auprès d’auto-écoles d’Île-de-France pour Time2Drive.',
     outcome: 'Aucun contrat signé à ce jour.',
     lesson:
       'La première objection d’un acheteur RH n’est pas la performance du modèle, c’est la responsabilité juridique.',
-    lessonSource: 'Resum’EYE — ce que j’en retiens',
+    lessonSource: 'Resum’EYE : ce que j’en retiens',
   },
 };
 

@@ -4,6 +4,7 @@ import Hero from '~/components/Hero.astro';
 import Section from '~/components/Section.astro';
 import Intro from '~/components/Intro.astro';
 import FieldProof from '~/components/FieldProof.astro';
+import Credentials from '~/components/Credentials.astro';
 import ProjectCard from '~/components/ProjectCard.astro';
 import Experience from '~/components/Experience.astro';
 import Contact from '~/components/Contact.astro';
@@ -34,6 +35,8 @@ const LAYOUTS: Record<string, 'wide' | 'split' | 'quiet'> = {
 const coda = VISIBLE_PROJECTS.filter((p) => !p.featured).map((p) => ({
   name: projectTitle(p, locale),
   href: p.links.find((l) => l.kind === 'code')?.href,
+  film: p.video?.src[locale],
+  seconds: p.video?.seconds,
 }));
 ---
 
@@ -46,6 +49,8 @@ const coda = VISIBLE_PROJECTS.filter((p) => !p.featured).map((p) => ({
   isHome
 >
   <Hero locale={locale} />
+
+  <Credentials locale={locale} headingId="creds-title" />
 
   <FieldProof locale={locale} headingId="proof-title" />
 
@@ -93,6 +98,22 @@ const coda = VISIBLE_PROJECTS.filter((p) => !p.featured).map((p) => ({
               <span class="coda__link">{item.name}</span>
             ),
           )
+        }
+        {
+          coda
+            .filter((item) => item.film)
+            .map((item) => (
+              <a
+                class="coda__link"
+                href={item.film}
+                target="_blank"
+                rel="noopener"
+                aria-label={`${dict.selection.watchFilm} : ${item.name}`}
+              >
+                <span aria-hidden="true">▶</span>{' '}
+                {`${dict.selection.film} · 0:${String(item.seconds).padStart(2, '0')}`}
+              </a>
+            ))
         }
         <a
           class="coda__link"

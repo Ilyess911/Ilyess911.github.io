@@ -12,20 +12,20 @@ export const EXPERIENCE: readonly ExperienceItem[] = [
     org: 'Air France Industries',
     kind: 'work',
     role: {
-      fr: 'Apprenti ingénieur méthodes — Direction Ingénierie des Équipements',
-      en: 'Methods engineering apprentice — Equipment Engineering Department',
+      fr: 'Apprenti ingénieur méthodes, Direction Ingénierie des Équipements',
+      en: 'Methods engineering apprentice, Equipment Engineering Department',
     },
     period: { fr: 'Sept. 2024 — aujourd’hui', en: 'Sept. 2024 — present' },
     start: '2024-09',
     end: null,
     location: 'Tremblay-en-France',
     summary: {
-      fr: "Ingénierie des équipements avioniques dans un environnement de maintenance aéronautique. Le travail consiste à comprendre un système contraint par la réglementation, la documentation et la réalité de l'atelier, puis à en fiabiliser les processus. C'est ici que j'ai rencontré pour la première fois le problème que je retrouve dans chacun de mes projets : la donnée technique est disponible, et la décision se prend quand même sans elle.",
+      fr: "Ingénierie des équipements avioniques dans un environnement de maintenance aéronautique. Le travail consiste à comprendre un système contraint par la réglementation, la documentation et la réalité de l'atelier, puis à en fiabiliser les processus. C'est ici que j'ai rencontré pour la première fois le problème que je retrouve dans chacun de mes projets : la donnée technique est disponible, et la décision se prend quand même sans elle.",
       en: 'Avionics equipment engineering in an aviation maintenance environment. The work consists of understanding a system constrained by regulation, documentation and shop-floor reality, then making its processes more reliable. This is where I first met the problem I now find in every one of my projects: the technical data is available, and the decision still gets made without it.',
     },
     highlights: [
       {
-        fr: 'Comprendre avant de proposer : documentation technique, contraintes de navigabilité, contraintes opérationnelles.',
+        fr: 'Comprendre avant de proposer : documentation technique, contraintes de navigabilité, contraintes opérationnelles.',
         en: 'Understand before proposing: technical documentation, airworthiness constraints, operational constraints.',
       },
       {
@@ -52,16 +52,16 @@ export const EXPERIENCE: readonly ExperienceItem[] = [
     end: null,
     location: 'Courbevoie',
     summary: {
-      fr: "Studio produit indépendant. C'est le cadre dans lequel Time2Drive, Resum'EYE et Médical'IA ont été conçus, construits et présentés à des interlocuteurs réels. Trois secteurs différents, un même constat : une décision quotidienne s'y prend sans l'information qui existe déjà.",
+      fr: "Studio produit indépendant. C'est le cadre dans lequel Time2Drive, Resum'EYE et Médical'IA ont été conçus, construits et présentés à des interlocuteurs réels. Trois secteurs différents, un même constat : une décision quotidienne s'y prend sans l'information qui existe déjà.",
       en: "An independent product studio. It is the frame in which Time2Drive, Resum'EYE and Médical'IA were designed, built and taken to real counterparts. Three different sectors, one shared observation: a daily decision is made there without information that already exists.",
     },
     highlights: [
       {
-        fr: 'Choisir le problème avant la technologie : chaque produit part d’un métier observé.',
+        fr: 'Choisir le problème avant la technologie : chaque produit part d’un métier observé.',
         en: 'Choose the problem before the technology: every product starts from an observed line of work.',
       },
       {
-        fr: 'Aller au contact : appels, démonstrations, discussions de tarification et de conformité.',
+        fr: 'Aller au contact : appels, démonstrations, discussions de tarification et de conformité.',
         en: 'Get in front of people: calls, demos, pricing and compliance conversations.',
       },
       {
@@ -69,6 +69,41 @@ export const EXPERIENCE: readonly ExperienceItem[] = [
         en: 'State the real status of each product to the person across the table, prototype included.',
       },
     ],
+  },
+
+  {
+    org: 'Vinc’IA',
+    kind: 'engagement',
+    role: {
+      fr: 'Responsable Conférences et partenariats',
+      en: 'Head of Conferences and Partnerships',
+    },
+    period: { fr: 'Sept. 2026 — aujourd’hui', en: 'Sept. 2026 — present' },
+    start: '2026-09',
+    end: null,
+    location: 'Nanterre',
+    summary: {
+      fr: 'Association étudiante du Pôle Léonard de Vinci, ouverte aux élèves de l’ESILV, de l’EMLV et de l’IIM. Mon rôle : faire venir des intervenants qui pratiquent, et construire les partenariats qui rendent ces rencontres possibles.',
+      en: 'A student association at Pôle Léonard de Vinci, open to students of ESILV, EMLV and IIM. My role: bring in speakers who actually practise, and build the partnerships that make those sessions possible.',
+    },
+    highlights: [
+      {
+        fr: 'Masterclass inaugurale « Automatiser sans exclure » avec Montasser Jabrane, fondateur de HandyCatch, le 2 octobre 2026.',
+        en: 'Inaugural masterclass “Automate without excluding” with Montasser Jabrane, founder of HandyCatch, on 2 October 2026.',
+      },
+      {
+        fr: 'Au programme : le parcours du fondateur, l’automatisation concrète d’une entreprise avec n8n, Claude et Make, puis les questions des étudiants.',
+        en: 'On the agenda: the founder’s path, hands-on automation of a business with n8n, Claude and Make, then questions from students.',
+      },
+      {
+        fr: 'Co-organisée avec Adel Bousri.',
+        en: 'Co-organised with Adel Bousri.',
+      },
+    ],
+    link: {
+      label: { fr: 'Page de l’événement', en: 'Event page' },
+      href: 'https://luma.com/2ha02ev4',
+    },
   },
 
   {
@@ -85,7 +120,7 @@ export const EXPERIENCE: readonly ExperienceItem[] = [
     },
     highlights: [
       {
-        fr: 'Accueil événementiel chez City One Events depuis décembre 2022 : brief, flux de public, décisions rapides.',
+        fr: 'Accueil événementiel chez City One Events depuis décembre 2022 : brief, flux de public, décisions rapides.',
         en: 'Event hosting with City One Events since December 2022: briefings, crowd flow, fast decisions.',
       },
     ],
@@ -105,7 +140,7 @@ export const EXPERIENCE: readonly ExperienceItem[] = [
     },
     highlights: [
       {
-        fr: "Inventaire et codification : remettre de l'ordre dans un référentiel avant de vouloir l'optimiser.",
+        fr: "Inventaire et codification : remettre de l'ordre dans un référentiel avant de vouloir l'optimiser.",
         en: 'Inventory and coding: put a reference system back in order before trying to optimise it.',
       },
       { fr: 'Démarche 5S sur les postes de travail.', en: '5S approach applied to workstations.' },
@@ -120,8 +155,8 @@ export const EXPERIENCE: readonly ExperienceItem[] = [
     org: 'Amundi Asset Management',
     kind: 'work',
     role: {
-      fr: 'Assistant d’été — Private Equity, Distribution France et Monaco',
-      en: 'Summer assistant — Private Equity, France and Monaco Distribution',
+      fr: 'Assistant d’été, Private Equity, Distribution France et Monaco',
+      en: 'Summer assistant, Private Equity, France and Monaco Distribution',
     },
     period: { fr: 'Juil. — août 2023', en: 'July — Aug. 2023' },
     start: '2023-07',
@@ -140,15 +175,15 @@ export const EDUCATION: readonly ExperienceItem[] = [
     org: 'ESILV',
     kind: 'education',
     role: {
-      fr: 'Diplôme d’ingénieur — Industrie 4.0 et Robotique',
-      en: 'Engineering degree — Industry 4.0 and Robotics',
+      fr: 'Diplôme d’ingénieur, Industrie 4.0 et Robotique',
+      en: 'Engineering degree, Industry 4.0 and Robotics',
     },
     period: { fr: '2024 — 2027', en: '2024 — 2027' },
     start: '2024-09',
     end: '2027-08',
     location: 'Courbevoie',
     summary: {
-      fr: 'Robotique, systèmes industriels et données : concevoir, instrumenter et piloter des lignes de production automatisées.',
+      fr: 'Robotique, systèmes industriels et données : concevoir, instrumenter et piloter des lignes de production automatisées.',
       en: 'Robotics, industrial systems and data: designing, instrumenting and running automated production lines.',
     },
     highlights: [],
@@ -157,8 +192,8 @@ export const EDUCATION: readonly ExperienceItem[] = [
     org: 'Université Paris-Saclay',
     kind: 'education',
     role: {
-      fr: 'BUT Génie Industriel et Maintenance — parcours Management, Méthodes, Maintenance Innovante',
-      en: 'Industrial Engineering and Maintenance degree — Management, Methods, Innovative Maintenance track',
+      fr: 'BUT Génie Industriel et Maintenance, parcours Management, Méthodes, Maintenance Innovante',
+      en: 'Industrial Engineering and Maintenance degree, Management, Methods, Innovative Maintenance track',
     },
     period: { fr: '2022 — 2024', en: '2022 — 2024' },
     start: '2022-09',

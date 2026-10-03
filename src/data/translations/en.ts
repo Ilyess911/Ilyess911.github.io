@@ -27,6 +27,39 @@ export const en: Dictionary = {
     switchLanguageShort: 'FR',
   },
 
+  credentials: {
+    label: 'Profile',
+    title: 'Engineer, founder, seller.',
+    cells: [
+      {
+        kicker: 'Engineering',
+        figure: '2024 →',
+        body: 'Methods engineering apprentice at Air France Industries. ESILV degree in Industry 4.0 and Robotics in 2027.',
+      },
+      {
+        kicker: 'Entrepreneurship',
+        figure: '3 products',
+        body: 'Co-founder of Nexya Agency: designed, built and taken to real counterparts.',
+      },
+      {
+        kicker: 'Sales',
+        figure: '2 cycles',
+        body: 'Two products taken all the way to a buyer, from the demo to the pricing talk.',
+      },
+      {
+        kicker: 'Leadership',
+        figure: 'Vinc’IA',
+        body: 'Head of Conferences and Partnerships: inaugural masterclass with the founder of HandyCatch.',
+      },
+      {
+        kicker: 'International',
+        figure: '945',
+        body: 'On the TOEIC. Working English, academic Spanish.',
+      },
+    ],
+    marqueeLabel: 'Grounds',
+  },
+
   hero: {
     previewStage: 'Prototype',
     targetLabel: 'Looking for',
@@ -38,15 +71,15 @@ export const en: Dictionary = {
     nowLabel: 'Right now',
     nowValue: 'Methods engineering apprentice at Air France Industries, final year at ESILV.',
     stackLabel: 'Ground',
-    previewLabel: 'atlas — today screen',
+    previewLabel: 'atlas · today screen',
     projectsLabel: 'Products',
     availabilityLabel: 'Availability',
-    primaryCta: 'See my work',
+    primaryCta: 'Watch the demos',
     secondaryCta: 'GitHub',
     tertiaryCta: 'LinkedIn',
     fragmentAlt:
       'Detail of the Atlas Today screen: a list of actions ranked by impact, including a reply draft flagged as machine-generated.',
-    fragmentCaption: 'Atlas — Today screen, detail.',
+    fragmentCaption: 'Atlas, Today screen, detail.',
   },
 
   sections: {
@@ -72,6 +105,8 @@ export const en: Dictionary = {
     exitCta: 'Let’s talk',
     title: 'Three fields, one blind spot.',
     readCase: 'Read the case study',
+    watchFilm: 'Watch the demo',
+    film: 'Demo',
   },
 
   chapter: {
@@ -92,7 +127,7 @@ export const en: Dictionary = {
     public: 'Public code',
     private: 'Private code',
     none: 'No public repository',
-    privateNote: 'Private repository — access available on request.',
+    privateNote: 'Private repository, access available on request.',
   },
 
   caseStudy: {
@@ -152,7 +187,7 @@ export const en: Dictionary = {
     emailLabel: 'Email',
     copyEmail: 'Copy',
     emailCopied: 'Address copied',
-    copyFailed: 'Copy failed — please select the address manually',
+    copyFailed: 'Copy failed: please select the address manually',
     cvLabel: 'Résumé',
     cvDownload: 'Download résumé (PDF)',
     locationLabel: 'Location',
@@ -164,6 +199,8 @@ export const en: Dictionary = {
     builtWith:
       'Built with Astro, no client-side framework. Deployed to GitHub Pages through GitHub Actions.',
     sourceCode: 'Source code of this site',
+    filmMusic:
+      'Demo music: “Happy Beats” by ende.app, licensed CC BY 4.0. Sound effects: Kenney, CC0.',
     rights: 'All rights reserved.',
     lastUpdated: 'Last updated',
   },
@@ -186,6 +223,6 @@ export const en: Dictionary = {
     f3: 'A calling and emailing campaign to driving schools across the Paris region for Time2Drive.',
     outcome: 'No contract signed to date.',
     lesson: 'A HR buyer’s first objection is not model performance, it is legal liability.',
-    lessonSource: 'Resum’EYE — what I took from it',
+    lessonSource: 'Resum’EYE: what I took from it',
   },
 };

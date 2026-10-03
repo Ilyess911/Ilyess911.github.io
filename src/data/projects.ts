@@ -37,7 +37,7 @@ export const PROJECTS: readonly Project[] = [
       en: 'Product, UI, analytics, ROI model, tests, landing page, go-to-market',
     },
     credit: {
-      fr: 'Socle backend initial par Adel Bousri ; le produit a ensuite évolué à deux.',
+      fr: 'Socle backend initial par Adel Bousri ; le produit a ensuite évolué à deux.',
       en: 'Initial backend foundation by Adel Bousri; the product then evolved as a pair.',
     },
     stack: ['Next.js', 'TypeScript', 'Prisma', 'PostgreSQL', 'Lucia Auth', 'Vitest', 'Playwright'],
@@ -54,28 +54,37 @@ export const PROJECTS: readonly Project[] = [
         key: 'time2drive-cockpit',
         mobileKey: 'time2drive-triage',
         alt: {
-          fr: "Cockpit du gérant : occupation de la journée, grille des créneaux par moniteur, rail des points à traiter et indicateurs d'heures réservées.",
+          fr: "Cockpit du gérant : occupation de la journée, grille des créneaux par moniteur, rail des points à traiter et indicateurs d'heures réservées.",
           en: 'Owner cockpit: day occupancy, slot grid per instructor, a rail of items to handle and booked-hours indicators.',
         },
       },
       {
         key: 'time2drive-landing',
         alt: {
-          fr: "Page publique de Time2Drive : accroche « Le planning d'auto-école, enfin pilotable », sous-titre et deux appels à action.",
+          fr: "Page publique de Time2Drive : accroche « Le planning d'auto-école, enfin pilotable », sous-titre et deux appels à action.",
           en: 'Public Time2Drive page: the headline "The driving school schedule, finally steerable", a subtitle and two calls to action.',
         },
       },
       {
         key: 'time2drive-lanes',
         alt: {
-          fr: 'Détail du cockpit : la grille des créneaux, un couloir par moniteur, avec les cases vides laissées telles quelles.',
+          fr: 'Détail du cockpit : la grille des créneaux, un couloir par moniteur, avec les cases vides laissées telles quelles.',
           en: 'Cockpit detail: the slot grid, one lane per instructor, with the empty cells left as they are.',
         },
       },
     ],
+    video: {
+      src: { fr: '/videos/time2drive.mp4', en: '/videos/time2drive.en.mp4' },
+      poster: { fr: '/videos/time2drive.jpg', en: '/videos/time2drive.en.jpg' },
+      seconds: 20,
+      label: {
+        fr: 'Time2Drive en vingt secondes, données de démonstration',
+        en: 'Time2Drive in twenty seconds, demo data',
+      },
+    },
     caseStudy: {
       problem: {
-        fr: "Dans une auto-école indépendante, une heure de conduite se négocie au téléphone, se note sur un tableur et finit dans l'agenda personnel du moniteur. Résultat : personne ne sait, à un instant donné, combien d'heures sont réellement vendues, combien de créneaux restent vides, ni quel moniteur est sous-chargé. Le manque à gagner est invisible parce qu'il n'est écrit nulle part.",
+        fr: "Dans une auto-école indépendante, une heure de conduite se négocie au téléphone, se note sur un tableur et finit dans l'agenda personnel du moniteur. Résultat : personne ne sait, à un instant donné, combien d'heures sont réellement vendues, combien de créneaux restent vides, ni quel moniteur est sous-chargé. Le manque à gagner est invisible parce qu'il n'est écrit nulle part.",
         en: 'In an independent driving school, a lesson is negotiated over the phone, written down in a spreadsheet and ends up in the instructor’s personal calendar. Nobody knows, at any given moment, how many hours are actually sold, how many slots stay empty, or which instructor is underused. The lost revenue is invisible because it is written nowhere.',
       },
       audience: {
@@ -87,7 +96,7 @@ export const PROJECTS: readonly Project[] = [
         en: 'One system where the owner steers the day, the student books hours and the instructor follows a schedule, with the hour credit as the shared unit of account.',
       },
       product: {
-        fr: "Une application multi-rôle : un cockpit pour le gérant (occupation de la journée, moniteurs sous-chargés, créneaux libres, points à traiter), un espace de réservation pour l'élève adossé à son solde de crédits, et une vue « ma journée » pour le moniteur, connectable à Google Calendar. Douze écrans, dix-neuf routes d'API, un registre de crédits, un moteur de disponibilités et un écran d'impact financier.",
+        fr: "Une application multi-rôle : un cockpit pour le gérant (occupation de la journée, moniteurs sous-chargés, créneaux libres, points à traiter), un espace de réservation pour l'élève adossé à son solde de crédits, et une vue « ma journée » pour le moniteur, connectable à Google Calendar. Douze écrans, dix-neuf routes d'API, un registre de crédits, un moteur de disponibilités et un écran d'impact financier.",
         en: 'A multi-role application: a cockpit for the owner (day occupancy, underused instructors, free slots, items to handle), a booking space for the student backed by their credit balance, and a "my day" view for the instructor, connectable to Google Calendar. Twelve screens, nineteen API routes, a credit ledger, an availability engine and a financial impact screen.',
       },
       role: [
@@ -131,7 +140,7 @@ export const PROJECTS: readonly Project[] = [
             en: 'Make the hour credit the unit of account',
           },
           body: {
-            fr: "Une auto-école ne vend pas des rendez-vous, elle vend des heures payées d'avance. Modéliser le crédit plutôt que la réservation aligne le produit sur la trésorerie du gérant : chaque écran répond à « combien d'heures sont dues, consommées, disponibles » plutôt qu'à « qui vient quand ».",
+            fr: "Une auto-école ne vend pas des rendez-vous, elle vend des heures payées d'avance. Modéliser le crédit plutôt que la réservation aligne le produit sur la trésorerie du gérant : chaque écran répond à « combien d'heures sont dues, consommées, disponibles » plutôt qu'à « qui vient quand ».",
             en: 'A driving school does not sell appointments, it sells hours paid upfront. Modelling the credit rather than the booking aligns the product with the owner’s cash position: every screen answers "how many hours are owed, used, available" instead of "who comes when".',
           },
         },
@@ -141,7 +150,7 @@ export const PROJECTS: readonly Project[] = [
             en: 'One screen per role, not one configurable screen',
           },
           body: {
-            fr: "Le gérant, le moniteur et l'élève n'ouvrent pas l'outil pour la même raison ni au même moment. Un tableau générique aurait été moins coûteux à construire et beaucoup plus long à faire adopter. Trois interfaces séparées suppriment l'apprentissage : chacun voit d'abord ce qu'il doit décider.",
+            fr: "Le gérant, le moniteur et l'élève n'ouvrent pas l'outil pour la même raison ni au même moment. Un tableau générique aurait été moins coûteux à construire et beaucoup plus long à faire adopter. Trois interfaces séparées suppriment l'apprentissage : chacun voit d'abord ce qu'il doit décider.",
             en: 'The owner, the instructor and the student do not open the tool for the same reason or at the same moment. A generic table would have been cheaper to build and far harder to get adopted. Three separate interfaces remove the learning curve: each person sees first what they have to decide.',
           },
         },
@@ -151,7 +160,7 @@ export const PROJECTS: readonly Project[] = [
             en: 'Put the value calculation inside the product',
           },
           body: {
-            fr: "Plutôt que d'argumenter sur le retour sur investissement en rendez-vous commercial, l'estimation est un écran du produit, avec ses hypothèses affichées : taux horaire, taux d'occupation cible, heures facturables par moniteur et par semaine. Un gérant peut contester le chiffre, et c'est exactement ce qu'on veut : une discussion sur des hypothèses, pas sur une promesse.",
+            fr: "Plutôt que d'argumenter sur le retour sur investissement en rendez-vous commercial, l'estimation est un écran du produit, avec ses hypothèses affichées : taux horaire, taux d'occupation cible, heures facturables par moniteur et par semaine. Un gérant peut contester le chiffre, et c'est exactement ce qu'on veut : une discussion sur des hypothèses, pas sur une promesse.",
             en: 'Rather than arguing about return on investment in a sales meeting, the estimate is a screen inside the product, with its assumptions visible: hourly rate, target occupancy, billable hours per instructor per week. An owner can push back on the number, which is exactly the point: a conversation about assumptions, not about a promise.',
           },
         },
@@ -161,7 +170,7 @@ export const PROJECTS: readonly Project[] = [
             en: 'Rebuild the schedule as instructor lanes',
           },
           body: {
-            fr: "La première version affichait les leçons en liste. Une liste répond à « qu'est-ce qui est prévu », jamais à « où reste-t-il de la place ». Le passage à une grille moniteurs × heures a rendu le vide visible, et le vide est précisément ce que le produit vend.",
+            fr: "La première version affichait les leçons en liste. Une liste répond à « qu'est-ce qui est prévu », jamais à « où reste-t-il de la place ». Le passage à une grille moniteurs × heures a rendu le vide visible, et le vide est précisément ce que le produit vend.",
             en: 'The first version displayed lessons as a list. A list answers "what is scheduled", never "where is there room left". Moving to an instructor × hour grid made the empty space visible, and empty space is exactly what the product sells.',
           },
         },
@@ -180,7 +189,7 @@ export const PROJECTS: readonly Project[] = [
           en: 'The number that speaks to an owner is not the feature count, it is the number of hours they fail to sell today.',
         },
         {
-          fr: "Une démonstration se prépare comme un argumentaire : ce qui n'est pas montré doit être dit, sinon il sera découvert.",
+          fr: "Une démonstration se prépare comme un argumentaire : ce qui n'est pas montré doit être dit, sinon il sera découvert.",
           en: 'A demo is prepared like an argument: whatever you do not show has to be said, otherwise it will be found.',
         },
       ],
@@ -190,11 +199,11 @@ export const PROJECTS: readonly Project[] = [
           en: 'No real customer to date. Every figure visible in the product comes from a demonstration dataset, not from measurements.',
         },
         {
-          fr: "Le produit n'est pas déployé : il fonctionne en local, via Docker. Seule la landing page est en ligne.",
+          fr: "Le produit n'est pas déployé : il fonctionne en local, via Docker. Seule la landing page est en ligne.",
           en: 'The product is not deployed: it runs locally through Docker. Only the landing page is online.',
         },
         {
-          fr: "L'intégration Google Calendar est codée mais dormante : elle attend des identifiants OAuth de production.",
+          fr: "L'intégration Google Calendar est codée mais dormante : elle attend des identifiants OAuth de production.",
           en: 'The Google Calendar integration is coded but dormant: it is waiting for production OAuth credentials.',
         },
         {
@@ -214,11 +223,11 @@ export const PROJECTS: readonly Project[] = [
         {
           key: 'time2drive-cockpit',
           alt: {
-            fr: "Cockpit du gérant : occupation de la journée, grille des créneaux par moniteur, rail des points à traiter et indicateurs d'heures réservées.",
+            fr: "Cockpit du gérant : occupation de la journée, grille des créneaux par moniteur, rail des points à traiter et indicateurs d'heures réservées.",
             en: 'Owner cockpit: day occupancy, slot grid per instructor, a rail of items to handle and booked-hours indicators.',
           },
           caption: {
-            fr: "Cockpit gérant. Le vide de la grille est l'information principale : ce sont les créneaux qui ne seront pas vendus. Les données affichées proviennent du jeu de démonstration.",
+            fr: "Cockpit gérant. Le vide de la grille est l'information principale : ce sont les créneaux qui ne seront pas vendus. Les données affichées proviennent du jeu de démonstration.",
             en: 'Owner cockpit. The empty space in the grid is the main information: those are the slots that will not be sold. The data shown comes from the demonstration dataset.',
           },
         },
@@ -278,7 +287,7 @@ export const PROJECTS: readonly Project[] = [
     links: [],
     caseStudy: {
       problem: {
-        fr: "On parle de désert médical à partir d'un chiffre unique, le plus souvent l'accessibilité potentielle localisée. Mais un élu qui doit décider où implanter une maison de santé, ou justifier une demande de financement, n'a pas besoin d'un chiffre : il a besoin d'un raisonnement qu'il peut défendre devant un conseil, face à des gens qui contesteront la méthode avant le résultat.",
+        fr: "On parle de désert médical à partir d'un chiffre unique, le plus souvent l'accessibilité potentielle localisée. Mais un élu qui doit décider où implanter une maison de santé, ou justifier une demande de financement, n'a pas besoin d'un chiffre : il a besoin d'un raisonnement qu'il peut défendre devant un conseil, face à des gens qui contesteront la méthode avant le résultat.",
         en: 'Medical deserts are usually described with a single number, most often a localised potential accessibility index. But an elected official deciding where to open a health centre, or justifying a funding request, does not need a number: they need a line of reasoning they can defend in front of a council, against people who will challenge the method before the result.',
       },
       audience: {
@@ -290,7 +299,7 @@ export const PROJECTS: readonly Project[] = [
         en: 'A score from 1 to 5, broken down into five weighted pillars, where every variable displays its source, its reference year and its confidence level.',
       },
       product: {
-        fr: "Un démonstrateur web pour analyste territorial. Le moteur MédiScore combine cinq piliers pondérés : accessibilité 35 %, offre de soins 25 %, besoin de la population 20 %, risque futur 15 %, capacité d'action 5 %. Il en tire un score continu accompagné d'un indice de confiance. Un second moteur projette la situation à trois et cinq ans en faisant vieillir les cohortes de praticiens. L'ensemble s'exporte en PDF, format dans lequel la décision publique circule réellement.",
+        fr: "Un démonstrateur web pour analyste territorial. Le moteur MédiScore combine cinq piliers pondérés : accessibilité 35 %, offre de soins 25 %, besoin de la population 20 %, risque futur 15 %, capacité d'action 5 %. Il en tire un score continu accompagné d'un indice de confiance. Un second moteur projette la situation à trois et cinq ans en faisant vieillir les cohortes de praticiens. L'ensemble s'exporte en PDF, format dans lequel la décision publique circule réellement.",
         en: 'A web demonstrator for territorial analysts. The MédiScore engine combines five weighted pillars: accessibility 35%, care supply 25%, population need 20%, future risk 15%, capacity to act 5%. From those it derives a continuous score with a confidence index. A second engine projects the situation three and five years ahead by ageing practitioner cohorts. Everything exports to PDF, the format in which public decisions actually travel.',
       },
       role: [
@@ -323,7 +332,7 @@ export const PROJECTS: readonly Project[] = [
             en: 'A composite score rather than a single indicator',
           },
           body: {
-            fr: "Un seuil unique classe un territoire du bon ou du mauvais côté d'une ligne, et se conteste en une phrase. Cinq piliers pondérés obligent à expliciter ce qu'on considère comme important, et déplacent la discussion de « votre chiffre est faux » vers « votre pondération est discutable ». C'est un bien meilleur terrain.",
+            fr: "Un seuil unique classe un territoire du bon ou du mauvais côté d'une ligne, et se conteste en une phrase. Cinq piliers pondérés obligent à expliciter ce qu'on considère comme important, et déplacent la discussion de « votre chiffre est faux » vers « votre pondération est discutable ». C'est un bien meilleur terrain.",
             en: 'A single threshold puts a territory on one side of a line and can be dismissed in one sentence. Five weighted pillars force you to state what you consider important, and move the discussion from "your number is wrong" to "your weighting is debatable". That is much better ground to stand on.',
           },
         },
@@ -339,11 +348,11 @@ export const PROJECTS: readonly Project[] = [
         },
         {
           title: {
-            fr: "Refuser d'écrire « réel » sur une variable qui ne l'est pas",
+            fr: "Refuser d'écrire « réel » sur une variable qui ne l'est pas",
             en: 'Refuse to label a variable "real" when it is not',
           },
           body: {
-            fr: "C'est la décision dont je suis le plus satisfait, et la moins spectaculaire. Le moteur classe chaque variable comme réelle, estimée ou démonstrative, et rien ne peut être marqué « réel » tant que la donnée n'est pas branchée sur un flux. L'avertissement qui en découle ne reste pas dans l'interface : il est imprimé dans le PDF exporté. Un démonstrateur qui se fait passer pour un produit est une dette qu'on paie en réunion.",
+            fr: "C'est la décision dont je suis le plus satisfait, et la moins spectaculaire. Le moteur classe chaque variable comme réelle, estimée ou démonstrative, et rien ne peut être marqué « réel » tant que la donnée n'est pas branchée sur un flux. L'avertissement qui en découle ne reste pas dans l'interface : il est imprimé dans le PDF exporté. Un démonstrateur qui se fait passer pour un produit est une dette qu'on paie en réunion.",
             en: 'This is the decision I am most satisfied with, and the least spectacular. The engine classifies every variable as real, estimated or demonstrative, and nothing can be marked "real" until the data is connected to a live feed. The resulting disclaimer does not stay inside the interface: it is printed into the exported PDF. A demonstrator passing itself off as a product is a debt you repay in a meeting.',
           },
         },
@@ -353,7 +362,7 @@ export const PROJECTS: readonly Project[] = [
             en: 'Put a social guardrail on the score',
           },
           body: {
-            fr: "Un territoire fortement défavorisé ne peut pas être classé « excellent », même si sa moyenne d'accessibilité est bonne. Une bonne moyenne peut recouvrir une population qui ne consulte pas. La règle est écrite dans le moteur plutôt que laissée à l'interprétation du lecteur.",
+            fr: "Un territoire fortement défavorisé ne peut pas être classé « excellent », même si sa moyenne d'accessibilité est bonne. Une bonne moyenne peut recouvrir une population qui ne consulte pas. La règle est écrite dans le moteur plutôt que laissée à l'interprétation du lecteur.",
             en: 'A strongly deprived territory cannot be rated "excellent", even when its average accessibility looks good. A good average can hide a population that does not seek care. The rule is written into the engine rather than left to the reader’s interpretation.',
           },
         },
@@ -363,13 +372,13 @@ export const PROJECTS: readonly Project[] = [
             en: 'Compare within a comparable population band',
           },
           body: {
-            fr: "Comparer une commune rurale à une métropole ne produit aucune décision utile. Huit strates de population servent de référentiel, pour que le score réponde à « comment se situe ce territoire parmi ses semblables » plutôt qu'à « comment se situe-t-il en France ».",
+            fr: "Comparer une commune rurale à une métropole ne produit aucune décision utile. Huit strates de population servent de référentiel, pour que le score réponde à « comment se situe ce territoire parmi ses semblables » plutôt qu'à « comment se situe-t-il en France ».",
             en: 'Comparing a rural municipality with a metropolis produces no useful decision. Eight population bands act as the reference, so the score answers "how does this territory compare with its peers" rather than "how does it compare with France".',
           },
         },
       ],
       outcome: {
-        fr: "Démonstrateur v1.0 fonctionnel : moteur de score de 574 lignes, moteur de projection à trois et cinq ans, export PDF, onze sources publiques référencées avec leur année, leur licence et leur niveau de confiance. La marque MédiScore est déposée à l'INPI sous le numéro 5155219.",
+        fr: "Démonstrateur v1.0 fonctionnel : moteur de score de 574 lignes, moteur de projection à trois et cinq ans, export PDF, onze sources publiques référencées avec leur année, leur licence et leur niveau de confiance. La marque MédiScore est déposée à l'INPI sous le numéro 5155219.",
         en: 'Working v1.0 demonstrator: a 574-line scoring engine, a three and five year projection engine, PDF export, and eleven public sources referenced with year, licence and confidence level. The MédiScore trademark is registered with the French INPI under number 5155219.',
       },
       learnings: [
@@ -382,13 +391,13 @@ export const PROJECTS: readonly Project[] = [
           en: 'Weighting is taking a position. Better to write it in the interface than bury it in the code.',
         },
         {
-          fr: "Un export PDF n'est pas une fonctionnalité secondaire : c'est le format dans lequel une décision publique se transmet et se défend.",
+          fr: "Un export PDF n'est pas une fonctionnalité secondaire : c'est le format dans lequel une décision publique se transmet et se défend.",
           en: 'A PDF export is not a secondary feature: it is the format in which a public decision is passed on and defended.',
         },
       ],
       limits: [
         {
-          fr: "C'est un démonstrateur, et il le dit lui-même. Aucune variable n'est branchée sur un flux temps réel : les valeurs sont démonstratives ou estimées. Seules les sources sont réelles.",
+          fr: "C'est un démonstrateur, et il le dit lui-même. Aucune variable n'est branchée sur un flux temps réel : les valeurs sont démonstratives ou estimées. Seules les sources sont réelles.",
           en: 'It is a demonstrator, and it says so itself. No variable is connected to a live feed: values are demonstrative or estimated. Only the sources are real.',
         },
         {
@@ -400,7 +409,7 @@ export const PROJECTS: readonly Project[] = [
           en: 'Detailed mapping covers a single territory. There is no France-wide map at municipal level.',
         },
         {
-          fr: "Le backend existe mais n'alimente pas encore l'interface : le front fonctionne sur des données locales.",
+          fr: "Le backend existe mais n'alimente pas encore l'interface : le front fonctionne sur des données locales.",
           en: 'The backend exists but does not yet feed the interface: the front end runs on local data.',
         },
         {
@@ -416,18 +425,18 @@ export const PROJECTS: readonly Project[] = [
         {
           key: 'medical-ia-score',
           alt: {
-            fr: 'Écran de décomposition du MédiScore : score de 65 sur 100 avec une marge de ±0,17, statut de provenance des données en réel, démonstratif ou estimé, et pilier accessibilité pondéré à 35 %.',
+            fr: 'Écran de décomposition du MédiScore : score de 65 sur 100 avec une marge de ±0,17, statut de provenance des données en réel, démonstratif ou estimé, et pilier accessibilité pondéré à 35 %.',
             en: 'MédiScore breakdown screen: a score of 65 out of 100 with a ±0.17 margin, data provenance status shown as real, demonstrative or estimated, and the accessibility pillar weighted at 35%.',
           },
           caption: {
-            fr: "La décision produit la plus importante est visible ici : chaque variable porte son statut de provenance, et l'avertissement « démonstrateur v1.0 » est affiché dans l'écran, pas enfoui dans une page à part.",
+            fr: "La décision produit la plus importante est visible ici : chaque variable porte son statut de provenance, et l'avertissement « démonstrateur v1.0 » est affiché dans l'écran, pas enfoui dans une page à part.",
             en: 'The most important product decision is visible here: every variable carries its provenance status, and the "demonstrator v1.0" warning sits inside the screen rather than buried on a separate page.',
           },
         },
         {
           key: 'medical-ia-territory',
           alt: {
-            fr: 'Vue territoire : MédiScore de la commune, statut de dotation, et trois entrées vers la décomposition du score, la projection et les actions recommandées.',
+            fr: 'Vue territoire : MédiScore de la commune, statut de dotation, et trois entrées vers la décomposition du score, la projection et les actions recommandées.',
             en: 'Territory view: the municipality MédiScore, its supply status, and three entry points to the score breakdown, the projection and recommended actions.',
           },
           caption: {
@@ -503,9 +512,18 @@ export const PROJECTS: readonly Project[] = [
     stack: ['React', 'Vite', 'TailwindCSS', 'Framer Motion', 'jsPDF'],
     codeVisibility: 'private',
     links: [],
+    video: {
+      src: { fr: '/videos/resum-eye.mp4', en: '/videos/resum-eye.en.mp4' },
+      poster: { fr: '/videos/resum-eye.jpg', en: '/videos/resum-eye.en.jpg' },
+      seconds: 22,
+      label: {
+        fr: 'Resum’EYE en vingt secondes, candidats fictifs',
+        en: 'Resum’EYE in twenty seconds, fictional candidates',
+      },
+    },
     caseStudy: {
       problem: {
-        fr: "Une équipe RH qui reçoit plusieurs centaines de candidatures pour un poste passe l'essentiel de son temps à écarter, pas à choisir. Ce premier tri est peu qualifié, peu traçable, et rarement homogène d'un recruteur à l'autre. Il concentre pourtant le risque : c'est là qu'on perd un bon profil sans jamais le savoir.",
+        fr: "Une équipe RH qui reçoit plusieurs centaines de candidatures pour un poste passe l'essentiel de son temps à écarter, pas à choisir. Ce premier tri est peu qualifié, peu traçable, et rarement homogène d'un recruteur à l'autre. Il concentre pourtant le risque : c'est là qu'on perd un bon profil sans jamais le savoir.",
         en: 'An HR team receiving several hundred applications for one role spends most of its time rejecting, not choosing. That first pass is low-skill, hard to trace and rarely consistent between recruiters. Yet it concentrates the risk: it is where a good candidate is lost without anyone ever knowing.',
       },
       audience: {
@@ -513,11 +531,11 @@ export const PROJECTS: readonly Project[] = [
         en: 'HR teams and recruitment firms, particularly in engineering, where volume is high and skills are hard to read for a non-specialist.',
       },
       valueProposition: {
-        fr: "Un pré-tri assisté : un score d'adéquation par candidat, un résumé lisible, et une trace de ce qui a été évalué.",
+        fr: "Un pré-tri assisté : un score d'adéquation par candidat, un résumé lisible, et une trace de ce qui a été évalué.",
         en: 'Assisted screening: a fit score per candidate, a readable summary, and a record of what was assessed.',
       },
       product: {
-        fr: 'Une interface web complète : connexion, tableau de bord RH avec recherche et filtres, dépôt de CV en glisser-déposer avec progression, fiche candidat détaillée (compétences, expériences, formation), et une page entièrement dédiée à la conformité au RGPD.',
+        fr: 'Une interface web complète : connexion, tableau de bord RH avec recherche et filtres, dépôt de CV en glisser-déposer avec progression, fiche candidat détaillée (compétences, expériences, formation), et une page entièrement dédiée à la conformité au RGPD.',
         en: 'A complete web interface: sign-in, an HR dashboard with search and filters, drag-and-drop CV upload with progress, a detailed candidate view (skills, experience, education), and a page entirely dedicated to GDPR compliance.',
       },
       role: [
@@ -539,7 +557,7 @@ export const PROJECTS: readonly Project[] = [
             en: 'Build the interface before the model',
           },
           body: {
-            fr: "Sur un outil de tri, l'adoption ne dépend pas de la qualité du score mais de la confiance qu'on accorde à sa lecture. Commencer par l'interface a permis de tester la proposition de valeur en rendez-vous, avant d'investir dans une chaîne d'extraction et de scoring. C'est un choix assumé, et il a un coût : voir les limites.",
+            fr: "Sur un outil de tri, l'adoption ne dépend pas de la qualité du score mais de la confiance qu'on accorde à sa lecture. Commencer par l'interface a permis de tester la proposition de valeur en rendez-vous, avant d'investir dans une chaîne d'extraction et de scoring. C'est un choix assumé, et il a un coût : voir les limites.",
             en: 'For a screening tool, adoption does not depend on score quality but on how much you trust the way it is presented. Starting with the interface made it possible to test the value proposition in meetings before investing in an extraction and scoring pipeline. It is a deliberate choice, and it has a cost: see the limits.',
           },
         },
@@ -549,7 +567,7 @@ export const PROJECTS: readonly Project[] = [
             en: 'Put GDPR inside the product, not in the terms and conditions',
           },
           body: {
-            fr: "En recrutement, la première objection n'est pas fonctionnelle, elle est juridique : où sont stockés les CV, combien de temps, qui est responsable du traitement. Une page dédiée dans le produit, écrite pour être lue par un DPO, a fait plus pour la crédibilité que n'importe quelle fonctionnalité. Les échanges commerciaux l'ont confirmé.",
+            fr: "En recrutement, la première objection n'est pas fonctionnelle, elle est juridique : où sont stockés les CV, combien de temps, qui est responsable du traitement. Une page dédiée dans le produit, écrite pour être lue par un DPO, a fait plus pour la crédibilité que n'importe quelle fonctionnalité. Les échanges commerciaux l'ont confirmé.",
             en: 'In recruitment the first objection is not functional, it is legal: where are the CVs stored, for how long, who is the data controller. A dedicated in-product page, written to be read by a data protection officer, did more for credibility than any feature. The sales conversations confirmed it.',
           },
         },
@@ -559,13 +577,13 @@ export const PROJECTS: readonly Project[] = [
             en: 'Take a prototype to the buyer',
           },
           body: {
-            fr: "Plutôt que d'attendre un produit complet, j'ai engagé la discussion commerciale sur la base d'une démonstration. Le cadrage y a gagné énormément : intégration par API, conservation des données, tarification au volume, tous ces sujets sont sortis en semaines et non en mois. Le jour où l'acheteur a voulu voir le moteur, la limite est apparue d'un coup.",
+            fr: "Plutôt que d'attendre un produit complet, j'ai engagé la discussion commerciale sur la base d'une démonstration. Le cadrage y a gagné énormément : intégration par API, conservation des données, tarification au volume, tous ces sujets sont sortis en semaines et non en mois. Le jour où l'acheteur a voulu voir le moteur, la limite est apparue d'un coup.",
             en: 'Rather than waiting for a finished product, I opened the commercial conversation on the basis of a demo. Framing gained enormously: API integration, data retention, volume pricing, all of it surfaced in weeks rather than months. The day the buyer asked to see the engine, the limit appeared all at once.',
           },
         },
       ],
       outcome: {
-        fr: "Prototype d'interface complet et fonctionnel. Sur le plan commercial : une relation de plusieurs mois avec un groupe d'ingénierie français, portant sur la validation de l'intégration par API, la conformité au RGPD et une tarification au volume. Produit présenté en direct devant des décideurs du secteur lors du « Café IA » de Syntec-Ingénierie. Aucun contrat signé.",
+        fr: "Prototype d'interface complet et fonctionnel. Sur le plan commercial : une relation de plusieurs mois avec un groupe d'ingénierie français, portant sur la validation de l'intégration par API, la conformité au RGPD et une tarification au volume. Produit présenté en direct devant des décideurs du secteur lors du « Café IA » de Syntec-Ingénierie. Aucun contrat signé.",
         en: 'A complete, working interface prototype. Commercially: a several-month relationship with a French engineering group, covering API integration validation, GDPR compliance and volume pricing. The product was presented live to industry decision makers at the Syntec-Ingénierie "Café IA" event. No contract was signed.',
       },
       learnings: [
@@ -574,7 +592,7 @@ export const PROJECTS: readonly Project[] = [
           en: 'The first objection from an HR buyer is not model performance, it is legal responsibility.',
         },
         {
-          fr: "Un cycle de vente B2B se joue sur des mois et sur des sujets qu'aucune démonstration ne couvre : intégration, conservation des données, tarification, responsabilité.",
+          fr: "Un cycle de vente B2B se joue sur des mois et sur des sujets qu'aucune démonstration ne couvre : intégration, conservation des données, tarification, responsabilité.",
           en: 'A B2B sales cycle plays out over months, on topics no demo covers: integration, data retention, pricing, liability.',
         },
         {
@@ -592,7 +610,7 @@ export const PROJECTS: readonly Project[] = [
           en: 'Authentication is fake, using browser local storage.',
         },
         {
-          fr: 'Le code tient en un seul commit : le projet a été livré comme un support de démonstration, pas comme une base logicielle destinée à durer.',
+          fr: 'Le code tient en un seul commit : le projet a été livré comme un support de démonstration, pas comme une base logicielle destinée à durer.',
           en: 'The code fits in a single commit: it was delivered as a demonstration asset, not as a codebase meant to last.',
         },
         {
@@ -616,19 +634,28 @@ export const PROJECTS: readonly Project[] = [
       en: 'A workspace for B2B sales, organised around the day rather than the pipeline.',
     },
     positioning: {
-      fr: "Un CRM enregistre ce qui s'est passé. Atlas cherche à répondre à une autre question : que faut-il faire dans les deux prochaines heures.",
+      fr: "Un CRM enregistre ce qui s'est passé. Atlas cherche à répondre à une autre question : que faut-il faire dans les deux prochaines heures.",
       en: 'A CRM records what happened. Atlas tries to answer a different question: what should be done in the next two hours.',
     },
     roleLabel: { fr: 'Produit et développement', en: 'Product and engineering' },
     stack: ['Next.js', 'TypeScript', 'Tailwind CSS'],
     codeVisibility: 'private',
     links: [],
+    video: {
+      src: { fr: '/videos/atlas.mp4', en: '/videos/atlas.en.mp4' },
+      poster: { fr: '/videos/atlas.jpg', en: '/videos/atlas.en.jpg' },
+      seconds: 22,
+      label: {
+        fr: 'Atlas en vingt secondes, données fictives',
+        en: 'Atlas in twenty seconds, fictional data',
+      },
+    },
     covers: [
       {
         key: 'atlas-today',
         mobileKey: 'atlas-agenda',
         alt: {
-          fr: "Écran Today d'Atlas : huit actions classées par impact, un brouillon de réponse marqué comme généré, l'agenda du jour et les engagements de la semaine.",
+          fr: "Écran Today d'Atlas : huit actions classées par impact, un brouillon de réponse marqué comme généré, l'agenda du jour et les engagements de la semaine.",
           en: "Atlas Today screen: eight actions ranked by impact, a reply draft flagged as generated, the day's agenda and the week's commitments.",
         },
       },
@@ -651,8 +678,8 @@ export const PROJECTS: readonly Project[] = [
       en: 'Identifying abnormal robot executions from force and torque measurements.',
     },
     positioning: {
-      fr: "Détection de collisions, d'obstructions et de défauts d'outil sur un jeu de 463 exécutions décrites par six capteurs. Le même angle mort que les autres projets, à l'échelle du capteur : la mesure contient déjà l'anomalie, encore faut-il savoir la lire.",
-      en: 'Detecting collisions, obstructions and tool faults across 463 executions described by six sensors. The same blind spot as the other projects, at sensor scale: the measurement already contains the anomaly, the point is being able to read it.',
+      fr: "Détection de collisions, d'obstructions et de défauts d'outil sur 463 exécutions décrites par six capteurs, qui ne contiennent que 251 traces distinctes. Le même angle mort que les autres projets, à l'échelle du capteur : la mesure contient déjà l'anomalie, encore faut-il savoir la lire.",
+      en: 'Detecting collisions, obstructions and tool faults across 463 executions described by six sensors, which hold only 251 distinct traces. The same blind spot as the other projects, at sensor scale: the measurement already contains the anomaly, the point is being able to read it.',
     },
     roleLabel: {
       fr: 'Analyse de données, en binôme avec Adel Bousri',
@@ -661,6 +688,15 @@ export const PROJECTS: readonly Project[] = [
     stack: ['Python', 'scikit-learn', 'Jupyter'],
     codeVisibility: 'public',
     repo: 'robot-anomaly-detection',
+    video: {
+      src: { fr: '/videos/anomaly-detection.mp4', en: '/videos/anomaly-detection.en.mp4' },
+      poster: { fr: '/videos/anomaly-detection.jpg', en: '/videos/anomaly-detection.en.jpg' },
+      seconds: 20,
+      label: {
+        fr: 'Le projet en vingt secondes, chiffres du dépôt',
+        en: 'The project in twenty seconds, figures from the repository',
+      },
+    },
     links: [
       {
         kind: 'code',

@@ -469,6 +469,38 @@ travail est en attente de ces informations, l'analyse reste valable.
 
 ---
 
+## 3 octobre 2026 : démos vidéo, engagement Vinc'IA
+
+**Démos.** Chaque produit a une démo d'une vingtaine de secondes, faite avec le
+skill Brag (`brag-slim`) à partir des vraies apps lancées en local. Musique
+« Happy Beats » d'ende.app (CC BY 4.0, créditée dans le pied de page), bruitages
+Kenney (CC0). Une version par langue : `public/videos/<slug>.mp4` et
+`<slug>.en.mp4`, aperçus `.jpg` à côté ; un test vérifie que les deux existent.
+Les sources de montage vivent hors du dépôt, dans
+`~/Desktop/Claude Code Projects/brag-demos/<slug>/brag-output/`.
+
+Les démos se voient dès l'accueil : la vidéo remplace la capture dans la carte
+(Time2Drive, Atlas), un bouton « Voir la démo » renvoie à l'étude pour
+Resum'EYE, un lien dans la coda pour les anomalies. **Une carte à vidéo ne
+plonge ni ne sort du cadre** (`pc--film`) : un lecteur doit garder ses
+contrôles entiers, ce que n'exige pas une capture.
+
+**Piège vérifié** : après des retouches CSS, `astro dev` a servi un module de
+style périmé alors que le HTML était à jour. Conclure depuis `astro preview`
+sur le build, et purger `.astro`, `node_modules/.astro`, `node_modules/.vite`.
+
+**Engagement.** Vinc'IA, responsable Conférences et partenariats, placé comme
+décidé le 7 septembre (troisième rang, bande pleine largeur
+`stint--engagement`). Premier fait : la masterclass inaugurale du 2 octobre
+2026 avec Montasser Jabrane (HandyCatch), co-organisée avec Adel Bousri, page
+Luma en lien. Aucune affluence affichée : le chiffre n'est pas connu.
+
+**Passe d'affichage.** Cartes « Décisions » et fiche technique aérées, légendes
+de captures sous l'image, prose d'intro sur une colonne, espaces insécables
+avant la ponctuation française, tirets cadratins retirés de la prose.
+
+---
+
 ## Décisions permanentes
 
 **Honnêteté.** Aucune métrique, aucun client, aucun utilisateur, aucun résultat
@@ -521,13 +553,8 @@ desktop et 99 mobile, 0 fichier JavaScript.
   fichier dans `public/cv/`, puis remplacer `null` par
   `{ fr: '/cv/…-fr.pdf', en: '/cv/…-en.pdf' }` dans `src/config/site.ts`. Le
   lien apparaîtra seul dans le bloc contact.
-- **Une démo essayable.** C'est la dernière grosse objection : aucun des trois
-  produits ne peut être ouvert. Un lien de démo publique ferait plus, désormais,
-  que n'importe quelle retouche visuelle.
-- **L'engagement associatif.** Emplacement, variante de carte et arithmétique
-  de grille arrêtés le 7 septembre 2026, voir l'entrée de cette date. En attente
-  du nom de l'association, du rôle exact et des missions réelles. Rien ne sera
-  rédigé sans ces informations.
+- **Une démo essayable.** Les démos vidéo montrent les produits, elles ne
+  permettent pas de les ouvrir. Un lien de démo publique reste l'étape suivante.
 - **Monter les actions du workflow de déploiement.** `actions/checkout`,
   `configure-pages`, `setup-node` et `upload-artifact` ciblent Node 20, déprécié
   depuis septembre 2025 et aujourd'hui replié sur Node 24 par GitHub. Le
