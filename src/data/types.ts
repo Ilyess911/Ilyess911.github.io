@@ -141,7 +141,10 @@ export interface ExperienceItem {
   readonly location: string;
   readonly summary: I18n;
   readonly highlights: readonly I18n[];
-  readonly kind: 'work' | 'education' | 'other';
+  /** `engagement` : associatif, composé en bande pleine largeur, registre mineur. */
+  readonly kind: 'work' | 'education' | 'other' | 'engagement';
+  /** Preuve publique vérifiable (page d'événement, article), jamais un lien décoratif. */
+  readonly link?: { readonly label: I18n; readonly href: string };
 }
 
 export interface SkillGroup {

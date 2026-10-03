@@ -72,6 +72,41 @@ export const EXPERIENCE: readonly ExperienceItem[] = [
   },
 
   {
+    org: 'Vinc’IA',
+    kind: 'engagement',
+    role: {
+      fr: 'Responsable Conférences et partenariats',
+      en: 'Head of Conferences and Partnerships',
+    },
+    period: { fr: 'Sept. 2026 — aujourd’hui', en: 'Sept. 2026 — present' },
+    start: '2026-09',
+    end: null,
+    location: 'Nanterre',
+    summary: {
+      fr: 'Association étudiante du Pôle Léonard de Vinci, ouverte aux élèves de l’ESILV, de l’EMLV et de l’IIM. Mon rôle : faire venir des intervenants qui pratiquent, et construire les partenariats qui rendent ces rencontres possibles.',
+      en: 'A student association at Pôle Léonard de Vinci, open to students of ESILV, EMLV and IIM. My role: bring in speakers who actually practise, and build the partnerships that make those sessions possible.',
+    },
+    highlights: [
+      {
+        fr: 'Masterclass inaugurale « Automatiser sans exclure » avec Montasser Jabrane, fondateur de HandyCatch, le 2 octobre 2026.',
+        en: 'Inaugural masterclass “Automate without excluding” with Montasser Jabrane, founder of HandyCatch, on 2 October 2026.',
+      },
+      {
+        fr: 'Au programme : le parcours du fondateur, l’automatisation concrète d’une entreprise avec n8n, Claude et Make, puis les questions des étudiants.',
+        en: 'On the agenda: the founder’s path, hands-on automation of a business with n8n, Claude and Make, then questions from students.',
+      },
+      {
+        fr: 'Co-organisée avec Adel Bousri.',
+        en: 'Co-organised with Adel Bousri.',
+      },
+    ],
+    link: {
+      label: { fr: 'Page de l’événement', en: 'Event page' },
+      href: 'https://luma.com/2ha02ev4',
+    },
+  },
+
+  {
     org: 'Paris 2024',
     kind: 'other',
     role: { fr: 'Juge d’athlétisme certifié', en: 'Certified athletics official' },
