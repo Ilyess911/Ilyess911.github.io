@@ -497,6 +497,22 @@ hr {
   white-space: nowrap;
 }
 
+/* Libellé long dans le chrome, nom court sous 46rem : une étiquette tronquée
+   en « … » ne dit plus ce qu'on regarde. */
+.frame__label-short {
+  display: none;
+}
+
+@media (max-width: 46rem) {
+  .frame__label-long {
+    display: none;
+  }
+
+  .frame__label-short {
+    display: inline;
+  }
+}
+
 .frame__body {
   display: block;
   overflow: hidden;

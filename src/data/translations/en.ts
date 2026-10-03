@@ -72,8 +72,8 @@ export const en: Dictionary = {
     exitCta: 'Let’s talk',
     title: 'Three fields, one blind spot.',
     readCase: 'Read the case study',
-    watchFilm: 'Watch the film',
-    film: 'Film',
+    watchFilm: 'Watch the demo',
+    film: 'Demo',
   },
 
   chapter: {
@@ -167,7 +167,7 @@ export const en: Dictionary = {
       'Built with Astro, no client-side framework. Deployed to GitHub Pages through GitHub Actions.',
     sourceCode: 'Source code of this site',
     filmMusic:
-      'Film music: “Happy Beats” by ende.app, licensed CC BY 4.0. Sound effects: Kenney, CC0.',
+      'Demo music: “Happy Beats” by ende.app, licensed CC BY 4.0. Sound effects: Kenney, CC0.',
     rights: 'All rights reserved.',
     lastUpdated: 'Last updated',
   },

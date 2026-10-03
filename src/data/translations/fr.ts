@@ -74,8 +74,8 @@ export const fr = {
     exitCta: 'Parlons-en',
     title: 'Trois chantiers, un même angle mort.',
     readCase: 'Lire l’étude de cas',
-    watchFilm: 'Voir le film',
-    film: 'Film',
+    watchFilm: 'Voir la démo',
+    film: 'Démo',
   },
 
   chapter: {
@@ -169,7 +169,7 @@ export const fr = {
       'Construit avec Astro, sans framework côté client. Déployé via GitHub Actions sur GitHub Pages.',
     sourceCode: 'Code source de ce site',
     filmMusic:
-      'Musique des films : « Happy Beats » par ende.app, sous licence CC BY 4.0. Bruitages : Kenney, CC0.',
+      'Musique des démos : « Happy Beats » par ende.app, sous licence CC BY 4.0. Bruitages : Kenney, CC0.',
     rights: 'Tous droits réservés.',
     lastUpdated: 'Dernière mise à jour',
   },

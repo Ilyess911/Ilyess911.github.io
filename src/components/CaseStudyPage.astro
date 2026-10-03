@@ -119,15 +119,20 @@ const images = study.images.map((image) => {
 
         {
           project.video && (
-            <figure id="film" class="case__film frame">
+            <figure id="demo" class="case__film frame">
               <figcaption class="frame__bar">
                 <span class="frame__dots" aria-hidden="true">
                   <span />
                   <span />
                   <span />
                 </span>
-                <span class="frame__label">{project.video.label[locale]}</span>
-                <span class="frame__tag">{stageLabel(project, locale)}</span>
+                <span class="frame__label">
+                  <span class="frame__label-long">{project.video.label[locale]}</span>
+                  <span class="frame__label-short">{project.name}</span>
+                </span>
+                <span class="frame__tag case__film-tag">
+                  {`▶ ${dict.selection.film} · 0:${String(project.video.seconds).padStart(2, '0')}`}
+                </span>
               </figcaption>
               <video
                 class="case__film-video"
@@ -301,6 +306,11 @@ const images = study.images.map((image) => {
 <style>
   /* Le film reprend le chrome des captures : c'est un objet produit, pas un
      décor. Ratio fixé par les attributs, donc aucun saut de mise en page. */
+  .case__film-tag {
+    color: var(--accent);
+    border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+  }
+
   .case__film {
     margin-top: clamp(2rem, 4vw, 3rem);
   }
