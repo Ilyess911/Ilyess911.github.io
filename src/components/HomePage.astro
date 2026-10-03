@@ -34,6 +34,7 @@ const LAYOUTS: Record<string, 'wide' | 'split' | 'quiet'> = {
 const coda = VISIBLE_PROJECTS.filter((p) => !p.featured).map((p) => ({
   name: projectTitle(p, locale),
   href: p.links.find((l) => l.kind === 'code')?.href,
+  film: p.video?.src,
 }));
 ---
 
@@ -93,6 +94,15 @@ const coda = VISIBLE_PROJECTS.filter((p) => !p.featured).map((p) => ({
               <span class="coda__link">{item.name}</span>
             ),
           )
+        }
+        {
+          coda
+            .filter((item) => item.film)
+            .map((item) => (
+              <a class="coda__link" href={item.film} target="_blank" rel="noopener">
+                {dict.selection.watchFilm} : {item.name} <span aria-hidden="true">▶</span>
+              </a>
+            ))
         }
         <a
           class="coda__link"

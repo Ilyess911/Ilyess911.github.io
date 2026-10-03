@@ -76,9 +76,10 @@ export const PROJECTS: readonly Project[] = [
     video: {
       src: '/videos/time2drive.mp4',
       poster: '/videos/time2drive.jpg',
+      seconds: 20,
       label: {
-        fr: 'Time2Drive en 20 secondes, données de démonstration',
-        en: 'Time2Drive in 20 seconds, demo data',
+        fr: 'Time2Drive en vingt secondes, données de démonstration',
+        en: 'Time2Drive in twenty seconds, demo data',
       },
     },
     caseStudy: {
@@ -514,9 +515,10 @@ export const PROJECTS: readonly Project[] = [
     video: {
       src: '/videos/resum-eye.mp4',
       poster: '/videos/resum-eye.jpg',
+      seconds: 22,
       label: {
-        fr: 'Resum’EYE en 20 secondes, candidats fictifs',
-        en: 'Resum’EYE in 20 seconds, fictional candidates',
+        fr: 'Resum’EYE en vingt secondes, candidats fictifs',
+        en: 'Resum’EYE in twenty seconds, fictional candidates',
       },
     },
     caseStudy: {
@@ -639,6 +641,15 @@ export const PROJECTS: readonly Project[] = [
     stack: ['Next.js', 'TypeScript', 'Tailwind CSS'],
     codeVisibility: 'private',
     links: [],
+    video: {
+      src: '/videos/atlas.mp4',
+      poster: '/videos/atlas.jpg',
+      seconds: 22,
+      label: {
+        fr: 'Atlas en vingt secondes, données fictives',
+        en: 'Atlas in twenty seconds, fictional data',
+      },
+    },
     covers: [
       {
         key: 'atlas-today',
@@ -677,6 +688,15 @@ export const PROJECTS: readonly Project[] = [
     stack: ['Python', 'scikit-learn', 'Jupyter'],
     codeVisibility: 'public',
     repo: 'robot-anomaly-detection',
+    video: {
+      src: '/videos/anomaly-detection.mp4',
+      poster: '/videos/anomaly-detection.jpg',
+      seconds: 20,
+      label: {
+        fr: 'Le projet en vingt secondes, chiffres du dépôt',
+        en: 'The project in twenty seconds, figures from the repository',
+      },
+    },
     links: [
       {
         kind: 'code',

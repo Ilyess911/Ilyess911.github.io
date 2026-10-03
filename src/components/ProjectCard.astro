@@ -69,6 +69,13 @@ const splitAt = positioning.indexOf('. ');
 const lede = splitAt === -1 ? positioning : positioning.slice(0, splitAt + 1);
 const gloss = splitAt === -1 ? '' : positioning.slice(splitAt + 2);
 
+/* Un film se signale avant d'être lu : durée affichée dans le chrome, comme
+   une étiquette d'état. Sans capture, la carte renvoie au film de l'étude. */
+const video = project.video;
+const filmTag = video
+  ? `▶ ${dict.selection.film} · 0:${String(video.seconds).padStart(2, '0')}`
+  : '';
+
 const chrome = `${project.slug} — ${project.stack.slice(0, 3).join(' · ').toLowerCase()}`;
 ---
 
@@ -134,6 +141,17 @@ const chrome = `${project.slug} — ${project.stack.slice(0, 3).join(' · ').toL
           </a>
         )
       }
+      {
+        video && !primary && href && (
+          <a class="pc__film" href={`${href}#film`}>
+            <span class="pc__film-play" aria-hidden="true">
+              ▶
+            </span>
+            <span>{dict.selection.watchFilm}</span>
+            <span class="pc__film-len num">0:{String(video.seconds).padStart(2, '0')}</span>
+          </a>
+        )
+      }
       {!href && <p class="pc__ongoing">{dict.chapter.ongoing}</p>}
     </footer>
   </div>
@@ -148,24 +166,39 @@ const chrome = `${project.slug} — ${project.stack.slice(0, 3).join(' · ').toL
               <span />
               <span />
             </span>
-            <span class="frame__label">{chrome}</span>
+            <span class="frame__label">{video ? video.label[locale] : chrome}</span>
+            {video && <span class="frame__tag pc__film-tag">{filmTag}</span>}
           </figcaption>
-          <picture class="frame__body pc__shot">
-            {mobileSet && <source media="(max-width: 46rem)" srcset={mobileSet} sizes="94vw" />}
-            <Image
-              src={primary.asset}
-              alt={primary.image.alt[locale]}
-              widths={[640, 1000, 1440, 1920]}
-              sizes={
-                layout === 'wide'
-                  ? '(min-width: 64rem) 60rem, 94vw'
-                  : '(min-width: 64rem) 34rem, 94vw'
-              }
-              loading="lazy"
-              decoding="async"
-              quality={84}
+          {video ? (
+            <video
+              class="frame__body pc__video"
+              src={video.src}
+              poster={video.poster}
+              width="1920"
+              height="1080"
+              controls
+              playsinline
+              preload="none"
+              aria-label={video.label[locale]}
             />
-          </picture>
+          ) : (
+            <picture class="frame__body pc__shot">
+              {mobileSet && <source media="(max-width: 46rem)" srcset={mobileSet} sizes="94vw" />}
+              <Image
+                src={primary.asset}
+                alt={primary.image.alt[locale]}
+                widths={[640, 1000, 1440, 1920]}
+                sizes={
+                  layout === 'wide'
+                    ? '(min-width: 64rem) 60rem, 94vw'
+                    : '(min-width: 64rem) 34rem, 94vw'
+                }
+                loading="lazy"
+                decoding="async"
+                quality={84}
+              />
+            </picture>
+          )}
         </figure>
 
         {rest.length > 0 && (
@@ -191,6 +224,65 @@ const chrome = `${project.slug} — ${project.stack.slice(0, 3).join(' · ').toL
 </article>
 
 <style>
+  .pc__video {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    background: var(--surface-2);
+  }
+
+  .pc__film-tag {
+    color: var(--accent);
+    border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+  }
+
+  /* Le renvoi au film d'une carte sans capture : un bouton secondaire, pour
+     qu'il ne concurrence pas l'appel principal vers l'étude de cas. */
+  .pc__film {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    align-self: flex-start;
+    padding: 0.4375rem 0.875rem 0.4375rem 0.5rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--ink);
+    font-size: var(--step--1);
+    font-weight: 500;
+    text-decoration: none;
+    transition:
+      border-color 0.2s ease,
+      background 0.2s ease;
+  }
+
+  .pc__film:hover {
+    border-color: var(--accent);
+  }
+
+  .pc__film:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .pc__film-play {
+    display: grid;
+    place-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--surface);
+    font-size: 0.625rem;
+    padding-left: 0.1em;
+  }
+
+  .pc__film-len {
+    color: var(--ink-4);
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+  }
+
   .pc {
     overflow: hidden;
     border-radius: var(--r-xl);

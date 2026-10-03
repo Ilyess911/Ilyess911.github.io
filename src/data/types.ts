@@ -105,6 +105,8 @@ export interface Project {
   readonly video?: {
     readonly src: string;
     readonly poster: string;
+    /** Durée réelle, en secondes entières, affichée avant la lecture. */
+    readonly seconds: number;
     readonly label: I18n;
   };
   /**
