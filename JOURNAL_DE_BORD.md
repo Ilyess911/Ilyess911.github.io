@@ -499,6 +499,32 @@ Luma en lien. Aucune affluence affichée : le chiffre n'est pas connu.
 de captures sous l'image, prose d'intro sur une colonne, espaces insécables
 avant la ponctuation française, tirets cadratins retirés de la prose.
 
+**Profil en bento, pour les stages et la candidature ESSEC.** Un jury d'école
+de commerce lit une trajectoire avant une stack. Sous le hero, une section
+« Profil » range cinq faits déjà prouvés ailleurs sur le site par registre :
+ingénierie (2024 →, case principale teintée), entrepreneuriat (3 produits),
+vente (2 cycles), leadership (Vinc'IA), international (TOEIC 945). La première
+case en occupe deux : six cellules pour cinq cases, compte exact sur deux et
+trois colonnes. Dessous, un bandeau des terrains (organisations en texte, jamais
+en logo), figé et centré quand l'utilisateur réduit les animations. Les motifs
+bento et marquee viennent de Magic UI (MIT), **réécrits en CSS** : rien n'est
+installé, le site reste à zéro fichier JavaScript. Le bouton principal du hero
+devient « ▶ Voir les démos ».
+
+**Question ouverte** : la case « Vente : 2 cycles » répète le bloc « Sur le
+terrain » qui la suit. Garder (le message s'ancre) ou la remplacer par un autre
+fait vérifiable.
+
+**Méthode qui a payé** : Ilyess repère vite les défauts d'affichage. Une revue
+visuelle complète, page par page, sur ordinateur et mobile, a trouvé onze
+défauts que `verify` et le test de débordement laissaient passer. La faire avant
+d'annoncer une session terminée.
+
+**Publié** : `feature/brag-videos` fusionnée dans `main` (`ccbc3ac`), workflow de
+déploiement vert, accueil FR et EN, étude de cas et vidéos EN vérifiés en ligne
+(HTTP 200). État : 24 tests, 0 erreur TypeScript, aucun débordement de 320 à
+1440 px.
+
 ---
 
 ## Décisions permanentes
@@ -555,6 +581,11 @@ desktop et 99 mobile, 0 fichier JavaScript.
   lien apparaîtra seul dans le bloc contact.
 - **Une démo essayable.** Les démos vidéo montrent les produits, elles ne
   permettent pas de les ouvrir. Un lien de démo publique reste l'étape suivante.
+- **Vinc'IA : date de début à confirmer.** Septembre 2026 est déduit de
+  l'entrée du 7 septembre, pas confirmé par Ilyess. Un nombre de participants
+  vérifiable pour la masterclass renforcerait la ligne ; aucun n'est affiché.
+- **Démos : relire avec le son.** Les bandes son ont été mesurées (-16 LUFS),
+  validées à l'oreille par personne d'autre qu'Ilyess.
 - **Monter les actions du workflow de déploiement.** `actions/checkout`,
   `configure-pages`, `setup-node` et `upload-artifact` ciblent Node 20, déprécié
   depuis septembre 2025 et aujourd'hui replié sur Node 24 par GitHub. Le
